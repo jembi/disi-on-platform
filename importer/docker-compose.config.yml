@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  # container for executing config import scripts for setting up initial config
+  disi-openhim-config-importer:
+    image: jembi/instantohie-config-importer
+    environment:
+      OPENHIM_API_HOSTNAME: 'openhim-core'
+      OPENHIM_API_PORT: 8080
+      OPENHIM_API_USERNAME: 'root@openhim.org'
+      OPENHIM_API_PASSWORD: 'instant101'
+      # Reject unauthorised is only needed if the OpenHIM's SSL is not setup
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+    volumes:
+      - type: volume
+        source: instant
+        target: /instant
+    # This command will only attempt to import the OpenHIM config when the heartbeat responds with a 2xx
+    command: sh -c "wait-on -t 60000 https-get://openhim-core:8080/heartbeat && node /instant/disi-hiv-poc/importer/openhim/openhimConfig.js"
+
+  disi-kibana-config-importer:
+    image: curlimages/curl:7.77.0
+    volumes:
+      - type: volume
+        source: instant
+        target: /instant
+    command:
+      [
+        'sh',
+        '-c',
+        "until nc -vz dashboard-visualiser-kibana 5601; do echo Kibana not running yet; sleep 1; done; curl dashboard-visualiser-kibana:5601/api/saved_objects/_import?overwrite=true -u elastic:${ES_ELASTIC-dev_password_only} -H 'kbn-xsrf: true' --form file=@/instant/disi-hiv-poc/importer/kibana/kibana-export.ndjson"
+      ]
+
+  disi-es-index-importer:
+    image: curlimages/curl:7.77.0
+    volumes:
+      - type: volume
+        source: instant
+        target: /instant
+    command:
+      [
+        'sh',
+        '-c',
+        "until nc -vz analytics-datastore-elastic-search 9200; do echo ES not running yet; sleep 1; done; curl -XPUT --fail-with-body 'http://analytics-datastore-elastic-search:9200/fhir-report-patient' -u elastic:${ES_ELASTIC-dev_password_only} -H 'Content-Type: application/json' -d@/instant/disi-hiv-poc/importer/indexes/fhir-report-patient.json"
+      ]
+
+  sante-mpi-config-importer:
+    image: jembi/instantohie-config-importer
+    environment:
+      CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL:-http://santedb-mpi:8080}
+    volumes:
+      - type: volume
+        source: instant
+        target: /instant
+    command: sh -c "until nc -vz santedb_www 9200; do echo ES not running yet; sleep 1; done;  && node /instant/disi-hiv-poc/importer/santempi/santeMpiConfig.js"
+
+volumes:
+  instant:
+    external: true
