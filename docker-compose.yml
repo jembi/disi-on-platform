@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  data-mapper-logstash:
+    image: jembi/disi-logstash:${DISI_LOGSTASH_VERSION:-latest}
+    healthcheck:
+      test: curl --fail http://localhost:9600 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    environment:
+      ES_ELASTIC: ${ES_ELASTIC},
+      LS_JAVA_OPTS: ${LS_JAVA_OPTS:--Xmx2g -Xms2g}
+
+  mpi-updater:
+    image: jembi/openhim-mediator-mpi-updater:${MPI_UPDATER_VERSION:-latest}
+    environment:
+      CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL}
+      FHIR_SERVER_URL: ${FHIR_SERVER_URL}
+      KAFKA_URL: ${KAFKA_URL}
+
+  mpi-checker:
+    image: jembi/openhim-mediator-mpi-checker:${MPI_CHECKER_VERSION:-latest}
+    environment:
+      CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL}
+      FHIR_SERVER_URL: ${FHIR_SERVER_URL}
+      KAFKA_URL: ${KAFKA_URL}

@@ -1,0 +1,5 @@
+{
+  "id": "disi-poc",
+  "description": "Central data repository",
+  "dependencies": [ "fhir-datastore-hapi-fhir", "client-registry-santempi"]
+}
