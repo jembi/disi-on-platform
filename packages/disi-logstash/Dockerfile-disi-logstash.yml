@@ -1,0 +1,6 @@
+FROM docker.elastic.co/logstash/logstash:7.12.1
+ADD ./pipeline/ /usr/share/logstash/pipeline/
+ADD jvm.options /usr/share/logstash/config/jvm.options
+ADD logstash.yml /usr/share/logstash/config/logstash.yml
+ADD log4j2.properties /usr/share/logstash/config/log4j2.properties
+ADD pipelines.yml /usr/share/logstash/config/pipelines.yml
