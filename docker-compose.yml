@@ -10,7 +10,7 @@ services:
       retries: 5
       start_period: 30s
     environment:
-      ES_ELASTIC: ${ES_ELASTIC},
+      ES_ELASTIC: ${ES_ELASTIC}
       LS_JAVA_OPTS: ${LS_JAVA_OPTS:--Xmx2g -Xms2g}
 
   mpi-updater:
@@ -19,6 +19,10 @@ services:
       CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL}
       FHIR_SERVER_URL: ${FHIR_SERVER_URL}
       KAFKA_URL: ${KAFKA_URL}
+      KAFKA_TOPIC: ${KAFKA_TOPIC}
+      KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC}
+      OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
+      TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}
 
   mpi-checker:
     image: jembi/openhim-mediator-mpi-checker:${MPI_CHECKER_VERSION:-latest}
@@ -26,3 +30,8 @@ services:
       CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL}
       FHIR_SERVER_URL: ${FHIR_SERVER_URL}
       KAFKA_URL: ${KAFKA_URL}
+      KAFKA_TOPIC: ${KAFKA_TOPIC}
+      KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC}
+      REGISTER_MEDIATOR: ${REGISTER_MEDIATOR:-true}
+      OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
+      TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}

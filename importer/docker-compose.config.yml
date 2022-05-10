@@ -4,6 +4,9 @@ services:
   # container for executing config import scripts for setting up initial config
   disi-openhim-config-importer:
     image: jembi/instantohie-config-importer
+    deploy:
+      restart_policy:
+        condition: none
     environment:
       OPENHIM_API_HOSTNAME: 'openhim-core'
       OPENHIM_API_PORT: 8080
@@ -20,6 +23,9 @@ services:
 
   disi-kibana-config-importer:
     image: curlimages/curl:7.77.0
+    deploy:
+      restart_policy:
+        condition: none
     volumes:
       - type: volume
         source: instant
@@ -33,6 +39,9 @@ services:
 
   disi-es-index-importer:
     image: curlimages/curl:7.77.0
+    deploy:
+      restart_policy:
+        condition: none
     volumes:
       - type: volume
         source: instant
@@ -46,13 +55,18 @@ services:
 
   sante-mpi-config-importer:
     image: jembi/instantohie-config-importer
+    deploy:
+      restart_policy:
+        condition: none
     environment:
-      CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL:-http://santedb-mpi:8080}
+      CLIENT_REGISTRY_HOST: ${CLIENT_REGISTRY_HOST:-santedb-mpi}
+      CLIENT_REGISTRY_PORT: ${CLIENT_REGISTRY_PORT:-8080}
+      CLIENT_REGISTRY_IDENTITY_DOMAIN: ${CLIENT_REGISTRY_IDENTITY_DOMAIN:-http://ohie.org/nid}
     volumes:
       - type: volume
         source: instant
         target: /instant
-    command: sh -c "until nc -vz santedb_www 9200; do echo ES not running yet; sleep 1; done;  && node /instant/disi-hiv-poc/importer/santempi/santeMpiConfig.js"
+    command: sh -c "wait-on -t 60000 https-get://santedb-mpi:8080/api-docs/index.html && node /instant/disi-hiv-poc/importer/santempi/santeMpiConfig.js && echo 'success';"
 
 volumes:
   instant:

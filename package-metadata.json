@@ -1,5 +1,18 @@
 {
   "id": "disi-poc",
   "description": "Central data repository",
-  "dependencies": [ "fhir-datastore-hapi-fhir", "client-registry-santempi"]
+  "name": "DISI",
+  "dependencies": [
+    "interoperability-layer-openhim"
+  ],
+  "environmentVariables": {
+    "KAFKA_TOPICS": "2xx:1:1#2xx-patient:1:1",
+    "KAFKA_TOPIC": "2xx",
+    "CLIENT_REGISTRY_PORT": 8080,
+    "CLIENT_REGISTRY_HOST": "santedb-mpi",
+    "CLIENT_REGISTRY_IDENTITY_DOMAIN": "http://ohie.org/nid",
+    "FHIR_SERVER_URL": "ttp://hapi-fhir:8080",
+    "KAFKA_URL": "kafka:9092",
+    "TRUST_SELF_SIGNED": "false"
+  }
 }
