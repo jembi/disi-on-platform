@@ -23,7 +23,7 @@
           "forwardAuthHeader": false,
           "name": "MPI Mediator",
           "secured": false,
-          "host": "mpi-mediator",
+          "host": "mpi-checker",
           "port": 3000,
           "path": "",
           "pathTransform": "",
