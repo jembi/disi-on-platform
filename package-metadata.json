@@ -3,7 +3,11 @@
   "description": "Central data repository",
   "name": "DISI",
   "dependencies": [
-    "interoperability-layer-openhim"
+    "client-registry-santempi",
+    "interoperability-layer-openhim",
+    "fhir-datastore-hapi-fhir",
+    "message-bus-kafka",
+    "dashboard-visualiser-kibana"
   ],
   "environmentVariables": {
     "KAFKA_TOPICS": "2xx:1:1#2xx-patient:1:1",
