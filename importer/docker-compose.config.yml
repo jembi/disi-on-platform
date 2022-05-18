@@ -66,7 +66,21 @@ services:
       - type: volume
         source: instant
         target: /instant
-    command: sh -c "wait-on -t 60000 https-get://santedb-mpi:8080/api-docs/index.html && node /instant/disi-hiv-poc/importer/santempi/santeMpiConfig.js && echo 'success';"
+    command: sh -c "wait-on -t 60000 http-get://santedb-mpi:8080/api-docs/index.html && node /instant/disi-hiv-poc/importer/santempi/santeMpiConfig.js && echo 'success';"
+
+  kafka-config-importer:
+    image: jembi/instantohie-config-importer
+    deploy:
+      restart_policy:
+        condition: none
+    environment:
+      KAFDROP_HOST: ${KAFDROP_HOST:-kafdrop}
+      KAFDROP_PORT: ${KAFDROP_PORT:-9013}
+    volumes:
+      - type: volume
+        source: instant
+        target: /instant
+    command: sh -c "wait-on -t 60000 http-get://kafdrop:9013/topic && node /instant/disi-hiv-poc/importer/kafka/kafka.js && echo 'success';"
 
 volumes:
   instant:
