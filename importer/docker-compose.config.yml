@@ -14,27 +14,27 @@ services:
       OPENHIM_API_PASSWORD: 'instant101'
       # Reject unauthorised is only needed if the OpenHIM's SSL is not setup
       NODE_TLS_REJECT_UNAUTHORIZED: 0
-    volumes:
-      - type: volume
-        source: instant
-        target: /instant
+    configs:
+      - source: disi-openhim-config-openhimConfig.js
+        target: /openhimConfig.js
+      - source: disi-openhim-config-openhim-import.json
+        target: /openhim-import.json
     # This command will only attempt to import the OpenHIM config when the heartbeat responds with a 2xx
-    command: sh -c "wait-on -t 60000 https-get://openhim-core:8080/heartbeat && node /instant/disi-hiv-poc/importer/openhim/openhimConfig.js"
+    command: sh -c "wait-on -t 60000 https-get://openhim-core:8080/heartbeat && node /openhimConfig.js"
 
   disi-kibana-config-importer:
     image: curlimages/curl:7.77.0
     deploy:
       restart_policy:
         condition: none
-    volumes:
-      - type: volume
-        source: instant
-        target: /instant
+    configs:
+      - source: disi-kibana-config-kibana-export.ndjson
+        target: /kibana-export.ndjson
     command:
       [
         'sh',
         '-c',
-        "until nc -vz dashboard-visualiser-kibana 5601; do echo Kibana not running yet; sleep 1; done; curl dashboard-visualiser-kibana:5601/api/saved_objects/_import?overwrite=true -u elastic:${ES_ELASTIC-dev_password_only} -H 'kbn-xsrf: true' --form file=@/instant/disi-hiv-poc/importer/kibana/kibana-export.ndjson"
+        "until nc -vz dashboard-visualiser-kibana 5601; do echo Kibana not running yet; sleep 1; done; curl dashboard-visualiser-kibana:5601/api/saved_objects/_import?overwrite=true -u elastic:${ES_ELASTIC-dev_password_only} -H 'kbn-xsrf: true' --form file=@/kibana-export.ndjson"
       ]
 
   disi-es-index-importer:
@@ -42,15 +42,14 @@ services:
     deploy:
       restart_policy:
         condition: none
-    volumes:
-      - type: volume
-        source: instant
-        target: /instant
+    configs:
+      - source: disi-es-index-config-fhir-report-patient.json
+        target: /fhir-report-patient.json
     command:
       [
         'sh',
         '-c',
-        "until nc -vz analytics-datastore-elastic-search 9200; do echo ES not running yet; sleep 1; done; curl -XPUT --fail-with-body 'http://analytics-datastore-elastic-search:9200/fhir-report-patient' -u elastic:${ES_ELASTIC-dev_password_only} -H 'Content-Type: application/json' -d@/instant/disi-hiv-poc/importer/indexes/fhir-report-patient.json"
+        "until nc -vz analytics-datastore-elastic-search 9200; do echo ES not running yet; sleep 1; done; curl -XPUT --fail-with-body 'http://analytics-datastore-elastic-search:9200/fhir-report-patient' -u elastic:${ES_ELASTIC-dev_password_only} -H 'Content-Type: application/json' -d@/fhir-report-patient.json"
       ]
 
   sante-mpi-config-importer:
@@ -62,11 +61,12 @@ services:
       CLIENT_REGISTRY_HOST: ${CLIENT_REGISTRY_HOST:-santedb-mpi}
       CLIENT_REGISTRY_PORT: ${CLIENT_REGISTRY_PORT:-8080}
       CLIENT_REGISTRY_IDENTITY_DOMAIN: ${CLIENT_REGISTRY_IDENTITY_DOMAIN:-http://ohie.org/nid}
-    volumes:
-      - type: volume
-        source: instant
-        target: /instant
-    command: sh -c "wait-on -t 60000 http-get://santedb-mpi:8080/api-docs/index.html && node /instant/disi-hiv-poc/importer/santempi/santeMpiConfig.js && echo 'success';"
+    configs:
+      - source: disi-santempi-config-santeMatchingConfig.json
+        target: /santeMatchingConfig.json
+      - source: disi-santempi-config-santeMpiConfig.js
+        target: /santeMpiConfig.js
+    command: sh -c "wait-on -t 60000 http-get://santedb-mpi:8080/api-docs/index.html && node /santeMpiConfig.js && echo 'success';"
 
   kafka-config-importer:
     image: jembi/instantohie-config-importer
@@ -76,12 +76,38 @@ services:
     environment:
       KAFDROP_HOST: ${KAFDROP_HOST:-kafdrop}
       KAFDROP_PORT: ${KAFDROP_PORT:-9013}
-    volumes:
-      - type: volume
-        source: instant
-        target: /instant
-    command: sh -c "wait-on -t 60000 http-get://kafdrop:9013/topic && node /instant/disi-hiv-poc/importer/kafka/kafka.js && echo 'success';"
+    command: sh -c "wait-on -t 60000 http-get://kafdrop:9013/topic && ls && pwd && node /kafka.js && echo 'success';"
+    configs:
+      - source: disi-kafka-kafka.js
+        target: /kafka.js
 
-volumes:
-  instant:
-    external: true
+
+configs:
+  disi-openhim-config-openhimConfig.js:
+    file: ./openhim/openhimConfig.js
+    labels:
+      name: disi
+  disi-openhim-config-openhim-import.json:
+    file: ./openhim/openhim-import.json
+    labels:
+      name: disi
+  disi-kibana-config-kibana-export.ndjson:
+    file: ./kibana/kibana-export.ndjson
+    labels:
+      name: disi
+  disi-es-index-config-fhir-report-patient.json:
+    file: ./indexes/fhir-report-patient.json
+    labels:
+      name: disi
+  disi-santempi-config-santeMatchingConfig.json:
+    file: ./santempi/santeMatchingConfig.json
+    labels:
+      name: disi
+  disi-santempi-config-santeMpiConfig.js:
+    file: ./santempi/santeMpiConfig.js
+    labels:
+      name: disi
+  disi-kafka-kafka.js:
+    file: ./kafka/kafka.js
+    labels:
+      name: disi
