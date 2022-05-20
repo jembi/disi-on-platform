@@ -6,3 +6,12 @@ To run this project locally, dowload the [GO CLI](https://github.com/jembi/platf
 ./build-images.sh
 ./deploy.sh
 ```
+
+## Testing
+
+Run the following commands
+
+```sh
+yarn bootstrap
+yarn test
+```

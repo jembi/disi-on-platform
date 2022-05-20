@@ -1,0 +1,21 @@
+{
+  "name": "cdr-tests",
+  "version": "0.1.0",
+  "main": "index.js",
+  "author": "Jembi",
+  "license": "MIT",
+  "dependencies": {
+    "@apideck/postman-to-k6": "rcrichton/postman-to-k6",
+    "concurrently": "^6.0.2",
+    "newman": "^5.2.2"
+  },
+  "scripts": {
+    "bootstrap": "yarn newman run 'CDR.postman_collection.json' --folder 'Bootstrap'",
+    "test": "yarn newman run 'CDR.postman_collection.json' --folder 'Submit random bundle - full'",
+    "test:1000": "yarn test -n 1000",
+    "test:csv": "yarn newman run 'CDR.postman_collection.json' --folder 'Submit random CSV'",
+    "test:csv:1000": "yarn test:csv -n 1000",
+    "test:bundle": "yarn newman run 'CDR.postman_collection.json' --folder 'Submit random bundle - full'",
+    "test:bundle:1000": "yarn test:bundle -n 1000"
+  }
+}
