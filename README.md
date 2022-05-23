@@ -9,7 +9,7 @@ To run this project locally, dowload the [GO CLI](https://github.com/jembi/platf
 
 ## Testing
 
-Run the following commands
+Navigate to the test folder and run the following commands.
 
 ```sh
 yarn bootstrap
