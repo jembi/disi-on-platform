@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./platform-linux init --dev -c="../disi-hiv-poc" --env-file="./.env" disi-poc
+./platform-linux "$1" --dev -c="../disi-hiv-poc" --env-file="./.env" disi-poc

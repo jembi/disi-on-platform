@@ -4,7 +4,7 @@ To run this project locally, dowload the [GO CLI](https://github.com/jembi/platf
 
 ```sh
 ./build-images.sh
-./deploy.sh
+./deploy.sh <init|up|down|destroy>
 ```
 
 ## Testing
