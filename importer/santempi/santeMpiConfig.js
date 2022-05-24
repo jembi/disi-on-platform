@@ -10,7 +10,8 @@ const DEFAULT_MATCH_PATH = '/ami/MatchConfiguration/org.santedb.matching.patient
 const MATCH_PATH = '/ami/MatchConfiguration/Test'
 const CLIENT_CREATE_PATH = '/ami/SecurityApplication'
 const CLIENT_DOMAIN_PATH = '/hdsi/Bundle'
-const DISI_CLIENT_DOMAIN = process.env.CLIENT_REGISTRY_IDENTITY_DOMAIN || 'http://ohie.org/nid'
+const DISI_CLIENT_ID = process.env.DISI_CLIENT_ID || 'DE5BEC1E-8C41-4FF1-8E65-A39AC1DDAE60'
+const DISI_CLIENT_NAME = process.env.DISI_CLIENT_NAME || 'DISI CLIENT'
 
 const createSanteAuthToken = () => new Promise((resolve, reject) => {
   const clientData = 'grant_type=client_credentials&scope=*&client_id=fiddler&client_secret=fiddler&resource=oath2_token'
@@ -95,11 +96,11 @@ const createClientApp = accessToken => new Promise((resolve, reject) => {
   const data = `
   <SecurityApplicationInfo xmlns="http://santedb.org/ami">
 	  <entity>
-      <id xmlns="http://santedb.org/model">DE5BEC1E-8C41-4FF1-8E65-A39AC1DDAE60</id>
+      <id xmlns="http://santedb.org/model">${DISI_CLIENT_ID}</id>
       <applicationSecret xmlns="http://santedb.org/model">DISI</applicationSecret>
-      <name xmlns="http://santedb.org/model">DISI CLEINT</name>
+      <name xmlns="http://santedb.org/model">${DISI_CLIENT_NAME}</name>
 	  </entity>
-	  <id>DE5BEC1E-8C41-4FF1-8E65-A39AC1DDAE60</id>
+	  <id>${DISI_CLIENT_ID}</id>
   </SecurityApplicationInfo>`
 
   const req = http.request(options, res => {
@@ -115,7 +116,7 @@ const createClientApp = accessToken => new Promise((resolve, reject) => {
   req.end()
 })
 
-const createClientDomain = accessToken => new Promise((resolve, reject) => {
+const createClientDomain = (accessToken, domainUrl, domainName, domainId, clientId) => new Promise((resolve, reject) => {
   const options = {
     protocol: 'http:',
     hostname: CLIENT_REGISTRY_HOST,
@@ -131,13 +132,13 @@ const createClientDomain = accessToken => new Promise((resolve, reject) => {
   const data = `
     <Bundle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://santedb.org/model">
       <resource xsi:type="AssigningAuthority">
-          <id>DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE60</id>
-          <name>DISI Domain</name>
-          <domainName>DISI_DOMAIN</domainName>
-          <oid>2.16.840.1.113883.3.72.5.9.2</oid>
-          <url>${DISI_CLIENT_DOMAIN}</url>
+          <id>${domainId}</id>
+          <name>${domainName}</name>
+          <domainName>${domainName}</domainName>
+          <oid>${domainId}</oid>
+          <url>${domainUrl}</url>
           <isUnique>true</isUnique>
-          <assigningApplication>DE5BEC1E-8C41-4FF1-8E65-A39AC1DDAE60</assigningApplication>
+          <assigningApplication>${clientId}</assigningApplication>
       </resource>
     </Bundle>`
 
@@ -152,7 +153,7 @@ const createClientDomain = accessToken => new Promise((resolve, reject) => {
       if (res.statusCode == 200) {
         resolve(JSON.parse(resString).access_token)
       } else {
-        reject('Auth token not created!')
+        reject('DISI Client domain not created!')
       }
     })
     if (res.statusCode == 201) {
@@ -165,6 +166,22 @@ const createClientDomain = accessToken => new Promise((resolve, reject) => {
   req.write(data)
   req.end()
 })
+
+const createClientDomains = async accessToken => {
+  const promises = []
+
+  const domains = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, 'identityDomains.json'))
+  ).domains
+
+  domains.forEach(domain => {
+    promises.push(
+      createClientDomain(accessToken, domain.url, domain.name, domain.id, DISI_CLIENT_ID)
+    )
+  })
+
+  await Promise.all(promises)
+}
 
 const setMatchingRules = accessToken => new Promise((resolve, reject) => {
   const options = {
@@ -200,7 +217,7 @@ console.log('Configuring Sante MPI .......\n');
   const authToken = await createSanteAuthToken()
 
   await createClientApp(authToken)
-  await createClientDomain(authToken)
+  await createClientDomains(authToken)
   await disableDefaultMatching(authToken)
   await setMatchingRules(authToken)
 
