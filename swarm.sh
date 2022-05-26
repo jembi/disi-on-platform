@@ -22,7 +22,7 @@ if [[ "$Action" == "init" ]]; then
     echo "\nRemoving config importers"
     sleep 120
 
-    docker service rm instant_disi-es-index-importer instant_disi-openhim-config-importer instant_disi-kibana-config-importer instant_kafka-config-importer
+    docker service rm instant_disi-es-index-importer instant_disi-openhim-config-importer instant_disi-kibana-config-importer instant_kafka-config-importer instant_sante-mpi-config-importer
 elif [[ "$Action" == "up" ]]; then
   docker stack deploy -c "$COMPOSE_FILE_PATH"/docker-compose.yml $disiPocDevComposeParam instant
 elif [[ "$Action" == "down" ]]; then
