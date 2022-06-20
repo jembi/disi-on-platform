@@ -5,7 +5,7 @@
   "dependencies": [
     "client-registry-santempi",
     "interoperability-layer-openhim",
-    "fhir-datastore-hapi-fhir",
+    "fhir-datastore-helper-hapi-fhir",
     "message-bus-kafka",
     "dashboard-visualiser-kibana"
   ],
