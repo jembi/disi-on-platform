@@ -17,12 +17,12 @@ else
 fi
 
 if [[ "$Action" == "init" ]]; then
-    docker stack deploy -c "$COMPOSE_FILE_PATH"/importer/docker-compose.config.yml -c "$COMPOSE_FILE_PATH"/docker-compose.yml $disiPocDevComposeParam instant
+  docker stack deploy -c "$COMPOSE_FILE_PATH"/importer/docker-compose.config.yml -c "$COMPOSE_FILE_PATH"/docker-compose.yml $disiPocDevComposeParam instant
 
-    echo "\nRemoving config importers"
-    sleep 120
+  echo "\nRemoving config importers"
+  sleep 120
 
-    docker service rm instant_disi-es-index-importer instant_disi-openhim-config-importer instant_disi-kibana-config-importer instant_kafka-config-importer instant_sante-mpi-config-importer
+  docker service rm  instant_disi-jsreport-config-importer instant_disi-es-index-importer instant_disi-openhim-config-importer instant_disi-kibana-config-importer instant_kafka-config-importer instant_sante-mpi-config-importer
 elif [[ "$Action" == "up" ]]; then
   docker stack deploy -c "$COMPOSE_FILE_PATH"/docker-compose.yml $disiPocDevComposeParam instant
 elif [[ "$Action" == "down" ]]; then
