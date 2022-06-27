@@ -139,4 +139,4 @@ configs:
   disi-jsreport-import.zip:
     file: ./jsreport/export.jsrexport
     labels:
-      name: jsreport
+      name: disi
