@@ -16,7 +16,7 @@
     "CLIENT_REGISTRY_PORT": 8080,
     "CLIENT_REGISTRY_HOST": "santedb-mpi",
     "CLIENT_REGISTRY_IDENTITY_DOMAIN": "http://ohie.org/nid",
-    "FHIR_SERVER_URL": "ttp://hapi-fhir:8080",
+    "FHIR_SERVER_URL": "http://hapi-fhir:8080",
     "KAFKA_URL": "kafka:9092",
     "TRUST_SELF_SIGNED": "false"
   }
