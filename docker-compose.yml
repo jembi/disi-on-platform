@@ -19,7 +19,7 @@ services:
       CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL:-http://santedb-mpi:8080}
       FHIR_SERVER_URL: ${FHIR_SERVER_URL:-http://hapi-fhir:8080}
       KAFKA_URL: ${KAFKA_URL:-kafka:9092}
-      KAFKA_TOPIC: ${KAFKA_TOPIC:-kafka:-2xx}
+      KAFKA_TOPIC: ${KAFKA_TOPIC:-2xx}
       KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC:-2xx-patient}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
       TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}
@@ -30,7 +30,7 @@ services:
       CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL:-http://santedb-mpi:8080}
       FHIR_SERVER_URL: ${FHIR_SERVER_URL:-http://hapi-fhir:8080}
       KAFKA_URL: ${KAFKA_URL:-kafka:9092}
-      KAFKA_TOPIC: ${KAFKA_TOPIC:-kafka:-2xx}
+      KAFKA_TOPIC: ${KAFKA_TOPIC:-2xx}
       KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC:-2xx-patient}
       REGISTER_MEDIATOR: ${REGISTER_MEDIATOR:-true}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
