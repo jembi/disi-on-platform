@@ -3,3 +3,5 @@ xpack.monitoring.elasticsearch.hosts: ["http://analytics-datastore-elastic-searc
 config.reload.automatic: true
 xpack.monitoring.elasticsearch.username: "elastic"
 xpack.monitoring.elasticsearch.password: "dev_password_only"
+pipeline.workers: 3
+pipeline.batch.size: 100
