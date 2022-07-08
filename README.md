@@ -44,7 +44,7 @@ See [server setup](server-setup.md)
 - Kibana <http://kibana.jembi-mercury.org:5601/> - (u: elastic p: dev_password_only)
 - JS Reports <http://reports.jembi-mercury.org:5488/> - (u: admin p: dev_password_only)
 - OpenHIM <http://openhimconsole.jembi-mercury.org:9000/> - (u: root@openhim.org p: instant101)
-- santeMPI <http://santempi.jembi-mercury.org:9200/> - (u: administrator p: Mohawk123)
+- santeMPI <http://santewww.jembi-mercury.org:9200/> - (u: administrator p: Mohawk123)
 
 
 The following identity domains are currently supported
