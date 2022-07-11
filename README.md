@@ -32,12 +32,9 @@
 4. Wait until everything is started, then bootstrap the metadata by executing: `cd test && yarn bootstrap`
 5. Use postman to execute some transactions, see saved postman collection here `test/CDR.postman_collection.json` OR use the command line: `cd test && yarn && yarn test:1000`
 6. Navigate to <http://localhost:5601/app/kibana#/dashboards> and view the dashboards - also explore data via 'Discover' section.
-## Setting up a server
-
-See [server setup](server-setup.md)
 ## Other tips
 
-- Destroy the entire stack: `./deploy.sh destroy`
+- Destroy the entire stack: `./deploy-local.sh destroy`
 - You can see all the container getting stood up by running: `watch docker ps` (better yet, use [lazydocker](https://github.com/jesseduffield/lazydocker))
 ## Server quick links
 
@@ -45,7 +42,6 @@ See [server setup](server-setup.md)
 - JS Reports <http://reports.jembi-mercury.org:5488/> - (u: admin p: dev_password_only)
 - OpenHIM <http://openhimconsole.jembi-mercury.org:9000/> - (u: root@openhim.org p: instant101)
 - santeMPI <http://santewww.jembi-mercury.org:9200/> - (u: administrator p: Mohawk123)
-
 
 The following identity domains are currently supported
 
