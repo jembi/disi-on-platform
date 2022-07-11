@@ -18,7 +18,6 @@ const createKafkaTopic = topic => {
   }
 
   const req = http.request(options, res => {
-    console.log(res.statusCode);
     if (res.statusCode != 200) {
       throw Error(`Failed to create topic - ${topic}`)
     }
@@ -33,7 +32,8 @@ console.log('Creating kafka topics......................');
 (() => {
   const topics = [
     '2xx',
-    '2xx-patient'
+    '2xx-patient',
+    'reprocess'
   ]
 
   topics.forEach(topic => createKafkaTopic(topic))

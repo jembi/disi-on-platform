@@ -35,3 +35,25 @@ services:
       REGISTER_MEDIATOR: ${REGISTER_MEDIATOR:-true}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
       TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}
+
+  reprocess-mediator:
+    image: jembi/reprocess-mediator:${REPROCESS_MEDIATOR_VERSION:-disi-latest}
+    environment:
+      ES_URL: ${ES_URL:-http://instant_analytics-datastore-elastic-search:9200}
+      ES_PIT_KEEP_ALIVE: ${ES_PIT_KEEP_ALIVE:-5m}
+      KAFKA_CONCURRENCY: ${KAFKA_CONCURRENCY:-2}
+      TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}
+      KAFKA_URL: ${KAFKA_URL:-kafka:9092}
+      KAFKA_REPROCESSING_TOPIC: ${KAFKA_REPROCESSING_TOPIC:-reprocess}
+      OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
+      KAFKA_PARTITION: ${KAFKA_PARTITION:-0}
+      OPENHIM_TRANSACTION_URL: ${OPENHIM_TRANSAWCTION_URL:-http://openhim-core:5001}
+      OPENHIM_PASSWORD: ${OPENHIM_ROOT_PASSWORD:-instant101}
+      # Temporary Env var until OpenHIM SSL is set up. Can be removed in Prod
+      NODE_TLS_REJECT_UNAUTHORIZED: ${NODE_TLS_REJECT_UNAUTHORIZED:-0}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: unless-stopped

@@ -1,0 +1,109 @@
+{
+  "urn": "urn:mediator:reprocess-mediator",
+  "version": "v1.0.0",
+  "name": "Reprocess Mediator",
+  "description": "Reprocess Mediator",
+  "defaultChannelConfig": [
+    {
+      "name": "Reprocess Route",
+      "urlPattern": "^/reprocess$",
+      "routes": [
+        {
+          "name": "Reprocess Endpoint",
+          "host": "reprocess-mediator",
+          "port": "3000",
+          "primary": true,
+          "type": "http"
+        }
+      ],
+      "allow": [
+        "instant"
+      ],
+      "methods": [
+        "POST"
+      ],
+      "type": "http"
+    }
+  ],
+  "endpoints": [
+    {
+      "name": "Reprocess Endpoint",
+      "host": "reprocess-mediator",
+      "path": "/reprocess",
+      "port": "3000",
+      "primary": true,
+      "type": "http"
+    }
+  ],
+  "configDefs": [
+    {
+      "param": "reprocess_fhir_resources",
+      "displayName": "Reprocess FHIR Resources",
+      "description": "The available FHIR resource ES indices and time period for reprocessing",
+      "type": "struct",
+      "array": false,
+      "template": [
+        {
+          "param": "reprocessFromDate",
+          "displayName": "Reprocess From Date",
+          "description": "The start of the reprocessing period. Defaults to 1970-01-01. Accepted Formats: YYYY-MM-DD, YYYY-MM-DDThh:mm:ss, or YYYY-MM-DDThh:mm:ss.s",
+          "type": "string"
+        },
+        {
+          "param": "reprocessToDate",
+          "displayName": "Reprocess To Date",
+          "description": "The end of the reprocessing period. Defaults to Now. Accepted Formats: YYYY-MM-DD, YYYY-MM-DDThh:mm:ss, or YYYY-MM-DDThh:mm:ss.s",
+          "type": "string"
+        },
+        {
+          "param": "all",
+          "displayName": "Reprocess all Resources",
+          "description": "Reprocess all the Elastic Search Raw Indices",
+          "type": "bool"
+        },
+        {
+          "param": "patient",
+          "displayName": "Reprocess Patient Resources",
+          "description": "Reprocess the Elastic Search Raw Patient Index",
+          "type": "bool"
+        },
+        {
+          "param": "carePlan",
+          "displayName": "Reprocess CarePlan Resources",
+          "description": "Reprocess the Elastic Search Raw CarePlan Index",
+          "type": "bool"
+        },
+        {
+          "param": "encounter",
+          "displayName": "Reprocess Encounter Resources",
+          "description": "Reprocess the Elastic Search Raw Encounter Index",
+          "type": "bool"
+        },
+        {
+          "param": "episodeOfCare",
+          "displayName": "Reprocess EpisodeOfCare Resources",
+          "description": "Reprocess the Elastic Search Raw EpisodeOfCare Index",
+          "type": "bool"
+        },
+        {
+          "param": "condition",
+          "displayName": "Reprocess Condition Resources",
+          "description": "Reprocess the Elastic Search Raw Condition Index",
+          "type": "bool"
+        },
+        {
+          "param": "relatedPerson",
+          "displayName": "Reprocess Related Person Resources",
+          "description": "Reprocess the Elastic Search Raw Related Person Index",
+          "type": "bool"
+        },
+        {
+          "param": "observation",
+          "displayName": "Reprocess Observation Resources",
+          "description": "Reprocess the Elastic Search Raw Observation Index",
+          "type": "bool"
+        }
+      ]
+    }
+  ]
+}
