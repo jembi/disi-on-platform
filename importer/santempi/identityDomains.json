@@ -23,7 +23,27 @@
     {
       "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility1",
       "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE64",
-      "name": "DISI OpenHie HIV Facility"
+      "name": "DISI OpenHie HIV Facility1"
+    },    
+    {
+      "url": "https://instantopenhie.org/client2",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE65",
+      "name": "DISI OpenHie Client2"
+    },
+    {
+      "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility2",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE66",
+      "name": "DISI OpenHie HIV Facility2"
+    },    
+    {
+      "url": "https://instantopenhie.org/client3",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE67",
+      "name": "DISI OpenHie Client3"
+    },
+    {
+      "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility3",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE68",
+      "name": "DISI OpenHie HIV Facility3"
     }
   ]
 }
