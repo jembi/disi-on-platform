@@ -1,0 +1,24 @@
+{
+    "name": "report-5c-test",
+    "recipe": "html",
+    "shortid": "Id-qsfQ2v0",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1655720783159
+    },
+    "modificationDate": {
+        "$$date": 1655720783159
+    },
+    "scripts": [
+        {
+            "shortid": "E2HOJBdp6"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "ur1NoynwGq2Aosbq",
+    "$entitySet": "templates"
+}

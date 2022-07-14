@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-People who entered care-test",
+    "recipe": "html",
+    "shortid": "rm1-fUQOOj",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657105260765
+    },
+    "modificationDate": {
+        "$$date": 1657107857526
+    },
+    "scripts": [
+        {
+            "shortid": "uNzGnkNOrh"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "J8eRe9WCVTpU0Plt",
+    "$entitySet": "templates"
+}

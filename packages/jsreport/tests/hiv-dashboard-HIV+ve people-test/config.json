@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-HIV+ve people-test",
+    "recipe": "html",
+    "shortid": "SkUmjELUnW",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657104500157
+    },
+    "modificationDate": {
+        "$$date": 1657107839303
+    },
+    "scripts": [
+        {
+            "shortid": "JkGM0UVgUf"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "xG6BaJzZZ31Asjql",
+    "$entitySet": "templates"
+}

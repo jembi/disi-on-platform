@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-HIV+ve people that have died-test",
+    "recipe": "html",
+    "shortid": "TCBXRPqd_Z",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657106546906
+    },
+    "modificationDate": {
+        "$$date": 1657107898982
+    },
+    "scripts": [
+        {
+            "shortid": "cNSy0mAAA7"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "yDxPHBugTISkmZPn",
+    "$entitySet": "templates"
+}

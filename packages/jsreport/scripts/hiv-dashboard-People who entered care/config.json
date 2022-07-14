@@ -1,0 +1,14 @@
+{
+    "name": "hiv-dashboard-People who entered care",
+    "shortid": "uNzGnkNOrh",
+    "creationDate": {
+        "$$date": 1657105238566
+    },
+    "modificationDate": {
+        "$$date": 1657107755964
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "x4fMsTkFf0ZIKQz6",
+    "$entitySet": "scripts"
+}

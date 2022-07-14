@@ -1,0 +1,14 @@
+{
+    "name": "hiv-dashboard-Cumulative HIV cases over time",
+    "shortid": "Xoee8AfW0o",
+    "creationDate": {
+        "$$date": 1656912264735
+    },
+    "modificationDate": {
+        "$$date": 1657108177858
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "yQLWdG6yl9GdTBOO",
+    "$entitySet": "scripts"
+}

@@ -1,0 +1,14 @@
+{
+    "shortid": "9_ksaZ6D-B",
+    "name": "report-5f",
+    "creationDate": {
+        "$$date": 1631535016213
+    },
+    "modificationDate": {
+        "$$date": 1631535226920
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "1UA2mSsJaoAE4J80",
+    "$entitySet": "scripts"
+}

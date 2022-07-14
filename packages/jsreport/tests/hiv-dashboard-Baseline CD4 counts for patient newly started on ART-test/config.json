@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-Baseline CD4 counts for patient newly started on ART-test",
+    "recipe": "html",
+    "shortid": "USZjo8tBSQ",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657004127657
+    },
+    "modificationDate": {
+        "$$date": 1657108233235
+    },
+    "scripts": [
+        {
+            "shortid": "MKhTC6MpJL"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "24YX4rl1hBMfbvAF",
+    "$entitySet": "templates"
+}

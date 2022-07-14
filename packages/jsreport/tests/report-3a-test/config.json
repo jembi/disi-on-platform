@@ -1,0 +1,24 @@
+{
+    "name": "report-3a-test",
+    "recipe": "html",
+    "shortid": "F89Juwx3XJ",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1655720731199
+    },
+    "modificationDate": {
+        "$$date": 1655720731199
+    },
+    "scripts": [
+        {
+            "shortid": "9IG7QwBZmk"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "37802vjPUd1h8cBc",
+    "$entitySet": "templates"
+}

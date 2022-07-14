@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-HIV +ve people on ART-test",
+    "recipe": "html",
+    "shortid": "9BTfAgeVY4",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657105893905
+    },
+    "modificationDate": {
+        "$$date": 1657107870855
+    },
+    "scripts": [
+        {
+            "shortid": "-SuO0Cttv8"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "8T5qusbQ2d2IX4an",
+    "$entitySet": "templates"
+}

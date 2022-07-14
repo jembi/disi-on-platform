@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-Newly started ART-test",
+    "recipe": "html",
+    "shortid": "zlJCX9X810",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1656675460798
+    },
+    "modificationDate": {
+        "$$date": 1657108115206
+    },
+    "scripts": [
+        {
+            "shortid": "AVxRkGKt6H"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "TMghbfhMLRxb9sD7",
+    "$entitySet": "templates"
+}

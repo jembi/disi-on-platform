@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-Cumulative HIV cases over time-test",
+    "recipe": "html",
+    "shortid": "onBVjRN6AX",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1656912919353
+    },
+    "modificationDate": {
+        "$$date": 1657108191282
+    },
+    "scripts": [
+        {
+            "shortid": "Xoee8AfW0o"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "5hAG2nONTT7pqvHt",
+    "$entitySet": "templates"
+}

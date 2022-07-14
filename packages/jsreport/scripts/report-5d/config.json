@@ -1,0 +1,17 @@
+{
+    "shortid": "pU63iNisiZ",
+    "name": "report-5d",
+    "creationDate": {
+        "$$date": 1629884297132
+    },
+    "modificationDate": {
+        "$$date": 1630056334209
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "VkhayjOuMDUhxzFU",
+    "$entitySet": "scripts",
+    "entitySet": "scripts",
+    "type": "entity",
+    "key": "VkhayjOuMDUhxzFU"
+}

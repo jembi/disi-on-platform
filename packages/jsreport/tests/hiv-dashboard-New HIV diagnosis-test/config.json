@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-New HIV diagnosis-test",
+    "recipe": "html",
+    "shortid": "zP5k-Jxo4C",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1656673054698
+    },
+    "modificationDate": {
+        "$$date": 1657107995707
+    },
+    "scripts": [
+        {
+            "shortid": "Oez_sFtldw"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "5jKazpxIn84Xs91h",
+    "$entitySet": "templates"
+}

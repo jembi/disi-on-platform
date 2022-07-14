@@ -1,0 +1,14 @@
+{
+    "shortid": "CMuLz7MgjP",
+    "name": "report-params",
+    "creationDate": {
+        "$$date": 1622717092286
+    },
+    "modificationDate": {
+        "$$date": 1625830141142
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "yHXVkLNa5Ed3yqVn",
+    "$entitySet": "scripts"
+}

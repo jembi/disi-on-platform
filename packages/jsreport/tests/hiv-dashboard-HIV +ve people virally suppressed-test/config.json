@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-HIV +ve people virally suppressed-test",
+    "recipe": "html",
+    "shortid": "CifCYE4NwH",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657106257249
+    },
+    "modificationDate": {
+        "$$date": 1657107885442
+    },
+    "scripts": [
+        {
+            "shortid": "I56JBvUXmN"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "wlDN3rA4ThFJecMd",
+    "$entitySet": "templates"
+}

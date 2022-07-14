@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-Deaths-test",
+    "recipe": "html",
+    "shortid": "J_ACneibyk",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657019136237
+    },
+    "modificationDate": {
+        "$$date": 1657108156291
+    },
+    "scripts": [
+        {
+            "shortid": "dUzc7fo9ao"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "eQD5hPhGRsMJ9IlZ",
+    "$entitySet": "templates"
+}

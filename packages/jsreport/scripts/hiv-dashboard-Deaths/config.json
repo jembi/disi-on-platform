@@ -1,0 +1,14 @@
+{
+    "name": "hiv-dashboard-Deaths",
+    "shortid": "dUzc7fo9ao",
+    "creationDate": {
+        "$$date": 1657019105310
+    },
+    "modificationDate": {
+        "$$date": 1657108137919
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "VJEINR4OzG0Hd48V",
+    "$entitySet": "scripts"
+}

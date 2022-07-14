@@ -1,0 +1,14 @@
+{
+    "name": "hiv-dashboard-New HIV diagnosis",
+    "shortid": "Oez_sFtldw",
+    "creationDate": {
+        "$$date": 1656672578626
+    },
+    "modificationDate": {
+        "$$date": 1657107968446
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "wuFNVEw7bssid9MD",
+    "$entitySet": "scripts"
+}
