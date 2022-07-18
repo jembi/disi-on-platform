@@ -1,0 +1,24 @@
+{
+    "name": "report-params",
+    "recipe": "html-with-browser-client",
+    "shortid": "6QHBqntgyC",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657786191169
+    },
+    "modificationDate": {
+        "$$date": 1657793806478
+    },
+    "_id": "hJihV9aVe2Zs7CZi",
+    "scripts": [
+        {
+            "shortid": "CMuLz7MgjP"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "$entitySet": "templates"
+}

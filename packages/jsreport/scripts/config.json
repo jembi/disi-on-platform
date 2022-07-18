@@ -1,13 +1,15 @@
 {
     "name": "scripts",
     "creationDate": {
-        "$$date": 1620998660127
+        "$$date": 1657786191164
     },
     "modificationDate": {
-        "$$date": 1629882150311
+        "$$date": 1657786191164
     },
     "shortid": "3Mqr0aV",
     "_id": "Q8KOitSCzTnO4cWk",
-    "$entitySet": "folders",
-    "visibilityPermissions": []
+    "visibilityPermissions": [],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "$entitySet": "folders"
 }

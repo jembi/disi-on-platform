@@ -186,7 +186,7 @@ async function beforeRender(req) {
   try {
     const resData = await axios({
       method: 'post',
-      url: `http://es-analytics:9200/${ES_INDEX}/_search`,
+      url: `http://analytics-datastore-elastic-search:9200/${ES_INDEX}/_search`,
       data: esQuery,
       headers: {
         'Content-Type': 'application/json',
@@ -209,9 +209,9 @@ async function beforeRender(req) {
 
   for (const statusBucket of aggs.viralSuppression.buckets) {
     results.rows.push({
-      group: statusBucket.key,
-      total: statusBucket.doc_count
-    })
+        group: statusBucket.key,
+        total: statusBucket.doc_count
+      })
   }
 
   req.data = Object.assign(req.data, results)

@@ -11,7 +11,7 @@ async function beforeRender(req) {
     size: 0,
     query: {
       bool: {
-        filter: [
+        must: [
           {
             range: {
               'hivDiagnosis.hivPosDate': {
@@ -56,7 +56,14 @@ async function beforeRender(req) {
                 }
               ]
             : [])
-        ]
+        ],
+        "filter": [
+        {
+          "match_all": {}
+        }
+      ],
+      "should": [],
+      "must_not": []
       }
     },
     aggs: {
@@ -168,7 +175,7 @@ async function beforeRender(req) {
   try {
     const resData = await axios({
       method: 'post',
-      url: `http://es-analytics:9200/${ES_INDEX}/_search`,
+      url: `http://analytics-datastore-elastic-search:9200/${ES_INDEX}/_search`,
       data: esQuery,
       headers: {
         'Content-Type': 'application/json',

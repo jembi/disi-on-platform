@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<style>{#asset /css/styles.css @encoding=utf8}</style>
+
+{{#unless totals.total}}
+<h3 class="error">0 results returned for given report parameters</h3>
+{{else}}
+<div class="table-wrapper">
+  <table class="styled-table">
+    <thead>
+      <tr class="table-header">
+        <th colspan="6"> Baseline VL of patients newly started on ART by Sex</th>
+      </tr>
+      <tr>
+        <th rowspan="2" class="table-disagg">Viral load</th>
+        <th colspan="4" class="table-disagg">Sex</th>
+        <th class="table-disagg">Total</th>
+      </tr>
+      <tr>
+        <th class="table-disagg">Male</th>
+        <th class="table-disagg">Female</th>
+        <th class="table-disagg">Other</th>
+        <th class="table-disagg">Unknown</th>
+        <th class="table-disagg">N</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+      <tr>
+        <td>{{supGroup}}</td>
+        <td>{{males}} ({{formatNumber malesPercent}}%)</td>
+        <td>{{females}} ({{formatNumber femalesPercent}}%)</td>
+        <td>{{other}} ({{formatNumber otherPercent}}%)</td>
+        <td>{{unknown}} ({{formatNumber unknownPercent}}%)</td>
+        <td>{{total}} ({{formatNumber totalPercent}}%)</td>
+      </tr>
+      {{/each}}
+    </tbody>
+    <tfoot>
+      {{#with totals}}
+      <tr>
+        <td>Total</td>
+        <td>{{males}} ({{formatNumber malesPercent}}%)</td>
+        <td>{{females}} ({{formatNumber femalesPercent}}%)</td>
+        <td>{{other}} ({{formatNumber otherPercent}}%)</td>
+        <td>{{unknown}} ({{formatNumber unknownPercent}}%)</td>
+        <td>{{total}} (100.0%)</td>
+      </tr>
+      {{/with}}
+    </tfoot>
+  </table>
+</div>
+
+<span id="data-serialized" style="display: none;">{{serialize .}}</span>
+
+<div style='page-break-before: always;'></div>
+
+<div id="chartdiv1" class="chart box"></div>
+{{/unless}}
+
+<script>
+  function renderCharts() {
+    am4core.ready(function () {
+      const data = JSON.parse(document.getElementById('data-serialized').innerHTML)
+
+      // chart 1
+      var chart = am4core.create("chartdiv1", am4charts.PieChart);
+      chart.data = data.rows
+      chart.legend = new am4charts.Legend();
+      chart.events.on('ready', () => {
+        chartLoaded('chart1')
+      })
+
+      var title = chart.titles.create();
+      title.text = "Baseline VL of patients newly started on ART by Sex";
+      title.fontSize = 25;
+      title.marginBottom = 30;
+
+      var pieSeries = chart.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "totalPercent";
+      pieSeries.dataFields.category = "supGroup";
+
+      chart.innerRadius = am4core.percent(40);
+      var cor = "color";
+      pieSeries.slices.template.propertyFields.fill = am4core.color(cor);
+
+      
+    })
+  }
+
+  const scriptsToLoad = [
+    'https://cdn.amcharts.com/lib/4/core.js',
+    'https://cdn.amcharts.com/lib/4/charts.js',
+  ]
+
+  function createScriptElement() {
+    // gets the first script in the list
+    const script = scriptsToLoad.shift()
+    // all scripts were loaded
+    if (!script) {
+      console.log('All scripts loaded, rendering charts')
+      renderCharts()
+      return
+    }
+
+    console.log(`loading script ${script}`)
+    const js = document.createElement('script')
+    js.type = 'text/javascript'
+    js.src = script
+    js.onload = loadNextScript
+    const s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(js, s)
+  }
+
+  function loadNextScript() {
+    // loads the next script
+    createScriptElement()
+  }
+  loadNextScript()
+
+  // wait for the charts to load and animations to complete
+  const waitingForCharts = ['chart1']
+  function chartLoaded(name) {
+    if (waitingForCharts.indexOf(name) > -1) {
+      waitingForCharts.splice(waitingForCharts.indexOf(name), 1)
+    }
+
+    if (waitingForCharts.length === 0) {
+      window.JSREPORT_READY_TO_START = true; // this will start the pdf printing
+    }
+  }
+</script>

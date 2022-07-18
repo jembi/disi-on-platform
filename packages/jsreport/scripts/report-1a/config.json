@@ -1,12 +1,17 @@
 {
-  "shortid": "yhXbvB1S-X",
-  "name": "report-1a",
-  "creationDate": {
-    "$$date": 1621325057315
-  },
-  "modificationDate": {
-    "$$date": 1625579999355
-  },
-  "_id": "RZFtupD3tVwuWuhF",
-  "$entitySet": "scripts"
+    "shortid": "yhXbvB1S-X",
+    "name": "report-1a",
+    "creationDate": {
+        "$$date": 1657786191353
+    },
+    "modificationDate": {
+        "$$date": 1657794989677
+    },
+    "_id": "RZFtupD3tVwuWuhF",
+    "entitySet": "scripts",
+    "type": "entity",
+    "key": "RZFtupD3tVwuWuhF",
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "$entitySet": "scripts"
 }

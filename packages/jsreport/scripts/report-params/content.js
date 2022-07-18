@@ -8,7 +8,7 @@ const ES_PASSWORD = 'dev_password_only'
 async function beforeRender(req) {
   const res = await axios({
     method: 'get',
-    url: `http://es-analytics:9200/${ES_INDEX}/_search?_source=resource.address,resource.name,resource.identifier&size=10000`,
+    url: `http://analytics-datastore-elastic-search:9200/${ES_INDEX}/_search?_source=resource.address,resource.name,resource.identifier&size=10000`,
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Basic ${new Buffer(

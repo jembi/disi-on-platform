@@ -1,0 +1,29 @@
+{
+    "shortid": "M2OHznw-n6",
+    "name": "report-1a",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true,
+        "format": "A4",
+        "landscape": true,
+        "displayHeaderFooter": false,
+        "waitForJS": true
+    },
+    "creationDate": {
+        "$$date": 1657786191166
+    },
+    "modificationDate": {
+        "$$date": 1657786191166
+    },
+    "_id": "IBJqaIZhMyakGfPN",
+    "data": null,
+    "scripts": [
+        {
+            "shortid": "yhXbvB1S-X"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "$entitySet": "templates"
+}

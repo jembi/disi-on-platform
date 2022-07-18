@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<style>{#asset /css/styles.css @encoding=utf8}</style>
+
+{{#unless totals.total}}
+<h3 class="error">0 results returned for given report parameters</h3>
+{{else}}
+<div class="table-wrapper">
+  <table class="styled-table">
+    <thead>
+      <tr class="table-header">
+        <th colspan="6">Baseline CD4 count of patients newly started on ART by age</th>
+      </tr>
+      <tr>
+        <th rowspan="2" class="table-disagg">Age group</th>
+        <th colspan="5" class="table-disagg">N(%)</th>
+      </tr>
+      <tr>
+        <th class="table-disagg"><200</th>
+        <th class="table-disagg">200-349</th>
+        <th class="table-disagg">350-499</th>
+        <th class="table-disagg">≥500</th>
+        <th class="table-disagg">Unknown</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each rows}}
+      <tr>
+        <td>{{ageGroup}}</td>
+        <td>{{less200}} ({{formatNumber less200Percent}}%)</td>
+        <td>{{between200to349}} ({{formatNumber between200to349Percent}}%)</td>
+        <td>{{between350to499}} ({{formatNumber between350to499Percent}}%)</td>
+        <td>{{more500}} ({{formatNumber more500Percent}}%)</td>
+        <td>{{total}} ({{formatNumber totalPercent}}%)</td>
+      </tr>
+      {{/each}}
+    </tbody>
+    <tfoot>
+      {{#with totals}}
+      <tr>
+        <td>Total</td>
+        <td>{{less200}} ({{formatNumber less200Percent}}%)</td>
+        <td>{{between200to349}} ({{formatNumber between200to349Percent}}%)</td>
+        <td>{{between350to499}} ({{formatNumber between350to499Percent}}%)</td>
+        <td>{{more500}} ({{formatNumber more500Percent}}%)</td>
+        <td>{{total}} (100.0%)</td>
+      </tr>
+      {{/with}}
+    </tfoot>
+  </table>
+</div>
+
+<span id="data-serialized" style="display: none;">{{serialize .}}</span>
+
+<div style='page-break-before: always;'></div>
+
+<div id="chartdiv1" class="chart box"></div>
+{{/unless}}
+
+<script>
+  function renderCharts() {
+    am4core.ready(function () {
+      const data = JSON.parse(document.getElementById('data-serialized').innerHTML)
+
+      // chart 1
+      var chart = am4core.create("chartdiv1", am4charts.XYChart);
+      chart.data = data.rows
+      chart.legend = new am4charts.Legend();
+      chart.events.on('ready', () => {
+        chartLoaded('chart1')
+      })
+
+      var title = chart.titles.create();
+      title.text = "Baseline CD4 count of patients newly started on ART by age";
+      title.fontSize = 25;
+      title.marginBottom = 30;
+
+      var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+      categoryAxis.dataFields.category = "ageGroup";
+      categoryAxis.renderer.minGridDistance = 20;
+      var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+      valueAxis.title.text = "CD4 %";
+      valueAxis.min = 0
+      valueAxis.max = 100
+
+      var series1 = chart.series.push(new am4charts.ColumnSeries());
+      series1.dataFields.valueX = "less200Percent";
+      series1.dataFields.categoryY = "ageGroup";
+      series1.stacked = true
+      series1.name = "<200"
+
+      var series1 = chart.series.push(new am4charts.ColumnSeries());
+      series1.dataFields.valueX = "between200to349Percent";
+      series1.dataFields.categoryY = "ageGroup";
+      series1.stacked = true
+      series1.name = "200-349"
+
+      var series1 = chart.series.push(new am4charts.ColumnSeries());
+      series1.dataFields.valueX = "between350to499Percent";
+      series1.dataFields.categoryY = "ageGroup";
+      series1.stacked = true
+      series1.name = "350-499"
+
+      var series2 = chart.series.push(new am4charts.ColumnSeries());
+      series2.dataFields.valueX = "more500Percent";
+      series2.dataFields.categoryY = "ageGroup";
+      series2.stacked = true
+      series2.name = ">=500"
+    })
+  }
+
+  const scriptsToLoad = [
+    'https://cdn.amcharts.com/lib/4/core.js',
+    'https://cdn.amcharts.com/lib/4/charts.js',
+  ]
+
+  function createScriptElement() {
+    // gets the first script in the list
+    const script = scriptsToLoad.shift()
+    // all scripts were loaded
+    if (!script) {
+      console.log('All scripts loaded, rendering charts')
+      renderCharts()
+      return
+    }
+
+    console.log(`loading script ${script}`)
+    const js = document.createElement('script')
+    js.type = 'text/javascript'
+    js.src = script
+    js.onload = loadNextScript
+    const s = document.getElementsByTagName('script')[0]
+    s.parentNode.insertBefore(js, s)
+  }
+
+  function loadNextScript() {
+    // loads the next script
+    createScriptElement()
+  }
+  loadNextScript()
+
+  // wait for the charts to load and animations to complete
+  const waitingForCharts = ['chart1']
+  function chartLoaded(name) {
+    if (waitingForCharts.indexOf(name) > -1) {
+      waitingForCharts.splice(waitingForCharts.indexOf(name), 1)
+    }
+
+    if (waitingForCharts.length === 0) {
+      window.JSREPORT_READY_TO_START = true; // this will start the pdf printing
+    }
+  }
+</script>
