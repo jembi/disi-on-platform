@@ -116,7 +116,7 @@ const createClientApp = accessToken => new Promise((resolve, reject) => {
   req.end()
 })
 
-const createClientDomain = (accessToken, domainUrl, domainName, domainId, clientId) => new Promise((resolve, reject) => {
+const createClientDomain = (accessToken, domainUrl, domainName, domainId, clientId, isUnique = true) => new Promise((resolve, reject) => {
   const options = {
     protocol: 'http:',
     hostname: CLIENT_REGISTRY_HOST,
@@ -137,7 +137,7 @@ const createClientDomain = (accessToken, domainUrl, domainName, domainId, client
           <domainName>${domainName}</domainName>
           <oid>${domainId}</oid>
           <url>${domainUrl}</url>
-          <isUnique>true</isUnique>
+          <isUnique>${isUnique}</isUnique>
           <assigningApplication>${clientId}</assigningApplication>
       </resource>
     </Bundle>`
@@ -176,7 +176,7 @@ const createClientDomains = async accessToken => {
 
   domains.forEach(domain => {
     promises.push(
-      createClientDomain(accessToken, domain.url, domain.name, domain.id, DISI_CLIENT_ID)
+      createClientDomain(accessToken, domain.url, domain.name, domain.id, DISI_CLIENT_ID, domain.isUnique)
     )
   })
 
