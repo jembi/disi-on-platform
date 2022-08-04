@@ -116,7 +116,7 @@ const createClientApp = accessToken => new Promise((resolve, reject) => {
   req.end()
 })
 
-const createClientDomain = (accessToken, domainUrl, domainName, domainId, clientId, isUnique = true) => new Promise((resolve, reject) => {
+const createClientDomain = (accessToken, domainUrl, domainNamespaceId, domainFullName, domainId, clientId, isUnique = true) => new Promise((resolve, reject) => {
   const options = {
     protocol: 'http:',
     hostname: CLIENT_REGISTRY_HOST,
@@ -133,8 +133,8 @@ const createClientDomain = (accessToken, domainUrl, domainName, domainId, client
     <Bundle xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://santedb.org/model">
       <resource xsi:type="AssigningAuthority">
           <id>${domainId}</id>
-          <name>${domainName}</name>
-          <domainName>${domainName}</domainName>
+          <name>${domainFullName}</name>
+          <domainName>${domainNamespaceId}</domainName>
           <oid>${domainId}</oid>
           <url>${domainUrl}</url>
           <isUnique>${isUnique}</isUnique>
@@ -176,7 +176,7 @@ const createClientDomains = async accessToken => {
 
   domains.forEach(domain => {
     promises.push(
-      createClientDomain(accessToken, domain.url, domain.name, domain.id, DISI_CLIENT_ID, domain.isUnique)
+      createClientDomain(accessToken, domain.url, domain.namespaceId, domain.fullName, domain.id, DISI_CLIENT_ID, domain.isUnique)
     )
   })
 
