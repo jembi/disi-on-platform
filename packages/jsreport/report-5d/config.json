@@ -1,0 +1,24 @@
+{
+    "shortid": "ITJHsTansI",
+    "name": "report-5d",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657786191167
+    },
+    "modificationDate": {
+        "$$date": 1657786191167
+    },
+    "_id": "uqrwW9RK7tws0Tnz",
+    "scripts": [
+        {
+            "shortid": "pU63iNisiZ"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "$entitySet": "templates"
+}

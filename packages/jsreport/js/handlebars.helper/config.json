@@ -1,0 +1,15 @@
+{
+    "name": "handlebars.helper",
+    "creationDate": {
+        "$$date": 1657786191264
+    },
+    "modificationDate": {
+        "$$date": 1657786191264
+    },
+    "shortid": "Gys61pb",
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "SLCfVZRcF1XfBCgA",
+    "isSharedHelper": true,
+    "$entitySet": "assets"
+}

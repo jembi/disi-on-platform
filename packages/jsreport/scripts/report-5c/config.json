@@ -1,0 +1,15 @@
+{
+    "shortid": "E2HOJBdp6",
+    "name": "report-5c",
+    "creationDate": {
+        "$$date": 1657786191292
+    },
+    "modificationDate": {
+        "$$date": 1657795275060
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "jl5kBSF0bxcJGvSm",
+    "isGlobal": false,
+    "$entitySet": "scripts"
+}

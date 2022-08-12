@@ -1,0 +1,25 @@
+{
+    "shortid": "JRtUWE-t44",
+    "name": "report-5a",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true,
+        "waitForJS": true
+    },
+    "creationDate": {
+        "$$date": 1657786191165
+    },
+    "modificationDate": {
+        "$$date": 1657786191165
+    },
+    "_id": "47HW7WDrUKF99nMI",
+    "scripts": [
+        {
+            "shortid": "B7oMzN_qn1"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "$entitySet": "templates"
+}

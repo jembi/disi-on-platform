@@ -1,0 +1,14 @@
+{
+    "name": "hiv-dashboard-HIV+ve people",
+    "shortid": "JkGM0UVgUf",
+    "creationDate": {
+        "$$date": 1657786191285
+    },
+    "modificationDate": {
+        "$$date": 1657795440498
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "B47EluCuSfiY2twe",
+    "$entitySet": "scripts"
+}

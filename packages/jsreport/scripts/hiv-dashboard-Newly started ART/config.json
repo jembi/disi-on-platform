@@ -1,0 +1,14 @@
+{
+    "name": "hiv-dashboard-Newly started ART",
+    "shortid": "AVxRkGKt6H",
+    "creationDate": {
+        "$$date": 1657786191359
+    },
+    "modificationDate": {
+        "$$date": 1657795473300
+    },
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "mSBDDk79F9B2BXZZ",
+    "$entitySet": "scripts"
+}

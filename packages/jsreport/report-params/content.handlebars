@@ -1,0 +1,272 @@
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="{#asset jquery.calendars.min.js @encoding=link}"></script>
+<script type="text/javascript" src="{#asset jquery.calendars.plus.min.js @encoding=link}"></script>
+<script type="text/javascript" src="{#asset jquery.plugin.min.js @encoding=link}"></script>
+<script type="text/javascript" src="{#asset jquery.calendars.picker.min.js @encoding=link}"></script>
+
+<link rel="stylesheet" type="text/css" href="{#asset jquery.calendars.picker.css @encoding=link}">
+<style>{#asset /css/styles.css @encoding=utf8}</style>
+
+<div class="header">
+  <span class="headerContent">DISI Reports</span>
+</div>
+
+<div class="wrapper">
+
+  <div class="box">
+    <span class="error"></span>
+
+    <div class="container">
+      <span>Choose a report:</span>
+      <select id="report">
+        <option value="report-1a">Report 1A - Newly Diagnosed HIV</option>
+        <option value="report-5d">Report 5D - Newly Started ART</option>
+        <option value="report-3a">Report 3A - Newly Reported Deaths</option>
+        <option value="report-5a">Report 5A - Newly Started ART</option>
+        <option value="report-5f">Report 5F - Newly Started ART</option>
+        <option value="report-5c">Report 5C - Newly Started ART</option>
+
+      </select>
+    </div>
+
+    <div class="container">
+      <span id="tab-1" class="styled-tab" onclick="setTab('tab-1')">Monthly</span>
+      <span id="tab-2" class="styled-tab" onclick="setTab('tab-2')">Quarterly</span>
+      <span id="tab-3" class="styled-tab" onclick="setTab('tab-3')">Custom dates</span>
+    </div>
+
+    <div id="tab-1-contents" class="container tab">
+      <span>Year:</span>
+      <select id="year">
+        {{!-- dynamically populated --}}
+      </select>
+      <span>Month:</span>
+      <select id="month">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+      </select>
+    </div>
+
+    <div id="tab-2-contents" class="container tab">
+      <span>Reporting Quarter:</span>
+      <select id="quarter">
+        <option value="1">Jan-Mar</option>
+        <option value="2">Apr-Jun</option>
+        <option value="3">Jul-Sep</option>
+        <option value="4">Oct-Dec</option>
+        <option value="5">Semi-Annual I</option>
+        <option value="6">Semi-Annual II</option>
+        <option value="7">Annual</option>
+      </select>
+    </div>
+
+    <div id="tab-3-contents" class="container tab">
+      <span>From:</span>
+      <input id="from" autocomplete="off"></input>
+      <span>To:</span>
+      <input id="to" autocomplete="off"></input>
+    </div>
+
+    <div class="container">
+      <span>State:</span>
+      <select id="state">
+        <option value="all">All</option>
+        {{#each distinctStates}}
+        <option>{{this}}</option>
+        {{/each}}
+      </select>
+
+      <span>District:</span>
+      <select id="district">
+        <option value="all">All</option>
+        {{#each distinctDistricts}}
+        <option>{{this}}</option>
+        {{/each}}
+      </select>
+
+      <span>City:</span>
+      <select id="city">
+        <option value="all">All</option>
+        {{#each distinctCities}}
+        <option>{{this}}</option>
+        {{/each}}
+      </select>
+
+      <span>Health Facility:</span>
+      <select id="facility">
+        <option value="all">All</option>
+        {{#each facilities}}
+        <option value="{{facilityCode}}">{{facility}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <button class="styled-button" onclick="render('display')">Display</button>
+    <button class="styled-button" onclick="render('pdf')">Download PDF</button>
+    {{!-- TODO Enable once xls support is added --}}
+    {{!-- <button class="styled-button" onclick="render('xls')">Download XLS</button> --}}
+  </div>
+
+  <div id="render-target"></div>
+</div>
+
+<script>
+  function setTab(name) {
+    $('.tab').hide()
+    $('.styled-tab').removeClass('active')
+    $('#' + name + '-contents').show()
+    $('#' + name).addClass('active')
+  }
+  setTab('tab-1')
+
+  function convertDate(date, convertTo) {
+    return $.calendars.instance(convertTo).fromJD(date.toJD());
+  }
+
+  function render(target) {
+    // hide any previous errors
+    $('.error').hide()
+    $('#render-target').html()
+    const c = $.calendars.instance()
+    const currYear = c.today().year()
+
+    let paramType = 'monthly'
+    if ($('.styled-tab.active').attr('id') === 'tab-2') {
+      paramType = 'quarterly'
+    }
+    if ($('.styled-tab.active').attr('id') === 'tab-3') {
+      paramType = 'custom-dates'
+    }
+
+    const commonParams = {
+      state: $('#state').children("option:selected").val(),
+      district: $('#district').children("option:selected").val(),
+      city: $('#city').children("option:selected").val(),
+      facilityCode: $('#facility').children("option:selected").val()
+    }
+
+    let from, to
+
+    if (paramType === 'monthly') {
+      const year = $('#year').children("option:selected").val()
+      const month = $('#month').children("option:selected").val()
+
+      from = c.newDate(year, month, 1)
+      to = c.newDate(year, month, c.daysInMonth(year, month))
+    }
+
+    if (paramType === 'quarterly') {
+      const quarter = $('#quarter').children("option:selected").val()
+
+      console.log(currYear, quarter, typeof quarter)
+
+      switch (quarter) {
+        case '1':
+          from = c.newDate(currYear, 1, 1)
+          to = c.newDate(currYear, 3, c.daysInMonth(currYear, 4))
+          break
+        case '2':
+          from = c.newDate(currYear, 4, 1)
+          to = c.newDate(currYear, 6, c.daysInMonth(currYear, 7))
+          break
+        case '3':
+          from = c.newDate(currYear, 7, 1)
+          to = c.newDate(currYear, 9, c.daysInMonth(currYear, 10))
+          break
+        case '4':
+          from = c.newDate(currYear, 10, 1)
+          to = c.newDate(currYear, 12, c.daysInMonth(currYear, 12))
+          break
+        case '5': // semi-annual 1
+          from = c.newDate(currYear, 1, 1)
+          to = c.newDate(currYear, 6, c.daysInMonth(currYear, 7))
+          break
+        case '6': // semi-annual 2
+          from = c.newDate(currYear, 7, 1)
+          to = c.newDate(currYear, 12, c.daysInMonth(currYear, 12))
+          break
+        case '7': // annual
+          from = c.newDate(currYear, 1, 1)
+          to = c.newDate(currYear, 12, c.daysInMonth(currYear, 12))
+          break
+        default:
+          throw new Error('illegal quarter option supplied')
+      }
+    }
+
+    if (paramType === 'custom-dates') {
+      from = $('#from').calendarsPicker('getDate')[0]
+      to = $('#to').calendarsPicker('getDate')[0]
+
+      if (!from || !to) {
+        return $('.error').text('Both to and from dates are required').show()
+      }
+    }
+
+    commonParams.from = from.formatDate('yyyy-mm-dd')
+    commonParams.to = to.formatDate('yyyy-mm-dd')
+
+    const report = $('#report').children("option:selected").val()
+
+    const params = Object.assign({}, commonParams)
+
+    if (target === 'display') {
+      jsreport.render({
+        template: {
+          name: report,
+          recipe: 'html',
+        },
+        data: {
+          params
+        }
+      }).then((r) => {
+        r.toString().then(t => $('#render-target').html(t))
+        })
+        .catch((err) => console.error(err))
+    }
+
+    if (target === 'pdf') {
+      jsreport.download(`${report}-${commonParams.from}-${commonParams.to}.pdf`, {
+        template: {
+          name: report
+        },
+        data: {
+          params
+        }
+      })
+    }
+
+    if (target === 'xls') {
+      // TODO
+    }
+  }
+
+  $(document).ready(function () {
+    $('#from').calendarsPicker({ calendar: $.calendars.instance() })
+    $('#to').calendarsPicker({ calendar: $.calendars.instance() })
+
+    const c = $.calendars.instance()
+    const year = c.today().year()
+    const month = c.today().month()
+
+    // Set current year and allow selection of previous 20 years
+    const select = $('#year')
+    for (let i = year; i > year - 20; i--) {
+      select.append(`<option>${i}</option>`)
+    }
+
+    // set current month
+    $('#month').val(month)
+  })
+
+</script>

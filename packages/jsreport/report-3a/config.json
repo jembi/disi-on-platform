@@ -1,0 +1,25 @@
+{
+    "shortid": "YW_MfrDTRu",
+    "name": "report-3a",
+    "recipe": "chrome-pdf",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true,
+        "waitForJS": true
+    },
+    "creationDate": {
+        "$$date": 1657786191166
+    },
+    "modificationDate": {
+        "$$date": 1657786191166
+    },
+    "_id": "GRSFCkxxgB2rRf1J",
+    "scripts": [
+        {
+            "shortid": "9IG7QwBZmk"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "$entitySet": "templates"
+}

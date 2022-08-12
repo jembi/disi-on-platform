@@ -1,0 +1,24 @@
+{
+    "name": "report-1a-test",
+    "recipe": "html",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657786191203
+    },
+    "modificationDate": {
+        "$$date": 1657786191203
+    },
+    "scripts": [
+        {
+            "shortid": "yhXbvB1S-X"
+        }
+    ],
+    "shortid": "Xn2~W9~",
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "cCDOVS5LP5ZQj0Zs",
+    "$entitySet": "templates"
+}

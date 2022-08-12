@@ -1,0 +1,24 @@
+{
+    "name": "hiv-dashboard-Current VL status of patients newly started on ART-test",
+    "recipe": "html",
+    "shortid": "vTBrp3ev24",
+    "engine": "handlebars",
+    "chrome": {
+        "printBackground": true
+    },
+    "creationDate": {
+        "$$date": 1657786191174
+    },
+    "modificationDate": {
+        "$$date": 1657786191174
+    },
+    "scripts": [
+        {
+            "shortid": "bRn-8ayDoc"
+        }
+    ],
+    "inheritedReadPermissions": [],
+    "inheritedEditPermissions": [],
+    "_id": "nro4iuPNlyx0HVkH",
+    "$entitySet": "templates"
+}
