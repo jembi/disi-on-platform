@@ -5,4 +5,3 @@ function serialize (data) {
   function formatNumber (num) {
     return (num || 0).toFixed(1)
   }
-  
