@@ -12,6 +12,14 @@ services:
     environment:
       ES_ELASTIC: ${ES_ELASTIC:-dev_password_only}
       LS_JAVA_OPTS: ${LS_JAVA_OPTS:--Xmx2g -Xms2g}
+    deploy:
+      resources:
+        limits:
+          cpus: ${DISI_LOGSTASH_CPU_LIMIT:-0.8}
+          memory: ${DISI_LOGSTASH_MEMORY_LIMIT:-2G}
+        reservations:
+          cpus: ${DISI_LOGSTASH_CPU_RESERVE:-0.05}
+          memory: ${DISI_LOGSTASH_MEMORY_RESERVE:-500M}
 
   mpi-updater:
     image: jembi/openhim-mediator-mpi-updater:${MPI_UPDATER_VERSION:-latest}
@@ -23,6 +31,14 @@ services:
       KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC:-2xx-patient}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
       TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}
+    deploy:
+      resources:
+        limits:
+          cpus: ${MPI_UPDATER_CPU_LIMIT:-0.8}
+          memory: ${MPI_UPDATER_MEMORY_LIMIT:-2G}
+        reservations:
+          cpus: ${MPI_UPDATER_CPU_RESERVE:-0.05}
+          memory: ${MPI_UPDATER_MEMORY_RESERVE:-500M}
 
   mpi-checker:
     image: jembi/openhim-mediator-mpi-checker:${MPI_CHECKER_VERSION:-latest}
@@ -35,6 +51,14 @@ services:
       REGISTER_MEDIATOR: ${REGISTER_MEDIATOR:-true}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
       TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}
+    deploy:
+      resources:
+        limits:
+          cpus: ${MPI_CHECKER_CPU_LIMIT:-0.8}
+          memory: ${MPI_CHECKER_MEMORY_LIMIT:-2G}
+        reservations:
+          cpus: ${MPI_CHECKER_CPU_RESERVE:-0.05}
+          memory: ${MPI_CHECKER_MEMORY_RESERVE:-500M}
 
   reprocess-mediator:
     image: jembi/reprocess-mediator:${REPROCESS_MEDIATOR_VERSION:-disi-latest}
@@ -51,9 +75,16 @@ services:
       OPENHIM_PASSWORD: ${OPENHIM_ROOT_PASSWORD:-instant101}
       # Temporary Env var until OpenHIM SSL is set up. Can be removed in Prod
       NODE_TLS_REJECT_UNAUTHORIZED: ${NODE_TLS_REJECT_UNAUTHORIZED:-0}
+    deploy:
+      resources:
+        limits:
+          cpus: ${REPROCESS_MEDIATOR_CPU_LIMIT:-0.8}
+          memory: ${REPROCESS_MEDIATOR_MEMORY_LIMIT:-2G}
+        reservations:
+          cpus: ${REPROCESS_MEDIATOR_CPU_RESERVE:-0.05}
+          memory: ${REPROCESS_MEDIATOR_MEMORY_RESERVE:-500M}
     logging:
       driver: json-file
       options:
         max-size: "10m"
         max-file: "3"
-    restart: unless-stopped
