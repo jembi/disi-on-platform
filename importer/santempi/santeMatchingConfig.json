@@ -1,258 +1,198 @@
 {
-  "$type": "MatchConfiguration",
-  "meta": {
-      "createdBy": "fiddler",
-      "creationTime": "2022-03-10T20:27:57.211Z",
-      "status": "Active",
-      "version": 4,
-      "tags": [
-          {
-              "key": "$mdm.auto-link",
-              "value": "true",
-              "$$hashKey": "object:4213"
-          }
-      ],
-      "updatedTime": "2022-03-10T20:43:25.145Z",
-      "updatedBy": "fiddler",
-      "isReadonly": false
-  },
-  "id": "Test",
-  "evaluationMode": "Percentage",
-  "nonmatchThreshold": 0.5,
-  "matchThreshold": 0.54,
-  "target": [
-      {
-          "resource": "Patient",
-          "ResourceType": "SanteDB.Core.Model.Roles.Patient, SanteDB.Core.Model, Version=2.2.3.0, Culture=neutral, PublicKeyToken=null",
-          "event": [],
-          "$$hashKey": "object:4125"
-      }
-  ],
-  "blocking": [
-      {
-          "useLowerLayer": false,
-          "op": "AndAlso",
-          "filter": [
-              {
-                  "when": [
-                      "identifier[NID].value"
-                  ],
-                  "expression": "identifier[NID].value=:(levenshtein|$input.identifier[NID].value)<3",
-                  "_id": "flt97b3e21bc88a-4b73-8e14-9b42470337ed",
-                  "$$hashKey": "object:4246"
-              }
-          ],
-          "maxResults": 25,
-          "_id": "blk2684cd2141d0-4bb0-98d0-68f82b347bf7"
-      },
-      {
-          "useLowerLayer": false,
-          "op": "OrElse",
-          "filter": [
-              {
-                  "when": [
-                      "name?.component[Given].value"
-                  ],
-                  "expression": "name.component[Given].value=:(levenshtein|$input.name?.component[Given].value)<3",
-                  "_id": "flta56397d3f523-431b-b5e4-42ff8f929e10",
-                  "$$hashKey": "object:4254"
-              },
-              {
-                  "when": [
-                      "name?.component[Family].value"
-                  ],
-                  "expression": "name.component[Family].value=:(levenshtein|$input.name?.component[Family].value)<3",
-                  "_id": "flt65cedce8eed1-4d36-a1c6-c6ef455e118d",
-                  "$$hashKey": "object:4255"
-              }
-          ],
-          "maxResults": 25,
-          "_id": "blk31f22d3fa0be-46fc-bf03-6c8a909984a0"
-      }
-  ],
-  "scoring": [
-      {
-          "when": [],
-          "m": 0.892,
-          "u": 0.016,
-          "matchWeight": 6.469826789999676,
-          "nonMatchWeight": -5.305970520984385,
-          "property": [
-              "dateOfBirth"
-          ],
-          "whenNull": "Ignore",
-          "required": false,
-          "assert": {
-              "op": "Equal",
-              "transform": [],
-              "assert": []
-          },
-          "_id": "scr42d1d27dfa76-496b-aeaa-11b2288ee6f5"
-      },
-      {
-          "when": [],
-          "m": 0.831,
-          "u": 0.267,
-          "matchWeight": 0.9063491450332424,
-          "nonMatchWeight": -8.867278739709661,
-          "property": [
-              "genderConcept"
-          ],
-          "whenNull": "Ignore",
-          "required": false,
-          "assert": {
-              "op": "Equal",
-              "transform": [],
-              "assert": []
-          },
-          "_id": "scr1ee2d7f80f70-44ad-9c8c-073e70a08dd5"
-      },
-      {
-          "when": [],
-          "m": 0.753,
-          "u": 0.001,
-          "matchWeight": 3.526367846810308,
-          "nonMatchWeight": -2.032843256687017,
-          "property": [
-              "name.component[Given].value"
-          ],
-          "whenNull": "Ignore",
-          "required": false,
-          "assert": {
-              "op": "GreaterThanOrEqual",
-              "value": 0.92,
-              "transform": [
-                  {
-                      "name": "jaro_winkler",
-                      "args": [],
-                      "$$hashKey": "object:4318"
-                  }
-              ],
-              "assert": []
-          },
-          "_id": "scra5c0906938b1-4597-be88-ec18ccf198fe"
-      },
-      {
-          "when": [],
-          "m": 0.73,
-          "u": 0.002,
-          "matchWeight": 3.264047178806863,
-          "nonMatchWeight": -2.6513981537871163,
-          "property": [
-              "name.component[Family].value"
-          ],
-          "whenNull": "Ignore",
-          "required": false,
-          "assert": {
-              "op": "GreaterThanOrEqual",
-              "value": 0.92,
-              "transform": [
-                  {
-                      "name": "jaro_winkler",
-                      "args": [],
-                      "$$hashKey": "object:4324"
-                  }
-              ],
-              "assert": []
-          },
-          "_id": "scrb50fb9b830d5-43fa-8347-07f6592efbe6"
-      },
-      {
-          "when": [],
-          "m": 0.999,
-          "u": 0.822,
-          "matchWeight": 0.2813462841107354,
-          "nonMatchWeight": -7.475733430966397,
-          "property": [
-              "address.component[City].value"
-          ],
-          "whenNull": "Ignore",
-          "required": false,
-          "assert": {
-              "op": "GreaterThanOrEqual",
-              "value": 0.92,
-              "transform": [
-                  {
-                      "name": "jaro_winkler",
-                      "args": [],
-                      "$$hashKey": "object:4330"
-                  }
-              ],
-              "assert": []
-          },
-          "partialWeight": {
-              "transform": [],
-              "name": "similarity",
-              "args": []
-          },
-          "_id": "scrfde0217b441e-4e0f-b6eb-5dbd899ad260"
-      },
-      {
-          "when": [],
-          "m": 0.875,
-          "u": 0.001,
-          "matchWeight": 9.92481250360578,
-          "nonMatchWeight": -5.156985945734813,
-          "property": [
-              "identifier[NID].value"
-          ],
-          "whenNull": "Ignore",
-          "required": false,
-          "assert": {
-              "op": "GreaterThanOrEqual",
-              "value": 0.92,
-              "transform": [
-                  {
-                      "name": "jaro_winkler",
-                      "args": [],
-                      "$$hashKey": "object:4336"
-                  }
-              ],
-              "assert": []
-          },
-          "partialWeight": {
-              "transform": [],
-              "name": "similarity",
-              "args": []
-          },
-          "_id": "scrb6dce8c30416-4d97-a3f6-c1fd49d3ef57"
-      },
-      {
-          "when": [],
-          "m": 0.987,
-          "u": 0.004,
-          "matchWeight": 7.946906274456398,
-          "nonMatchWeight": -6.259562213926988,
-          "property": [
-              "telecom.value"
-          ],
-          "whenNull": "Ignore",
-          "required": false,
-          "assert": {
-              "op": "GreaterThanOrEqual",
-              "value": 0.92,
-              "transform": [
-                  {
-                      "name": "jaro_winkler",
-                      "args": [],
-                      "$$hashKey": "object:4342"
-                  }
-              ],
-              "assert": []
-          },
-          "partialWeight": {
-              "transform": [],
-              "name": "similarity",
-              "args": []
-          },
-          "_id": "scraf538fb82233-43e6-89a2-464ec8cb3884"
-      }
-  ],
-  "uuid": "6fb86eb0-8d19-4813-9f57-e17d2232e0c7",
-  "minScore": -37.74977226179638,
-  "maxScore": 32.319656022823004,
-  "_test": {
-      "limit": 10,
-      "knownDuplicates": []
-  }
+    "$type": "MatchConfiguration",
+    "meta": {
+        "createdBy": "fiddler",
+        "creationTime": "2022-03-10T20:27:57.211Z",
+        "status": "Active",
+        "version": 4,
+        "tags": [
+            {
+                "key": "$mdm.auto-link",
+                "value": "true",
+                "$$hashKey": "object:4213"
+            }
+        ],
+        "updatedTime": "2022-03-10T20:43:25.145Z",
+        "updatedBy": "fiddler",
+        "isReadonly": false
+    },
+    "id": "Test",
+    "evaluationMode": "Percentage",
+    "nonmatchThreshold": 0.5,
+    "matchThreshold": 0.54,
+    "target": [
+        {
+            "resource": "Patient",
+            "ResourceType": "SanteDB.Core.Model.Roles.Patient, SanteDB.Core.Model, Version=2.2.3.0, Culture=neutral, PublicKeyToken=null",
+            "event": [],
+            "$$hashKey": "object:4125"
+        }
+    ],
+    "blocking": [
+        {
+            "useLowerLayer": false,
+            "op": "AndAlso",
+            "filter": [
+                {
+                    "when": [
+                        "identifier[NID].value"
+                    ],
+                    "expression": "identifier[NID].value=:(levenshtein|$input.identifier[NID].value)<3",
+                    "_id": "flt97b3e21bc88a-4b73-8e14-9b42470337ed",
+                    "$$hashKey": "object:4246"
+                }
+            ],
+            "maxResults": 25,
+            "_id": "blk2684cd2141d0-4bb0-98d0-68f82b347bf7"
+        },
+        {
+            "useLowerLayer": false,
+            "op": "OrElse",
+            "filter": [
+                {
+                    "when": [
+                        "name?.component[Given].value"
+                    ],
+                    "expression": "name.component[Given].value=:(levenshtein|$input.name?.component[Given].value)<3",
+                    "_id": "flta56397d3f523-431b-b5e4-42ff8f929e10",
+                    "$$hashKey": "object:4254"
+                },
+                {
+                    "when": [
+                        "name?.component[Family].value"
+                    ],
+                    "expression": "name.component[Family].value=:(levenshtein|$input.name?.component[Family].value)<3",
+                    "_id": "flt65cedce8eed1-4d36-a1c6-c6ef455e118d",
+                    "$$hashKey": "object:4255"
+                }
+            ],
+            "maxResults": 25,
+            "_id": "blk31f22d3fa0be-46fc-bf03-6c8a909984a0"
+        }
+    ],
+    "scoring": [
+        {
+            "when": [],
+            "m": 0.892,
+            "u": 0.016,
+            "matchWeight": 6.469826789999676,
+            "nonMatchWeight": -5.305970520984385,
+            "property": [
+                "dateOfBirth"
+            ],
+            "whenNull": "Ignore",
+            "required": false,
+            "assert": {
+                "op": "Equal",
+                "transform": [],
+                "assert": []
+            },
+            "_id": "scr42d1d27dfa76-496b-aeaa-11b2288ee6f5"
+        },
+        {
+            "when": [],
+            "m": 0.831,
+            "u": 0.267,
+            "matchWeight": 0.9063491450332424,
+            "nonMatchWeight": -8.867278739709661,
+            "property": [
+                "genderConcept"
+            ],
+            "whenNull": "Ignore",
+            "required": false,
+            "assert": {
+                "op": "Equal",
+                "transform": [],
+                "assert": []
+            },
+            "_id": "scr1ee2d7f80f70-44ad-9c8c-073e70a08dd5"
+        },
+        {
+            "when": [],
+            "m": 0.753,
+            "u": 0.001,
+            "matchWeight": 3.526367846810308,
+            "nonMatchWeight": -2.032843256687017,
+            "property": [
+                "name.component[Given].value"
+            ],
+            "whenNull": "Ignore",
+            "required": false,
+            "assert": {
+                "op": "GreaterThanOrEqual",
+                "value": 0.92,
+                "transform": [
+                    {
+                        "name": "jaro_winkler",
+                        "args": [],
+                        "$$hashKey": "object:4318"
+                    }
+                ],
+                "assert": []
+            },
+            "_id": "scra5c0906938b1-4597-be88-ec18ccf198fe"
+        },
+        {
+            "when": [],
+            "m": 0.73,
+            "u": 0.002,
+            "matchWeight": 3.264047178806863,
+            "nonMatchWeight": -2.6513981537871163,
+            "property": [
+                "name.component[Family].value"
+            ],
+            "whenNull": "Ignore",
+            "required": false,
+            "assert": {
+                "op": "GreaterThanOrEqual",
+                "value": 0.92,
+                "transform": [
+                    {
+                        "name": "jaro_winkler",
+                        "args": [],
+                        "$$hashKey": "object:4324"
+                    }
+                ],
+                "assert": []
+            },
+            "_id": "scrb50fb9b830d5-43fa-8347-07f6592efbe6"
+        },
+        {
+            "when": [],
+            "m": 0.875,
+            "u": 0.001,
+            "matchWeight": 9.92481250360578,
+            "nonMatchWeight": -5.156985945734813,
+            "property": [
+                "identifier[NID].value"
+            ],
+            "whenNull": "Ignore",
+            "required": false,
+            "assert": {
+                "op": "GreaterThanOrEqual",
+                "value": 0.92,
+                "transform": [
+                    {
+                        "name": "jaro_winkler",
+                        "args": [],
+                        "$$hashKey": "object:4336"
+                    }
+                ],
+                "assert": []
+            },
+            "partialWeight": {
+                "transform": [],
+                "name": "similarity",
+                "args": []
+            },
+            "_id": "scrb6dce8c30416-4d97-a3f6-c1fd49d3ef57"
+        }
+    ],
+    "uuid": "6fb86eb0-8d19-4813-9f57-e17d2232e0c7",
+    "minScore": -37.74977226179638,
+    "maxScore": 32.319656022823004,
+    "_test": {
+        "limit": 10,
+        "knownDuplicates": []
+    }
 }
