@@ -36,7 +36,7 @@ main() {
     config::remove_config_importer disi-es-index-importer
     config::remove_config_importer disi-openhim-config-importer
     config::remove_config_importer disi-kibana-config-importer
-    config::remove_config_importer kafka-config-importer
+    config::remove_config_importer message-bus-kafka-config-importer
     config::remove_config_importer sante-mpi-config-importer
     config::remove_config_importer hapi-fhir-config-importer
 
@@ -45,7 +45,7 @@ main() {
     config::await_service_removed instant_disi-es-index-importer
     config::await_service_removed instant_disi-openhim-config-importer
     config::await_service_removed instant_disi-kibana-config-importer
-    config::await_service_removed instant_kafka-config-importer
+    config::await_service_removed instant_message-bus-kafka-config-importer
     config::await_service_removed instant_sante-mpi-config-importer
     config::await_service_removed instant_hapi-fhir-config-importer
      
@@ -65,7 +65,7 @@ main() {
     docker::service_destroy disi-es-index-importer
     docker::service_destroy disi-openhim-config-importer
     docker::service_destroy disi-kibana-config-importer
-    docker::service_destroy kafka-config-importer
+    docker::service_destroy message-bus-kafka-config-importer
     docker::service_destroy sante-mpi-config-importer
     docker::service_destroy hapi-fhir-config-importer
 
