@@ -23,7 +23,5 @@ packages:
       name: System Monitoring - Prometheus and Grafana
     - id: dashboard-visualiser-jsreport
       name: Dashboard Visualiser - JS Reports
-    - id: fhir-datastore-helper-hapi-fhir
-      name: Fhir IG importer for hapi-fhir
     - id: client-registry-santempi
       name: Client Registry Package - SanteMPI

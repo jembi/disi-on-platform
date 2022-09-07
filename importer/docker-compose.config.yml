@@ -52,6 +52,17 @@ services:
         "until nc -vz analytics-datastore-elastic-search 9200; do echo ES not running yet; sleep 1; done; curl -XPUT --fail-with-body 'http://analytics-datastore-elastic-search:9200/fhir-report-patient' -u elastic:${ES_ELASTIC-dev_password_only} -H 'Content-Type: application/json' -d@/fhir-report-patient.json"
       ]
 
+  hapi-fhir-config-importer:
+    image: jembi/instantohie-config-importer:v1.0.0
+    environment:
+      HAPI_FHIR_BASE_URL: http://hapi-fhir:8080/fhir
+      FHIR_IG_URL: ${FHIR_IG_URL}
+      NODE_ENV: 'production'
+    configs: 
+      - source: disi-hapi-fhir-fhirConfig.js
+        target: /fhirConfig.js
+    command: sh -c "wait-on -t 60000 http-get://hapi-fhir:8080 && sleep 1 && cd / && npm i axios adm-zip && node /fhirConfig.js"
+
   sante-mpi-config-importer:
     image: jembi/instantohie-config-importer
     deploy:
@@ -70,7 +81,7 @@ services:
         target: /identityDomains.json
     command: sh -c "wait-on -t 60000 http-get://santedb-mpi:8080/api-docs/index.html && node /santeMpiConfig.js && echo 'success';"
 
-  kafka-config-importer:
+  message-bus-kafka-config-importer:
     image: jembi/instantohie-config-importer
     deploy:
       restart_policy:
@@ -106,37 +117,51 @@ services:
 configs:
   disi-openhim-config-openhimConfig.js:
     file: ./openhim/openhimConfig.js
+    name: disi-openhim-config-openhimConfig.js-${disi_openhim_config_openhimConfig_js_DIGEST:?err}
     labels:
       name: disi
   disi-openhim-config-openhim-import.json:
     file: ./openhim/openhim-import.json
+    name: disi-openhim-config-openhim-import.json-${disi_openhim_config_openhim_import_json_DIGEST:?err}
     labels:
       name: disi
   disi-kibana-config-kibana-export.ndjson:
     file: ./kibana/kibana-export.ndjson
+    name: disi-kibana-config-kibana-export.ndjson-${disi_kibana_config_kibana_export_ndjson_DIGEST:?err}
     labels:
       name: disi
   disi-es-index-config-fhir-report-patient.json:
     file: ./indexes/fhir-report-patient.json
+    name: disi-es-index-config-fhir-report-patient.json-${disi_es_index_config_fhir_report_patient_json_DIGEST:?err}
     labels:
       name: disi
   disi-santempi-config-santeMatchingConfig.json:
     file: ./santempi/santeMatchingConfig.json
+    name: disi-santempi-config-santeMatchingConfig.json-${disi_santempi_config_santeMatchingConfig_json_DIGEST:?err}
     labels:
       name: disi
   disi-santempi-config-santeMpiConfig.js:
     file: ./santempi/santeMpiConfig.js
+    name: disi-santempi-config-santeMpiConfig.js-${disi_santempi_config_santeMpiConfig_js_DIGEST:?err}
     labels:
       name: disi
   disi-santempi-config-identityDomains.json:
     file: ./santempi/identityDomains.json
+    name: disi-santempi-config-identityDomains.json-${disi_santempi_config_identityDomains_json_DIGEST:?err}
     labels:
       name: disi
   disi-kafka-kafka.js:
     file: ./kafka/kafka.js
+    name: disi-kafka-kafka.js-${disi_kafka_kafka_js_DIGEST:?err}
     labels:
       name: disi
   disi-jsreport-import.zip:
     file: ./jsreport/export.jsrexport
+    name: disi-jsreport-import.zip-${disi_jsreport_import_zip_DIGEST:?err}
+    labels:
+      name: disi
+  disi-hapi-fhir-fhirConfig.js:
+    file: ./hapi-fhir/fhirConfig.js
+    name: disi-hapi-fhir-fhirConfig.js-${disi_hapi_fhir_fhirConfig_js_DIGEST:?err}
     labels:
       name: disi
