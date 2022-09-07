@@ -1,4 +1,4 @@
-# disi-hiv-poc
+# disi-on-platform
 ## Components
 
 - Elasticsearch <http://localhost:9201/> - (u: elastic p: dev_password_only) - for analytics
