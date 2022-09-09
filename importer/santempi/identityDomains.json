@@ -22,8 +22,7 @@
       "url": "http://openhie.org/fhir/hiv-casereporting/identifier/nid",
       "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE63",
       "namespaceId": "NID",
-      "fullName": "DISI OpenHie HIV NID",
-      "isUnique": false
+      "fullName": "DISI OpenHie HIV NID"
     },
     {
       "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility1",
