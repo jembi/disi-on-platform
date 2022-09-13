@@ -156,6 +156,188 @@
         "name": "Super User"
       },
       "alerts": []
+    },
+    {
+      "methods": [
+        "GET",
+        "POST",
+        "DELETE",
+        "PUT",
+        "OPTIONS",
+        "HEAD",
+        "TRACE",
+        "CONNECT",
+        "PATCH"
+      ],
+      "type": "http",
+      "allow": [],
+      "whitelist": [],
+      "authType": "public",
+      "matchContentTypes": [],
+      "properties": [],
+      "txViewAcl": [],
+      "txViewFullAcl": [],
+      "txRerunAcl": [],
+      "status": "enabled",
+      "rewriteUrls": false,
+      "addAutoRewriteRules": true,
+      "autoRetryEnabled": false,
+      "autoRetryPeriodMinutes": 60,
+      "routes": [
+        {
+          "type": "http",
+          "status": "enabled",
+          "forwardAuthHeader": true,
+          "name": "SanteMPI",
+          "secured": false,
+          "host": "santedb-mpi",
+          "port": 8080,
+          "path": "",
+          "pathTransform": "",
+          "primary": true,
+          "username": "",
+          "password": ""
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "rewriteUrlsConfig": [],
+      "name": "SanteMPI Patient Channel",
+      "urlPattern": "^/fhir/Patient.*$",
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "updatedBy": {
+        "id": "62ce756731725f0013203704",
+        "name": "Super User"
+      },
+      "alerts": []
+    },
+    {
+      "methods": [
+        "GET",
+        "POST",
+        "DELETE",
+        "PUT",
+        "OPTIONS",
+        "HEAD",
+        "TRACE",
+        "CONNECT",
+        "PATCH"
+      ],
+      "type": "http",
+      "allow": [],
+      "whitelist": [],
+      "authType": "public",
+      "matchContentTypes": [],
+      "properties": [],
+      "txViewAcl": [],
+      "txViewFullAcl": [],
+      "txRerunAcl": [],
+      "status": "enabled",
+      "rewriteUrls": false,
+      "addAutoRewriteRules": true,
+      "autoRetryEnabled": false,
+      "autoRetryPeriodMinutes": 60,
+      "routes": [
+        {
+          "type": "http",
+          "status": "enabled",
+          "forwardAuthHeader": false,
+          "name": "SanteMPI",
+          "secured": false,
+          "host": "santedb-mpi",
+          "port": 8080,
+          "path": "",
+          "pathTransform": "",
+          "primary": true,
+          "username": "",
+          "password": ""
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "rewriteUrlsConfig": [],
+      "name": "Sante Auth",
+      "urlPattern": "^/auth/oauth2_token$",
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "updatedBy": {
+        "id": "62ce756731725f0013203704",
+        "name": "Super User"
+      },
+      "alerts": []
+    },
+    {
+      "methods": [
+        "GET",
+        "POST",
+        "DELETE",
+        "PUT",
+        "OPTIONS",
+        "HEAD",
+        "TRACE",
+        "CONNECT",
+        "PATCH"
+      ],
+      "type": "http",
+      "allow": [
+        "instant"
+      ],
+      "whitelist": [],
+      "authType": "private",
+      "matchContentTypes": [],
+      "properties": [],
+      "txViewAcl": [],
+      "txViewFullAcl": [],
+      "txRerunAcl": [],
+      "status": "enabled",
+      "rewriteUrls": false,
+      "addAutoRewriteRules": true,
+      "autoRetryEnabled": false,
+      "autoRetryPeriodMinutes": 60,
+      "routes": [
+        {
+          "type": "http",
+          "status": "enabled",
+          "forwardAuthHeader": false,
+          "name": "HAPI Fhir",
+          "secured": false,
+          "host": "hapi-fhir",
+          "port": 8080,
+          "path": "",
+          "pathTransform": "",
+          "primary": true,
+          "username": "",
+          "password": ""
+        }
+      ],
+      "requestBody": true,
+      "responseBody": true,
+      "rewriteUrlsConfig": [],
+      "name": "HAPI FHIR",
+      "urlPattern": "^/fhir/.*$",
+      "matchContentRegex": null,
+      "matchContentXpath": null,
+      "matchContentValue": null,
+      "matchContentJson": null,
+      "pollingSchedule": null,
+      "tcpHost": null,
+      "tcpPort": null,
+      "updatedBy": {
+        "id": "62ce756731725f0013203704",
+        "name": "Super User"
+      },
+      "alerts": []
     }
   ]
 }
