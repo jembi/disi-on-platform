@@ -28,7 +28,7 @@
 ./build-images.sh
 ./deploy-local.sh <init|up|down|destroy>
 ```
-3. Navigate to http://localhost:9200 (santeMPI) to set up the domain.
+3. Navigate to http://localhost:9200 (santeMPI) to set up the domain (see - <https://help.santesuite.org/installation/quick-start-guide#configure-the-web-access-gateway>).
 4. Wait until everything is started, then bootstrap the metadata by executing: `cd test && yarn bootstrap`
 5. Use postman to execute some transactions, see saved postman collection here `test/CDR.postman_collection.json` OR use the command line: `cd test && yarn && yarn test:1000`
 6. Navigate to <http://localhost:5601/app/kibana#/dashboards> and view the dashboards - also explore data via 'Discover' section.
@@ -45,7 +45,7 @@
 
 The following identity domains are currently supported
 
-```sh
+```json
 {
   "domains": [
     {
@@ -71,7 +71,32 @@ The following identity domains are currently supported
     {
       "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility1",
       "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE64",
-      "name": "DISI OpenHie HIV Facility"
+      "name": "DISI OpenHie HIV Facility1"
+    },    
+    {
+      "url": "https://instantopenhie.org/client2",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE65",
+      "name": "DISI OpenHie Client2"
+    },
+    {
+      "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility2",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE66",
+      "name": "DISI OpenHie HIV Facility2"
+    },    
+    {
+      "url": "https://instantopenhie.org/client3",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE67",
+      "name": "DISI OpenHie Client3"
+    },
+    {
+      "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility3",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE68",
+      "name": "DISI OpenHie HIV Facility3"
+    },
+    {
+      "url": "http://openhie.org/fhir/hiv-casereporting/identifier/OpenMRSID",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE69",
+      "name": "DISI OpenMRS ID"
     }
   ]
 }
