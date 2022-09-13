@@ -10,12 +10,12 @@
     "newman": "^5.2.2"
   },
   "scripts": {
-    "bootstrap": "yarn newman run 'CDR.postman_collection.json' --folder 'Bootstrap'",
-    "test": "yarn newman run 'CDR.postman_collection.json' --folder 'Submit random bundle - full'",
+    "bootstrap": "yarn newman run 'DISI CDR.postman_collection.json' --folder 'Bootstrap'",
+    "test": "yarn newman run 'DISI CDR.postman_collection.json' --folder 'DEMO HIV CBS Submit random bundle - full'",
     "test:1000": "yarn test -n 1000",
-    "test:csv": "yarn newman run 'CDR.postman_collection.json' --folder 'Submit random CSV'",
+    "test:csv": "yarn newman run 'DISI CDR.postman_collection.json' --folder 'Submit random CSV'",
     "test:csv:1000": "yarn test:csv -n 1000",
-    "test:bundle": "yarn newman run 'CDR.postman_collection.json' --folder 'Submit random bundle - full'",
+    "test:bundle": "yarn newman run 'DISI CDR.postman_collection.json' --folder 'DEMO HIV CBS Submit random bundle - full'",
     "test:bundle:1000": "yarn test:bundle -n 1000",
     "bootstrap:qa": "yarn bootstrap --env-var openhimHost=openhimcomms.test.jembi-mercury.org:5001",
     "test:qa": "yarn test --env-var openhimHost=openhimcomms.test.jembi-mercury.org:5001",
