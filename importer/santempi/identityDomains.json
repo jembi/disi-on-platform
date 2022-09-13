@@ -23,7 +23,7 @@
       "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE63",
       "namespaceId": "NID",
       "fullName": "DISI OpenHie HIV NID",
-      "isUnique": false
+      "isUnique": true
     },
     {
       "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility1",
@@ -54,6 +54,12 @@
       "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE68",
       "namespaceId": "FACILITY3",
       "fullName": "DISI OpenHie HIV Facility3"
+    },
+    {
+      "url": "http://openhie.org/fhir/hiv-casereporting/identifier/OpenMRSID",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE69",
+      "namespaceId": "OPENMRSID",
+      "fullName": "DISI OpenMRSID"
     }
   ]
 }
