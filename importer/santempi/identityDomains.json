@@ -60,6 +60,24 @@
       "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE69",
       "namespaceId": "OPENMRSID",
       "fullName": "DISI OpenMRSID"
+    },
+    {
+      "url": "http://openhie.org/fhir/covid19-casereporting/identifier/nid",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE70",
+      "namespaceId": "CARESNID",
+      "fullName": "Cares NID"
+    },
+    {
+      "url": "http://openhie.org/fhir/covid19-casereporting/identifier/passport",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE71",
+      "namespaceId": "CARESPASSPORT",
+      "fullName": "Cares Passport"
+    },
+    {
+      "url": "http://openhie.org/fhir/covid19-casereporting/identifier/facility1",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE72",
+      "namespaceId": "CARESFACILITY",
+      "fullName": "Cares Facility"
     }
   ]
 }
