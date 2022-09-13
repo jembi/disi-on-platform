@@ -44,6 +44,11 @@
       "url": "http://openhie.org/fhir/hiv-casereporting/identifier/facility3",
       "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE68",
       "name": "DISI OpenHie HIV Facility3"
+    },
+    {
+      "url": "http://openhie.org/fhir/hiv-casereporting/identifier/OpenMRSID",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE69",
+      "name": "DISI OpenMRS ID"
     }
   ]
 }
