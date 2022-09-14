@@ -23,6 +23,7 @@ services:
       KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC:-2xx-patient}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
       TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}
+      USE_GOLDEN_ID_IN_FHIR_STORE: ${USE_GOLDEN_ID_IN_FHIR_STORE:-false}
 
   mpi-checker:
     image: jembi/openhim-mediator-mpi-checker:${MPI_CHECKER_VERSION:-latest}

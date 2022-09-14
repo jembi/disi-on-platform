@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "2fceb8b6-e3c8-419b-a3e3-4378d902b00c",
+		"name": "DISI Lab Integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[EMR] Submit lab Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Bundle\",\n  \"id\": \"LabOrderBundle\",\n  \"type\": \"transaction\",\n  \"entry\": [\n    {\n      \"fullUrl\": \"Task/LabOrderTaskExample\",\n      \"resource\": {\n        \"resourceType\": \"Task\",\n        \"id\": \"LabOrderTaskExample\",\n        \"status\": \"requested\",\n        \"intent\": \"order\",\n        \"identifier\": [\n          {\n            \"system\": \"http://openhie.org/fhir/lab-integration/test-order-number\",\n            \"value\": \"123\"\n          }\n        ],\n        \"requester\": {\n          \"reference\": \"Organization/101282\"\n        },\n        \"owner\": {\n          \"reference\": \"Organization/101283\"\n        },\n        \"lastModified\": \"2022-07-22\",\n        \"basedOn\": [\n          {\n            \"reference\": \"ServiceRequest/LabOrderServiceRequestExample\"\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task/LabOrderTaskExample\"\n      }\n    },\n    {\n      \"fullUrl\": \"ServiceRequest/LabOrderServiceRequestExample\",\n      \"resource\": {\n        \"resourceType\": \"ServiceRequest\",\n        \"id\": \"LabOrderServiceRequestExample\",\n        \"status\": \"active\",\n        \"intent\": \"order\",\n        \"subject\": {\n          \"reference\": \"Patient/HIVPatientExample\"\n        },\n        \"authoredOn\": \"2022-07-22\",\n        \"reasonCode\": [\n          {\n            \"coding\": [\n              {\n                \"code\": \"coded-reason\",\n                \"system\": \"http://openhie.org/fhir/lab-integration/vl-reason-code\"\n              }\n            ]\n          }\n        ],\n        \"requester\": {\n          \"reference\": \"Practitioner/FacilityPractitionerExample\"\n        },\n        \"specimen\": [\n          {\n            \"reference\": \"Specimen/LabSpecimenExample\"\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task/LabOrderServiceRequestExample\"\n      }\n    },\n    {\n      \"fullUrl\": \"Practitioner/FacilityPractitionerExample\",\n      \"resource\": {\n        \"resourceType\": \"Practitioner\",\n        \"id\": \"FacilityPractitionerExample\",\n        \"name\": [\n          {\n            \"given\": [\n              \"Peter\"\n            ],\n            \"family\": \"Mvumbi\"\n          }\n        ],\n        \"telecom\": [\n          {\n            \"system\": \"phone\",\n            \"value\": \"+1234567890\"\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task/FacilityPractitionerExample\"\n      }\n    },\n    {\n      \"fullUrl\": \"Patient/HIVPatientExample\",\n      \"resource\": {\n        \"resourceType\": \"Patient\",\n        \"id\": \"HIVPatientExample\",\n        \"meta\": {\n          \"profile\": [\n            \"http://example.org/StructureDefinition/hiv-patient\"\n          ]\n        },\n        \"identifier\": [\n          {\n            \"system\": \"http://openhie.org/fhir/hiv-casereporting/identifier/art\",\n            \"value\": \"ART1234567\"\n          },\n          {\n            \"system\": \"http://openhie.org/fhir/hiv-casereporting/identifier/passport\",\n            \"value\": \"PASSPORT1234567\"\n          },\n          {\n            \"system\": \"http://openhie.org/fhir/hiv-casereporting/identifier/nid\",\n            \"value\": \"NAT1234567\"\n          },\n          {\n            \"value\": \"EMR1234567\",\n            \"system\": \"http://openhie.org/fhir/hiv-casereporting/identifier/facility1\"\n          }\n        ],\n        \"extension\": [\n          {\n            \"url\": \"http://hl7.org/fhir/StructureDefinition/patient-genderIdentity\",\n            \"valueCodeableConcept\": {\n              \"coding\": [\n                {\n                  \"code\": \"male\"\n                }\n              ]\n            }\n          },\n          {\n            \"url\": \"http://example.org/StructureDefinition/key-population\",\n            \"valueCodeableConcept\": {\n              \"coding\": [\n                {\n                  \"code\": \"transgender\"\n                }\n              ]\n            }\n          }\n        ],\n        \"active\": true,\n        \"name\": [\n          {\n            \"use\": \"official\",\n            \"given\": [\n              \"Jane\"\n            ],\n            \"family\": \"Smith\"\n          }\n        ],\n        \"maritalStatus\": {\n          \"coding\": [\n            {\n              \"code\": \"M\",\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-MaritalStatus\"\n            }\n          ]\n        },\n        \"gender\": \"female\",\n        \"birthDate\": \"1986-06-04\",\n        \"telecom\": [\n          {\n            \"system\": \"phone\",\n            \"value\": \"+27825556666\"\n          }\n        ],\n        \"address\": [\n          {\n            \"country\": \"South Africa\",\n            \"state\": \"Western Province\",\n            \"district\": \"City of Cape Town\",\n            \"city\": \"Cape Town\"\n          }\n        ],\n        \"managingOrganization\": {\n          \"reference\": \"Organization/101282\"\n        }\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task/HIVPatientExample\"\n      }\n    },\n    {\n      \"fullUrl\": \"Specimen/LabSpecimenExample\",\n      \"resource\": {\n        \"resourceType\": \"Specimen\",\n        \"id\": \"LabSpecimenExample\",\n        \"type\": {\n          \"coding\": [\n            {\n              \"code\": \"123\",\n              \"system\": \"http://openhie.org/fhir/lab-integration/specimen-type-code\"\n            }\n          ]\n        },\n        \"collection\": {\n          \"collectedDateTime\": \"2022-07-22\"\n        }\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task/LabSpecimenExample\"\n      }\n    }\n  ]\n}\n"
+				},
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[LAB] Query new lab orders",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/Task?modified=ge2022-01-01&requester=Organization/101282&_include=Task:based-on:ServiceRequest&status=requested",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						"Task"
+					],
+					"query": [
+						{
+							"key": "modified",
+							"value": "ge2022-01-01"
+						},
+						{
+							"key": "requester",
+							"value": "Organization/101282"
+						},
+						{
+							"key": "_include",
+							"value": "Task:based-on:ServiceRequest"
+						},
+						{
+							"key": "status",
+							"value": "requested"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[LAB] Query specimen",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/Specimen/{{SpecimenID}}",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						"Specimen",
+						"{{SpecimenID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[LAB] Submit lab result",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Bundle\",\n  \"id\": \"LabResultBundle\",\n  \"type\": \"transaction\",\n  \"entry\": [\n    {\n      \"fullUrl\": \"Task/LabOrderTaskUpdatedExample\",\n      \"resource\": {\n        \"resourceType\": \"Task\",\n        \"id\": \"LabOrderTaskUpdatedExample\",\n        \"status\": \"completed\",\n        \"intent\": \"order\",\n        \"identifier\": [\n          {\n            \"system\": \"http://openhie.org/fhir/lab-integration/test-order-number\",\n            \"value\": \"123\"\n          }\n        ],\n        \"requester\": {\n          \"reference\": \"Organization/101282\"\n        },\n        \"owner\": {\n          \"reference\": \"Organization/101283\"\n        },\n        \"lastModified\": \"2022-07-22\",\n        \"basedOn\": [\n          {\n            \"reference\": \"ServiceRequest/{{ServiceRequestID}}\"\n          }\n        ],\n        \"output\": [\n          {\n            \"type\": {\n              \"coding\": [\n                {\n                  \"code\": \"result\",\n                  \"system\": \"http://openhie.org/fhir/lab-integration/task-output\"\n                }\n              ]\n            },\n            \"valueReference\": {\n              \"reference\": \"DiagnosticReport/DiagnosticReportExample\"\n            }\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"PUT\",\n        \"url\": \"Task/{{TaskID}}\"\n      }\n    },\n    {\n      \"fullUrl\": \"DiagnosticReport/DiagnosticReportExample\",\n      \"resource\": {\n        \"resourceType\": \"DiagnosticReport\",\n        \"id\": \"DiagnosticReportExample\",\n        \"status\": \"final\",\n        \"code\": {\n          \"coding\": [\n            {\n              \"code\": \"10351-5\",\n              \"system\": \"http://loinc.org\"\n            }\n          ]\n        },\n        \"performer\": [\n          {\n            \"reference\": \"Practitioner/LabPractitionerExample\"\n          }\n        ],\n        \"conclusion\": \"Some textual conclusion\",\n        \"result\": [\n          {\n            \"reference\": \"Observation/ViralLoadSuppressionMostRecentTestResultExample\"\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task/DiagnosticReportExample\"\n      }\n    },\n    {\n      \"fullUrl\": \"Practitioner/LabPractitionerExample\",\n      \"resource\": {\n        \"resourceType\": \"Practitioner\",\n        \"id\": \"LabPractitionerExample\",\n        \"name\": [\n          {\n            \"given\": [\n              \"Sarah\"\n            ],\n            \"family\": \"Lacnet\"\n          }\n        ],\n        \"telecom\": [\n          {\n            \"system\": \"phone\",\n            \"value\": \"+1234567890\"\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Task/LabPractitionerExample\"\n      }\n    },\n    {\n      \"fullUrl\": \"Specimen/LabSpecimenUpdatedExample\",\n      \"resource\": {\n        \"resourceType\": \"Specimen\",\n        \"id\": \"LabSpecimenUpdatedExample\",\n        \"type\": {\n          \"coding\": [\n            {\n              \"code\": \"123\",\n              \"system\": \"http://openhie.org/fhir/lab-integration/specimen-type-code\"\n            }\n          ]\n        },\n        \"collection\": {\n          \"collectedDateTime\": \"2022-07-22\"\n        },\n        \"processing\": [\n          {\n            \"timeDateTime\": \"2022-07-22\"\n          }\n        ],\n        \"receivedTime\": \"2022-07-22\"\n      },\n      \"request\": {\n        \"method\": \"PUT\",\n        \"url\": \"Specimen/{{SpecimenID}}\"\n      }\n    },\n    {\n      \"fullUrl\": \"Observation/ViralLoadSuppressionMostRecentTestResultExample\",\n      \"resource\": {\n        \"resourceType\": \"Observation\",\n        \"id\": \"ViralLoadSuppressionMostRecentTestResultExample\",\n        \"meta\": {\n          \"profile\": [\n            \"http://example.org/StructureDefinition/hiv-viral-load-suppression-most-recent-test-result\"\n          ]\n        },\n        \"code\": {\n          \"coding\": [\n            {\n              \"code\": \"VL-MOST-RECENT-TEST-RESULT\",\n              \"system\": \"http://example.org/CodeSystem/cs-hiv-obs-codes\",\n              \"display\": \"VL most recent test result\"\n            }\n          ]\n        },\n        \"status\": \"final\",\n        \"subject\": {\n          \"reference\": \"Patient/{{PatientID}}\"\n        },\n        \"effectiveDateTime\": \"2020-06-09\",\n        \"valueString\": \"29\",\n        \"interpretation\": [\n          {\n            \"coding\": [\n              {\n                \"code\": \"D\",\n                \"system\": \"http://example.org/CodeSystem/cs-vl-interpretation\"\n              }\n            ]\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"POST\",\n        \"url\": \"Observation/ViralLoadSuppressionMostRecentTestResultExample\"\n      }\n    }\n  ]\n}\n"
+				},
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[LAB] Submit lab REJECTION",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"resourceType\": \"Bundle\",\n  \"id\": \"LabResultRejectedBundle\",\n  \"type\": \"transaction\",\n  \"entry\": [\n    {\n      \"fullUrl\": \"Task/LabOrderTaskRejectedExample\",\n      \"resource\": {\n        \"resourceType\": \"Task\",\n        \"id\": \"LabOrderTaskRejectedExample\",\n        \"status\": \"rejected\",\n        \"statusReason\": {\n          \"coding\": [\n            {\n              \"code\": \"some-reason\",\n              \"system\": \"http://openhie.org/fhir/lab-integration/status-reason\",\n              \"display\": \"Some rejection reason\"\n            }\n          ]\n        },\n        \"intent\": \"order\",\n        \"identifier\": [\n          {\n            \"system\": \"http://openhie.org/fhir/lab-integration/test-order-number\",\n            \"value\": \"123\"\n          }\n        ],\n        \"requester\": {\n          \"reference\": \"Organization/101282\"\n        },\n        \"owner\": {\n          \"reference\": \"Organization/101283\"\n        },\n        \"lastModified\": \"2022-08-01\",\n        \"basedOn\": [\n          {\n            \"reference\": \"ServiceRequest/{{ServiceRequestID}}\"\n          }\n        ]\n      },\n      \"request\": {\n        \"method\": \"PUT\",\n        \"url\": \"Task/{{TaskID}}\"\n      }\n    }\n  ]\n}\n"
+				},
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[EMR] Query new lab results",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/Task?owner=Organization/101283&status=completed",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						"Task"
+					],
+					"query": [
+						{
+							"key": "owner",
+							"value": "Organization/101283"
+						},
+						{
+							"key": "status",
+							"value": "completed"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[EMR] Query REJECTED lab results",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/Task?owner=Organization/101283&status=rejected",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						"Task"
+					],
+					"query": [
+						{
+							"key": "owner",
+							"value": "Organization/101283"
+						},
+						{
+							"key": "status",
+							"value": "rejected"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[EMR] Query diagnostic report",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/DiagnosticReport/{{DiagnosticReportID}}",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						"DiagnosticReport",
+						"{{DiagnosticReportID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[EMR] Query observation",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/fhir+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Custom test",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://oh-route.gicsandbox.org/fhir/Observation/{{ObsID}}",
+					"protocol": "https",
+					"host": [
+						"oh-route",
+						"gicsandbox",
+						"org"
+					],
+					"path": [
+						"fhir",
+						"Observation",
+						"{{ObsID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TaskID",
+			"value": ""
+		},
+		{
+			"key": "SpecimenID",
+			"value": ""
+		},
+		{
+			"key": "PatientID",
+			"value": ""
+		},
+		{
+			"key": "ServiceRequestID",
+			"value": ""
+		},
+		{
+			"key": "DiagnosticReportID",
+			"value": ""
+		},
+		{
+			"key": "ObsID",
+			"value": ""
+		}
+	]
+}
