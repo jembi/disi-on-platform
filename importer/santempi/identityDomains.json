@@ -76,8 +76,20 @@
     {
       "url": "http://openhie.org/fhir/covid19-casereporting/identifier/facility1",
       "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE72",
-      "namespaceId": "CARESFACILITY",
-      "fullName": "Cares Facility"
+      "namespaceId": "CARESFACILITY1",
+      "fullName": "Cares Facility 1"
+    },
+    {
+      "url": "http://openhie.org/fhir/covid19-casereporting/identifier/facility2",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE73",
+      "namespaceId": "CARESFACILITY2",
+      "fullName": "Cares Facility 2"
+    },
+    {
+      "url": "http://openhie.org/fhir/covid19-casereporting/identifier/facility3",
+      "id": "DF5BEC1E-8C41-4FF1-8E65-A39AC1DDAE74",
+      "namespaceId": "CARESFACILITY3",
+      "fullName": "Cares Facility 3"
     }
   ]
 }
