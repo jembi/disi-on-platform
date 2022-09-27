@@ -1,3 +1,4 @@
 # Table of contents
 
-* [Disi On Platform](README.md)
+* [Overview](README.md)
+* [Getting Started](getting-started.md)
