@@ -23,6 +23,7 @@ services:
       KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC:-2xx-patient}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
       TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED:-true}
+      PATIENT_RESOURCES: Encounter,RelatedPerson,Condition,Observation,CarePlan,EpisodeOfCare,Composition,Specimen,ServiceRequest,Immunization,MedicationDispense
       USE_GOLDEN_ID_IN_FHIR_STORE: ${USE_GOLDEN_ID_IN_FHIR_STORE:-false}
 
   mpi-checker:
@@ -48,7 +49,7 @@ services:
       KAFKA_REPROCESSING_TOPIC: ${KAFKA_REPROCESSING_TOPIC:-reprocess}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL:-https://openhim-core:8080}
       KAFKA_PARTITION: ${KAFKA_PARTITION:-0}
-      OPENHIM_TRANSACTION_URL: ${OPENHIM_TRANSAWCTION_URL:-http://openhim-core:5001}
+      OPENHIM_TRANSACTION_URL: ${OPENHIM_TRANSACTION_URL:-http://openhim-core:5001}
       OPENHIM_PASSWORD: ${OPENHIM_ROOT_PASSWORD:-instant101}
       # Temporary Env var until OpenHIM SSL is set up. Can be removed in Prod
       NODE_TLS_REJECT_UNAUTHORIZED: ${NODE_TLS_REJECT_UNAUTHORIZED:-0}

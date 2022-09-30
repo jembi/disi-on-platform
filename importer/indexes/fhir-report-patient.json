@@ -101,6 +101,13 @@
           }
         }
       },
+      "hivCare": {
+        "properties": {
+          "dateOfLatestClinicalVisit": { "type": "date" },
+          "nextVisitdate": { "type": "date" },
+          "artDispensedQuantityDays": { "type": "integer" }
+        }
+      },
       "hivDiagnosis": {
         "properties": {
           "hivPosDate": { "type": "date" },

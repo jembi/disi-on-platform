@@ -34,6 +34,10 @@
   path.config: '/usr/share/logstash/pipeline/fhir-care-plan.logstash.conf'
   queue.type: persisted
   queue.max_bytes: 10gb
+- pipeline.id: fhir-medication-dispense
+  path.config: '/usr/share/logstash/pipeline/fhir-medication-dispense.logstash.conf'
+  queue.type: persisted
+  queue.max_bytes: 10gb
 - pipeline.id: csv-import
   path.config: '/usr/share/logstash/pipeline/csv-import.logstash.conf'
   queue.type: persisted
