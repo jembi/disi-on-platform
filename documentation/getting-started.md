@@ -4,6 +4,7 @@
 
 To deploy the CDR locally follow the steps below
 
+* Clone the [GitHub repository for the project](https://github.com/jembi/disi-on-platform).
 * In your terminal, navigate to the project root directory and run the command `./get-cli.sh` to download the [platform-cli](https://app.gitbook.com/o/lTiMw1wKTVQEjepxV4ou/s/TwrbQZir3ZdvejunAFia/) executable for your operating system`[linux|windows|macos]` .
 * The first step downloads three executable files `platform-linux | platform-macos | platform.ex` . Edit the command in the `deploy-local.sh` file. It should have executable suitable for your operating system like below
 
