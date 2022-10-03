@@ -1,0 +1,114 @@
+# Remote deployment
+
+{% hint style="info" %}
+One can make use of the platform's Ansible and Terraform scripts for setting up the remote server. Docker swarm has to be initiated on the server.
+{% endhint %}
+
+Remote deployments are done via `ssh.`Ensure the ssh key to be used has been added to the server and follow the steps below:
+
+#### 1. Edit  the following fields in .env.\*:
+
+\- OPENHIM\_CORE\_MEDIATOR\_HOSTNAME_= \<OPENHIM\_SUBDOMAIN> (default localhost)_\
+_-_ DOMAIN\_NAME= _\<DOMAIN\_NAME> of remote server_\
+_-_ SUBDOMAINS= _\<SUBDOMAINS OF ALL EXPOSED SERVICES>_&#x20;
+
+{% hint style="info" %}
+You may need to update the memory and CPU limits for the services according to the server's spec.
+{% endhint %}
+
+Example
+
+```
+OPENHIM_CORE_MEDIATOR_HOSTNAME=openhimcomms.domain.com
+DOMAIN_NAME=qa.disi.gicsandbox.org
+SUBDOMAINS=openhimcomms.domain.com,openhimcore.domain.com,openhimconsole.domain.com,kibana.domain.com,reports.domain.com,santempi.domain.com,santewww.domain.com
+```
+
+#### 2. Run the following command to deploy:&#x20;
+
+```
+DOCKER_HOST=ssh://<username>@<host> ./deploy-qa.sh init
+```
+
+* `username` - user of the remote server with ssh key
+* `host` - is the domain name or the IP address of the remote server.
+
+To verify success of deployment, one can ssh into the server and run the command `docker service ls`. This should list out the services deployed.
+
+* instant\_analytics-datastore-elastic-search
+* instant\_dashboard-visualiser-jsreport
+* instant\_dashboard-visualiser-kibana
+* instant\_data-mapper-logstash
+* instant\_hapi-fhir
+* instant\_kafdrop
+* instant\_kafka
+* instant\_kafka-minion
+* instant\_mongo-1
+* instant\_mpi-checker
+* instant\_mpi-updater
+* instant\_openhim-console
+* instant\_openhim-core
+* instant\_postgres-1
+* instant\_reprocess-mediator
+* instant\_santedb-mpi
+* instant\_santedb-www
+* instant\_santempi-psql-1
+* instant\_zookeeper-1
+* instant\_reverse-proxy-nginx
+* instant\_prometheus-kafka-adapter
+* instant\_zookeeper-1
+* instant\_kafdrop
+* instant\_grafana
+
+#### Accessing the servers
+
+The following services can accessed using the domain and subdomains set in **.env** file
+
+*   **OpenHIM Console**   - `https://openhimconsole.domain.com`
+
+    `Credentials`
+
+    * `username` - `root@openhim.org`
+    * `password` - `instant101`
+*   **OpenHIM Core** `- https://openhimcore.<DOMAIN_NAME>`
+
+    `Credentials`
+
+    * `Authorization` - `Custom test`
+*   **Kibana** - `https://kibana.<DOMAIN NAME>`
+
+    `Credentials`
+
+    * `username` - `elastic`
+    * `password` - `dev_password_only`
+*   **Js Reports** - `https://reports.<DOMAIN_NAME>`
+
+    `Credentials`
+
+    * `username` - `admin`
+    * `password` - `dev_password_only`
+*   **Sante MPI** - `https://santempi.<DOMAIN_NAME>`
+
+    `Credentials`
+
+    * One needs to get an access token using the following path `/auth/oauth2_token` by sending a form with the following fields:
+      * `grant_type=client_credentials`
+      * `scope=*`
+      * `client_id=<SANTE_CLIENT_ID>` specified in the **.env** file
+      * `client_registry=<SANTE_CLIENT_SECRET>` specified in the **.env** file
+      * `resource=oath2_token`&#x20;
+    * `Authorization: Bearer res_access_token`
+*   **Sante Web** - `https://santewww.<DOMAIN_NAME>`
+
+    `Credentials`
+
+    * `username` - `Administrator`
+    * `password` - `Mohawk123`&#x20;
+
+#### Testing
+
+HIV data can be sent to the OpenHIM Core, and the data can then be visualised in Kibana and JsReport. Test scripts are available in the test folder. Edit the `openhimHost` value in the `test/package.json.`The value should be the url of the OpenHIM Core. To send data, run the following command
+
+`yarn bootstrap:qa && yarn test:qa`
+
+Alternatively one can import the `DISI CDR.postman_collection.json` and use the [Postman Client](https://www.postman.com/).

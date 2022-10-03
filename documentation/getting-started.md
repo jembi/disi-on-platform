@@ -4,6 +4,7 @@
 
 To deploy the CDR locally follow the steps below
 
+* Clone the [GitHub repository for the project](https://github.com/jembi/disi-on-platform).
 * In your terminal, navigate to the project root directory and run the command `./get-cli.sh` to download the [platform-cli](https://app.gitbook.com/o/lTiMw1wKTVQEjepxV4ou/s/TwrbQZir3ZdvejunAFia/) executable for your operating system`[linux|windows|macos]` .
 * The first step downloads three executable files `platform-linux | platform-macos | platform.ex` . Edit the command in the `deploy-local.sh` file. It should have executable suitable for your operating system like below
 
@@ -33,17 +34,17 @@ The following options can be passed to the `./deploy-local.sh` command&#x20;
 
 #### Accessing the services
 
-Below are the urls for accessing the services
+Below are the urls and credentials for accessing the services
 
-* OpenHIM console - `http://localhost:9000`
-* OpenHIM core - `http://localhost:5001`
-* Kibana - `http://localhost:5601`
-* Jsreport - `http://localhost:5488`
-* Sante MPI - `http://localhost:9200`
+* OpenHIM console - `http://localhost:9000 -u root@openhim.org -p instant101`
+* OpenHIM core - `http://localhost:5001 Authorization: Custom test`
+* Kibana - `http://localhost:5601 -u elastic -p dev_password_only`
+* Jsreport - `http://localhost:5488 -u admin -p dev_password_only`
+* Sante MPI - `http://localhost:9200 -u administrator -p Mohawk123`
 
 #### Testing
 
-Navigate to the test folder and run the following command `yarn && yarn bootstrap && yarn test`. Alternatively, one can import the postman collection in the test folder and use postman for sending HIV case reports. The data that is sent through can be seen on `Kibana` and `Js Reports`.
+Navigate to the test folder and run the following command `yarn && yarn bootstrap && yarn test`. Alternatively, one can import the postman collection in the test folder and use postman for sending HIV case reports. The data that is sent through can be seen on `Kibana` and `Jseport`.
 
 
 
