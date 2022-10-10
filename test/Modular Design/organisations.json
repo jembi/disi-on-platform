@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Reporting Facility 1A",
+    "id": "HIVOrganizationExample",
+    "hfuid": "HF000001"
+  },
+  {
+    "name": "Reporting Facility 3A",
+    "id": "HIVOrganizationExample2",
+    "hfuid": "HF000002"
+  },
+  {
+    "name": "Reporting Facility 5A",
+    "id": "HIVOrganizationExample3",
+    "hfuid": "HF000003"
+  },
+  {
+    "name": "Reporting Facility 5C",
+    "id": "HIVOrganizationExample4",
+    "hfuid": "HF000004"
+  },
+  {
+    "name": "Reporting Facility 5D",
+    "id": "HIVOrganizationExample5",
+    "hfuid": "HF000005"
+  },
+  {
+    "name": "Reporting Facility 5F",
+    "id": "HIVOrganizationExample6",
+    "hfuid": "HF000006"
+  },
+  {
+    "name": "Reporting Facility HIV-DASHBOARD",
+    "id": "HIVOrganizationExample7",
+    "hfuid": "HF000007"
+  }
+]
