@@ -51,7 +51,6 @@ main() {
 
     log info "Restarting HAPI FHIR.."
     try "docker service scale instant_hapi-fhir=0" "Error scaling down hapi-fhir to update the IG"
-    sleep 10
     try "docker service scale instant_hapi-fhir=$HAPI_FHIR_INSTANCES" "Error scaling up hapi-fhir to update the IG"
 
     log info "Removing stale configs..."
