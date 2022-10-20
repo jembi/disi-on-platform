@@ -1,6 +1,6 @@
 'use strict'
 
-const axios = require('axios').default
+const axios = require('axios')
 const AdmZip = require('adm-zip')
 
 const HAPI_FHIR_BASE_URL = process.env.HAPI_FHIR_BASE_URL
