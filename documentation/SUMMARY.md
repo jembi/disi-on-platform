@@ -10,3 +10,4 @@
   * [Locating Issues](troubleshooting-and-monitoring/locating-issues.md)
   * [Backup and Restore](troubleshooting-and-monitoring/backup-and-restore.md)
 * [Postman Collections](postman-collections.md)
+* [Sante MPI Configuration](sante-mpi-configuration.md)
