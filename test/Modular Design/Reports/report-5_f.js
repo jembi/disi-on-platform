@@ -30,9 +30,9 @@ const JSReport_VARIABLES = [
 function main() {
   let report = new REPORT(FEATURE_NAME);
 
-  REPORT.authenticateAndLoadReportDatasets(function(dataSetsCallback) {
+  report.authenticateAndLoadReportDatasets(function(dataSetsCallback) {
     if (dataSetsCallback) {
-      const DATA = REPORT.getDataSets();
+      const DATA = report.getDataSets();
 
       if (DATA != null) {
         if (DATA.length == 2) {
@@ -109,7 +109,7 @@ function prepareData(reportDataSets) {
 }
 
 function generateInputDataHash(callback) {
-  var inputDataTable = ENCOUNTERS.REPORTING_FACILITY_ORG_ID;
+  var inputDataTable = ENCOUNTERS.reportingFacilityOrgId;
   inputDataTable +=
     "|firstName  |" + ENCOUNTERS.Data.Registration.FIRST_NAME + "|\n";
   inputDataTable +=
@@ -193,17 +193,17 @@ function generateInputDataHash(callback) {
 
   inputDataTable +=
     "|vlDate  |" +
-    ENCOUNTERS.Data.VIRAL_SUPPRESSION.BASELINE.COLLECTION_DATE +
+    ENCOUNTERS.Data.ViralSuppression.BASELINE.COLLECTION_DATE +
     "|\n";
   inputDataTable +=
-    "|vlResult  |" + ENCOUNTERS.Data.VIRAL_SUPPRESSION.BASELINE.RESULT + "|\n";
+    "|vlResult  |" + ENCOUNTERS.Data.ViralSuppression.BASELINE.RESULT + "|\n";
   inputDataTable +=
     "|vlInterpretation  |" +
-    ENCOUNTERS.Data.VIRAL_SUPPRESSION.BASELINE.RESULT_INTERPRETATION +
+    ENCOUNTERS.Data.ViralSuppression.BASELINE.RESULT_INTERPRETATION +
     "|\n";
   inputDataTable +=
     "|currVLSupression  |" +
-    ENCOUNTERS.Data.VIRAL_SUPPRESSION.CURRENT_SUPRESSION_STATUS +
+    ENCOUNTERS.Data.ViralSuppression.CURRENT_SUPRESSION_STATUS +
     "|\n";
 
   callback(inputDataTable);

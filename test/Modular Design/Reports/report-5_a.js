@@ -40,9 +40,9 @@ const JSReport_VARIABLES = [
 function main() {
   let report = new REPORT(FEATURE_NAME);
 
-  REPORT.authenticateAndLoadReportDatasets(function(dataSetsCallback) {
+  report.authenticateAndLoadReportDatasets(function(dataSetsCallback) {
     if (dataSetsCallback) {
-      const DATA = REPORT.getDataSets();
+      const DATA = report.getDataSets();
 
       if (DATA != null) {
         if (DATA.length == 2) {
@@ -110,7 +110,7 @@ function prepareData(reportDataSets) {
 }
 
 function generateInputDataHash(callback) {
-  var inputDataTable = ENCOUNTERS.REPORTING_FACILITY_ORG_ID;
+  var inputDataTable = ENCOUNTERS.reportingFacilityOrgId;
   inputDataTable +=
     "|firstName  |" + ENCOUNTERS.Data.Registration.FIRST_NAME + "|\n";
   inputDataTable +=
