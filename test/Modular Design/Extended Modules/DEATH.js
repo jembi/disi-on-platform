@@ -1,32 +1,53 @@
-const Encounters = require("../Encounters");
-const Helper = require("./Helper");
+const ENCOUNTERS = require("../Encounters");
+const HELPER = require("./Helper");
 
-class Death{
-    #helper = null;
+class Death {
+  #helper = null;
 
-    constructor(args){
-        this.#setHelper(new Helper(args));
-    }
+  constructor(args) {
+    this.#setHelper(new HELPER(args));
+  }
 
-    #getHelper(){
-        return this.#helper;
-    }
-    #setHelper(data){
-        this.#helper = data;
-    }
+  #getHelper() {
+    return this.#helper;
+  }
+  #setHelper(data) {
+    this.#helper = data;
+  }
 
-    setData()
-    {
-        const base = this.#getHelper().getBaseModule();
-        const row = this.#getHelper().getRowInt();
-        const i = this.#getHelper().getEncounterIndex();
-        const inputData = this.#getHelper().getInputData();
+  setData() {
+    const BASE = this.#getHelper().getBaseModule();
+    const ROW = this.#getHelper().getRowInt();
+    const INDEX = this.#getHelper().getEncounterIndex();
+    const INPUT_DATA = this.#getHelper().getInputData();
 
-        Encounters.Data.Death.DATE_OF_DEATH = base.getInputDate(inputData, row, i, 58);
-        Encounters.Data.Death.AGE_AT_DEATH = base.getInputFieldValue(inputData, row, i, 59, false);
-        Encounters.Data.Death.DATE_OF_LAST_CLINICAL_VISIT_BEFORE_DEATH = base.getInputDate(inputData, row, i, 60);
-        Encounters.Data.Death.CAUSE_OF_DEATH = base.getInputFieldValue(inputData, row, i, 61, false);
-    }
+    ENCOUNTERS.Data.Death.DATE_OF_DEATH = BASE.getInputDate(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      58
+    );
+    ENCOUNTERS.Data.Death.AGE_AT_DEATH = BASE.getInputFieldValue(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      59,
+      false
+    );
+    ENCOUNTERS.Data.Death.DATE_OF_LAST_CLINICAL_VISIT_BEFORE_DEATH = BASE.getInputDate(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      60
+    );
+    ENCOUNTERS.Data.Death.CAUSE_OF_DEATH = BASE.getInputFieldValue(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      61,
+      false
+    );
+  }
 }
 
 module.exports = Death;

@@ -1,35 +1,68 @@
-const Encounters = require("../Encounters");
-const Helper = require("./Helper");
+const ENCOUNTERS = require("../Encounters");
+const HELPER = require("./Helper");
 
-class CD4{
-    #helper = null;
+class CD4 {
+  #helper = null;
 
-    constructor(args){
-        this.#setHelper(new Helper(args));
-    }
+  constructor(args) {
+    this.#setHelper(new HELPER(args));
+  }
 
-    #getHelper(){
-        return this.#helper;
-    }
-    #setHelper(data){
-        this.#helper = data;
-    }
+  #getHelper() {
+    return this.#helper;
+  }
+  #setHelper(data) {
+    this.#helper = data;
+  }
 
-    setData()
-    {
-        const base = this.#getHelper().getBaseModule();
-        const row = this.#getHelper().getRowInt();
-        const i = this.#getHelper().getEncounterIndex();
-        const inputData = this.#getHelper().getInputData();
+  setData() {
+    const BASE = this.#getHelper().getBaseModule();
+    const ROW = this.#getHelper().getRowInt();
+    const INDEX = this.#getHelper().getEncounterIndex();
+    const INPUT_DATA = this.#getHelper().getInputData();
 
-        Encounters.Data.CD4.BASELINE.COLLECTION_DATE = base.getInputDate(inputData, row, i, 39);
-        Encounters.Data.CD4.BASELINE.RESULT = base.getInputFieldValue(inputData, row, i, 40, false);
-        Encounters.Data.CD4.BASELINE.PERCENTAGE = base.getInputFieldValue(inputData, row, i, 41, false);
+    ENCOUNTERS.Data.CD4.BASELINE.COLLECTION_DATE = BASE.getInputDate(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      39
+    );
+    ENCOUNTERS.Data.CD4.BASELINE.RESULT = BASE.getInputFieldValue(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      40,
+      false
+    );
+    ENCOUNTERS.Data.CD4.BASELINE.PERCENTAGE = BASE.getInputFieldValue(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      41,
+      false
+    );
 
-        Encounters.Data.CD4.SUBSEQUENT.ALL_COLLECTION_DATES = base.getInputDate(inputData, row, i, 42);
-        Encounters.Data.CD4.SUBSEQUENT.ALL_RESULTS = base.getInputFieldValue(inputData, row, i, 43, false);
-        Encounters.Data.CD4.SUBSEQUENT.ALL_PERCENTAGES = base.getInputFieldValue(inputData, row, i, 44, false);
-    }
+    ENCOUNTERS.Data.CD4.Subsequent.ALL_COLLECTION_DATES = BASE.getInputDate(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      42
+    );
+    ENCOUNTERS.Data.CD4.Subsequent.ALL_RESULTS = BASE.getInputFieldValue(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      43,
+      false
+    );
+    ENCOUNTERS.Data.CD4.Subsequent.ALL_PERCENTAGES = BASE.getInputFieldValue(
+      INPUT_DATA,
+      ROW,
+      INDEX,
+      44,
+      false
+    );
+  }
 }
 
 module.exports = CD4;
