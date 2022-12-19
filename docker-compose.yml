@@ -12,3 +12,24 @@ services:
     environment:
       ES_ELASTIC: ${ES_ELASTIC}
       LS_JAVA_OPTS: ${LS_JAVA_OPTS}
+
+  reprocess-mediator:
+    image: jembi/reprocess-mediator:${REPROCESS_MEDIATOR_VERSION}
+    environment:
+      ES_URL: ${ES_URL}
+      ES_PIT_KEEP_ALIVE: ${ES_PIT_KEEP_ALIVE}
+      KAFKA_CONCURRENCY: ${KAFKA_CONCURRENCY}
+      TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED}
+      KAFKA_URL: ${KAFKA_URL}
+      KAFKA_REPROCESSING_TOPIC: ${KAFKA_REPROCESSING_TOPIC}
+      OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL}
+      KAFKA_PARTITION: ${KAFKA_PARTITION}
+      OPENHIM_TRANSACTION_URL: ${OPENHIM_TRANSACTION_URL}
+      OPENHIM_PASSWORD: ${OPENHIM_ROOT_PASSWORD}
+      # Temporary Env var until OpenHIM SSL is set up. Can be removed in Prod
+      NODE_TLS_REJECT_UNAUTHORIZED: ${NODE_TLS_REJECT_UNAUTHORIZED}
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
