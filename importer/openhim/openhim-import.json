@@ -163,7 +163,7 @@
       "alerts": []
     },
     {
-      "methods": ["POST"],
+      "methods": ["GET", "POST"],
       "type": "http",
       "allow": ["instant"],
       "whitelist": [],
