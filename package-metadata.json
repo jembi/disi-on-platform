@@ -4,10 +4,8 @@
   "name": "DISI",
   "type": "infrastructure",
   "dependencies": [
+    "mpi-mediator",
     "client-registry-santempi",
-    "interoperability-layer-openhim",
-    "fhir-datastore-hapi-fhir",
-    "message-bus-kafka",
     "dashboard-visualiser-kibana",
     "dashboard-visualiser-jsreport"
   ],
@@ -36,12 +34,12 @@
 
     "FHIR_SERVER_URL": "http://hapi-fhir:8080",
     "FHIR_IG_URL": "https://openhie.github.io/hiv-ig",
-    
+
     "LS_JAVA_OPTS": "-Xmx2g -Xms2g",
     "ES_URL": "http://instant_analytics-datastore-elastic-search:9200",
     "ES_ELASTIC": "dev_password_only",
     "ES_PIT_KEEP_ALIVE": "5m",
-    
+
     "OPENHIM_TRANSACTION_URL": "http://openhim-core:5001",
     "OPENHIM_MEDIATOR_URL": "https://openhim-core:8080",
     "OPENHIM_ROOT_PASSWORD": "instant101",
