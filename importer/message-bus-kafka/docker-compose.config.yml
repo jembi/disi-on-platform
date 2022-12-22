@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  message-bus-kafka-config-importer:
+    image: jembi/instantohie-config-importer
+    deploy:
+      restart_policy:
+        condition: none
+    environment:
+      KAFDROP_HOST: ${KAFDROP_HOST}
+      KAFDROP_PORT: ${KAFDROP_PORT}
+    command: sh -c "wait-on -t 60000 http-get://kafdrop:9013/topic && ls && pwd && node /kafka.js && echo 'success';"
+    configs:
+      - source: disi-kafka-kafka.js
+        target: /kafka.js
+
+configs:
+  disi-kafka-kafka.js:
+    file: ./kafka.js
+    name: disi-kafka-kafka.js-${disi_kafka_kafka_js_DIGEST:?err}
+    labels:
+      name: disi

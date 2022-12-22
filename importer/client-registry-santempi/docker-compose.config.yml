@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  sante-mpi-config-importer:
+    image: jembi/instantohie-config-importer
+    deploy:
+      restart_policy:
+        condition: none
+    environment:
+      CLIENT_REGISTRY_HOST: ${CLIENT_REGISTRY_HOST}
+      CLIENT_REGISTRY_PORT: ${CLIENT_REGISTRY_PORT}
+      CLIENT_REGISTRY_IDENTITY_DOMAIN: ${CLIENT_REGISTRY_IDENTITY_DOMAIN}
+    configs:
+      - source: disi-santempi-config-santeMatchingConfig.json
+        target: /santeMatchingConfig.json
+      - source: disi-santempi-config-santeMpiConfig.js
+        target: /santeMpiConfig.js
+      - source: disi-santempi-config-identityDomains.json
+        target: /identityDomains.json
+    command: sh -c "wait-on -t 60000 http-get://santedb-mpi:8080/api-docs/index.html && node /santeMpiConfig.js && echo 'success';"
+
+configs:
+  disi-santempi-config-santeMatchingConfig.json:
+    file: ./santeMatchingConfig.json
+    name: disi-santempi-config-santeMatchingConfig.json-${disi_santempi_config_santeMatchingConfig_json_DIGEST:?err}
+    labels:
+      name: disi
+  disi-santempi-config-santeMpiConfig.js:
+    file: ./santeMpiConfig.js
+    name: disi-santempi-config-santeMpiConfig.js-${disi_santempi_config_santeMpiConfig_js_DIGEST:?err}
+    labels:
+      name: disi
+  disi-santempi-config-identityDomains.json:
+    file: ./identityDomains.json
+    name: disi-santempi-config-identityDomains.json-${disi_santempi_config_identityDomains_json_DIGEST:?err}
+    labels:
+      name: disi

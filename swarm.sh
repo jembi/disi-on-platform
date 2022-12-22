@@ -1,79 +1,156 @@
 #!/bin/bash
 
-# Constants
-readonly ACTION=$1
-readonly MODE=$2
+declare ACTION=""
+declare MODE=""
+declare COMPOSE_FILE_PATH=""
+declare UTILS_PATH=""
+declare service_importer_names=()
+declare service_names=()
+declare all_services=()
 
-COMPOSE_FILE_PATH=$(
-  cd "$(dirname "${BASH_SOURCE[0]}")" || exit
-  pwd -P
-)
-readonly COMPOSE_FILE_PATH
+function init_vars() {
+  ACTION=$1
+  MODE=$2
 
-# Import libraries
-ROOT_PATH="${COMPOSE_FILE_PATH}/.."
-. "${ROOT_PATH}/utils/config-utils.sh"
-. "${ROOT_PATH}/utils/docker-utils.sh"
-. "${ROOT_PATH}/utils/log.sh"
+  COMPOSE_FILE_PATH=$(
+    cd "$(dirname "${BASH_SOURCE[0]}")" || exit
+    pwd -P
+  )
 
-main() {
+  UTILS_PATH="${COMPOSE_FILE_PATH}/../utils"
+
+  service_importer_names=(
+    "disi-jsreport-config-importer"
+    "disi-es-index-importer"
+    "disi-openhim-config-importer"
+    "disi-kibana-config-importer"
+    "message-bus-kafka-config-importer"
+    "sante-mpi-config-importer"
+    "hapi-fhir-config-importer"
+  )
+  service_names=(
+    "data-mapper-logstash"
+    "mpi-updater"
+    "mpi-checker"
+    "reprocess-mediator"
+  )
+  all_services=(
+    "${service_names[@]}"
+    "${service_importer_names[@]}"
+  )
+
+  readonly ACTION
+  readonly MODE
+  readonly COMPOSE_FILE_PATH
+  readonly UTILS_PATH
+  readonly service_names
+  readonly service_importer_names
+  readonly all_services
+}
+
+# shellcheck disable=SC1091
+function import_sources() {
+  source "${UTILS_PATH}/docker-utils.sh"
+  source "${UTILS_PATH}/config-utils.sh"
+  source "${UTILS_PATH}/log.sh"
+}
+
+function restart_hapi_fhir() {
+  if docker service ps -q instant_openhim-core &>/dev/null; then
+    log info "Restarting HAPI FHIR.."
+    try \
+      "docker service scale instant_hapi-fhir=0" \
+      catch \
+      "Error scaling down hapi-fhir to update the IG"
+    try \
+      "docker service scale instant_hapi-fhir=$HAPI_FHIR_INSTANCES" \
+      catch \
+      "Error scaling up hapi-fhir to update the IG"
+  else
+    log warn "Service 'hapi-fhir' does not appear to be running... Skipping the restart of hapi-fhir"
+  fi
+}
+
+function deploy_importers() {
+  # Run through all the config importers
+  for service_path in "${COMPOSE_FILE_PATH}/importer/"*; do
+    name_service=$(basename "$service_path")
+    # Get config importer service names
+    mapfile -t config_service_names < <(yq '(.services|keys)[]' "$service_path/docker-compose.config.yml")
+
+    config_service_name=${config_service_names[0]}
+
+    # Check if the target service up and running
+    if docker service ps -q instant_openhim-core &>/dev/null; then
+      if [[ "${config_service_name}" != "null" ]]; then
+        (
+          docker::deploy_config_importer "$service_path/docker-compose.config.yml" "${config_service_name}" "disi"
+        ) || {
+          log error "FATAL: Failed to deploy ${config_service_name}"
+        }
+      fi
+    else
+      log warn "Service '$name_service' does not appear to be running... Skipping the deploy of ${config_service_name[*]}"
+    fi
+  done
+}
+
+function initialize_package() {
+  local disi_poc_dev_compose_param=""
+
   if [[ "$MODE" == "dev" ]]; then
     log info "Running DISI POC package in DEV mode"
-    local disiPocDevComposeParam="-c ${COMPOSE_FILE_PATH}/docker-compose.dev.yml"
+    local disi_poc_dev_compose_param="docker-compose.dev.yml"
   else
     log info "Running DISI POC package in PROD mode"
-    local disiPocDevComposeParam=""
   fi
 
-  if [[ "$ACTION" == "init" ||  "$ACTION" == "up" ]]; then
-    config::set_config_digests "$COMPOSE_FILE_PATH"/importer/docker-compose.config.yml
+  (
+    docker::deploy_service "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$disi_poc_dev_compose_param"
+    docker::deploy_sanity "${service_names[@]}"
 
-    try "docker stack deploy -c $COMPOSE_FILE_PATH/importer/docker-compose.config.yml -c $COMPOSE_FILE_PATH/docker-compose.yml $disiPocDevComposeParam instant" "Failed to deploy disi"
+    deploy_importers
 
-    log info "Waiting to give config importers time to run before cleaning up services"
+    restart_hapi_fhir
+  ) || {
+    log error "Failed to deploy DISI package"
+    exit 1
+  }
+}
 
-    config::remove_config_importer disi-jsreport-config-importer
-    config::remove_config_importer disi-es-index-importer
-    config::remove_config_importer disi-openhim-config-importer
-    config::remove_config_importer disi-kibana-config-importer
-    config::remove_config_importer message-bus-kafka-config-importer
-    config::remove_config_importer sante-mpi-config-importer
-    config::remove_config_importer hapi-fhir-config-importer
+function scale_services_down() {
+  for service_name in "${service_names[@]}"; do
+    try \
+      "docker service scale instant_$service_name=0" \
+      catch \
+      "Failed to scale down $service_name"
+  done
+}
 
-    # Ensure config importer is removed
-    config::await_service_removed instant_disi-jsreport-config-importer
-    config::await_service_removed instant_disi-es-index-importer
-    config::await_service_removed instant_disi-openhim-config-importer
-    config::await_service_removed instant_disi-kibana-config-importer
-    config::await_service_removed instant_message-bus-kafka-config-importer
-    config::await_service_removed instant_sante-mpi-config-importer
-    config::await_service_removed instant_hapi-fhir-config-importer
+function destroy_package() {
+  for service_name in "${all_services[@]}"; do
+    docker::service_destroy "$service_name"
+  done
 
-    log info "Restarting HAPI FHIR.."
-    try "docker service scale instant_hapi-fhir=0" "Error scaling down hapi-fhir to update the IG"
-    try "docker service scale instant_hapi-fhir=$HAPI_FHIR_INSTANCES" "Error scaling up hapi-fhir to update the IG"
+  docker::prune_configs "disi"
+}
 
-    log info "Removing stale configs..."
-    config::remove_stale_service_configs "$COMPOSE_FILE_PATH"/importer/docker-compose.config.yml "disi"
-  elif [[ "$ACTION" == "down" ]]; then
-    log info "Scaling down services..."
-    try "docker service scale instant_data-mapper-logstash=0 instant_mpi-updater=0 instant_mpi-checker=0 instant_reprocess-mediator=0" "Error scaling down services"
+main() {
+  init_vars "$@"
+  import_sources
 
-    log info "Done scaling down services"
-  elif [[ "$ACTION" == "destroy" ]]; then
-    docker::service_destroy data-mapper-logstash
-    docker::service_destroy mpi-updater
-    docker::service_destroy mpi-checker
-    docker::service_destroy reprocess-mediator
-    docker::service_destroy disi-jsreport-config-importer
-    docker::service_destroy disi-es-index-importer
-    docker::service_destroy disi-openhim-config-importer
-    docker::service_destroy disi-kibana-config-importer
-    docker::service_destroy message-bus-kafka-config-importer
-    docker::service_destroy sante-mpi-config-importer
-    docker::service_destroy hapi-fhir-config-importer
+  if [[ "${ACTION}" == "init" ]] || [[ "${ACTION}" == "up" ]]; then
+    log info "Running DISI package in single node mode"
 
-    docker::prune_configs "disi"
+    initialize_package
+  elif [[ "${ACTION}" == "down" ]]; then
+    log info "Scaling down DISI"
+
+    scale_services_down
+  elif [[ "${ACTION}" == "destroy" ]]; then
+    log info "Destroying DISI"
+
+    destroy_package
   else
     log error "Valid options are: init, up, down, or destroy"
   fi

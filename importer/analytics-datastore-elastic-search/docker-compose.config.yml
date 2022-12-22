@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  disi-es-index-importer:
+    image: curlimages/curl:7.77.0
+    deploy:
+      restart_policy:
+        condition: none
+    configs:
+      - source: disi-es-index-config-fhir-report-patient.json
+        target: /fhir-report-patient.json
+    command:
+      [
+        'sh',
+        '-c',
+        "until nc -vz analytics-datastore-elastic-search 9200; do echo ES not running yet; sleep 1; done; curl -XPUT --fail-with-body 'http://analytics-datastore-elastic-search:9200/fhir-report-patient' -u elastic:${ES_ELASTIC-dev_password_only} -H 'Content-Type: application/json' -d@/fhir-report-patient.json"
+      ]
+
+configs:
+  disi-es-index-config-fhir-report-patient.json:
+    file: ./fhir-report-patient.json
+    name: disi-es-index-config-fhir-report-patient.json-${disi_es_index_config_fhir_report_patient_json_DIGEST:?err}
+    labels:
+      name: disi

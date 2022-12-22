@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  disi-openhim-config-importer:
+    image: jembi/instantohie-config-importer
+    deploy:
+      restart_policy:
+        condition: none
+    environment:
+      OPENHIM_API_HOSTNAME: 'openhim-core'
+      OPENHIM_API_PORT: 8080
+      OPENHIM_API_USERNAME: 'root@openhim.org'
+      OPENHIM_API_PASSWORD: 'instant101'
+      # Reject unauthorised is only needed if the OpenHIM's SSL is not setup
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+    configs:
+      - source: disi-openhim-config-openhimConfig.js
+        target: /openhimConfig.js
+      - source: disi-openhim-config-openhim-import.json
+        target: /openhim-import.json
+    # This command will only attempt to import the OpenHIM config when the heartbeat responds with a 2xx
+    command: sh -c "wait-on -t 60000 https-get://openhim-core:8080/heartbeat && node /openhimConfig.js"
+
+configs:
+  disi-openhim-config-openhimConfig.js:
+    file: ./openhimConfig.js
+    name: disi-openhim-config-openhimConfig.js-${disi_openhim_config_openhimConfig_js_DIGEST:?err}
+    labels:
+      name: disi
+  disi-openhim-config-openhim-import.json:
+    file: ./openhim-import.json
+    name: disi-openhim-config-openhim-import.json-${disi_openhim_config_openhim_import_json_DIGEST:?err}
+    labels:
+      name: disi
