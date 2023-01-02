@@ -1,5 +1,5 @@
-const MOMENT = require("moment");
-const ENCOUNTERS = require("../../Encounters");
+const MOMENT = require('moment');
+const ENCOUNTERS = require('../../Encounters');
 
 class CumulativeHIVCases {
   #Disaggregation = {
@@ -17,32 +17,20 @@ class CumulativeHIVCases {
     const Month_GROUP = this.#verifyMonthGroup();
 
     switch (ENCOUNTERS.Data.Registration.GENDER) {
-      case "male":
-        this.#Disaggregation.MALE.push(
-          Month_GROUP,
-          ENCOUNTERS.Data.Registration.MRN
-        );
+      case 'male':
+        this.#Disaggregation.MALE.push(Month_GROUP, ENCOUNTERS.Data.Registration.MRN);
 
         break;
-      case "female":
-        this.#Disaggregation.FEMALE.push(
-          Month_GROUP,
-          ENCOUNTERS.Data.Registration.MRN
-        );
+      case 'female':
+        this.#Disaggregation.FEMALE.push(Month_GROUP, ENCOUNTERS.Data.Registration.MRN);
 
         break;
-      case "other":
-        this.#Disaggregation.OTHER.push(
-          Month_GROUP,
-          ENCOUNTERS.Data.Registration.MRN
-        );
+      case 'other':
+        this.#Disaggregation.OTHER.push(Month_GROUP, ENCOUNTERS.Data.Registration.MRN);
 
         break;
-      case "unknown":
-        this.#Disaggregation.UNKNOWN.push(
-          Month_GROUP,
-          ENCOUNTERS.Data.Registration.MRN
-        );
+      case 'unknown':
+        this.#Disaggregation.UNKNOWN.push(Month_GROUP, ENCOUNTERS.Data.Registration.MRN);
 
         break;
       default:
@@ -51,12 +39,12 @@ class CumulativeHIVCases {
   }
 
   #verifyMonthGroup() {
-    const MONTH_YEAR = MOMENT(
-      ENCOUNTERS.Data.HIVDiagnosis.HIV_POSITIVE_DATE
-    ).format("MMM, yyyy");
+    const MONTH_YEAR = MOMENT(ENCOUNTERS.Data.HIVDiagnosis.HIV_POSITIVE_DATE).format(
+      'MMM, yyyy',
+    );
 
     if (MONTH_YEAR != undefined) {
-      if (String(MONTH_YEAR).trim() != "") {
+      if (String(MONTH_YEAR).trim() != '') {
         return MONTH_YEAR;
       } else {
         return null;
