@@ -4,9 +4,9 @@ declare ACTION=""
 declare MODE=""
 declare COMPOSE_FILE_PATH=""
 declare UTILS_PATH=""
-declare service_importer_names=()
-declare service_names=()
-declare all_services=()
+declare SERVICE_IMPORTER_NAMES=()
+declare SERVICE_NAMES=()
+declare ALL_SERVICES=()
 
 function init_vars() {
   ACTION=$1
@@ -19,7 +19,7 @@ function init_vars() {
 
   UTILS_PATH="${COMPOSE_FILE_PATH}/../utils"
 
-  service_importer_names=(
+  SERVICE_IMPORTER_NAMES=(
     "disi-jsreport-config-importer"
     "disi-es-index-importer"
     "disi-openhim-config-importer"
@@ -28,24 +28,24 @@ function init_vars() {
     "sante-mpi-config-importer"
     "hapi-fhir-config-importer"
   )
-  service_names=(
+  SERVICE_NAMES=(
     "data-mapper-logstash"
     "mpi-updater"
     "mpi-checker"
     "reprocess-mediator"
   )
-  all_services=(
-    "${service_names[@]}"
-    "${service_importer_names[@]}"
+  ALL_SERVICES=(
+    "${SERVICE_NAMES[@]}"
+    "${SERVICE_IMPORTER_NAMES[@]}"
   )
 
   readonly ACTION
   readonly MODE
   readonly COMPOSE_FILE_PATH
   readonly UTILS_PATH
-  readonly service_names
-  readonly service_importer_names
-  readonly all_services
+  readonly SERVICE_NAMES
+  readonly SERVICE_IMPORTER_NAMES
+  readonly ALL_SERVICES
 }
 
 # shellcheck disable=SC1091
@@ -76,9 +76,9 @@ function deploy_importers() {
   for service_path in "${COMPOSE_FILE_PATH}/importer/"*; do
     name_service=$(basename "$service_path")
     # Get config importer service names
-    mapfile -t config_service_names < <(yq '(.services|keys)[]' "$service_path/docker-compose.config.yml")
+    mapfile -t config_SERVICE_NAMES < <(yq '(.services|keys)[]' "$service_path/docker-compose.config.yml")
 
-    config_service_name=${config_service_names[0]}
+    config_service_name=${config_SERVICE_NAMES[0]}
 
     # Check if the target service up and running
     if docker service ps -q instant_openhim-core &>/dev/null; then
@@ -107,7 +107,7 @@ function initialize_package() {
 
   (
     docker::deploy_service "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$disi_poc_dev_compose_param"
-    docker::deploy_sanity "${service_names[@]}"
+    docker::deploy_sanity "${SERVICE_NAMES[@]}"
 
     deploy_importers
 
@@ -118,19 +118,8 @@ function initialize_package() {
   }
 }
 
-function scale_services_down() {
-  for service_name in "${service_names[@]}"; do
-    try \
-      "docker service scale instant_$service_name=0" \
-      catch \
-      "Failed to scale down $service_name"
-  done
-}
-
 function destroy_package() {
-  for service_name in "${all_services[@]}"; do
-    docker::service_destroy "$service_name"
-  done
+  docker::service_destroy "${ALL_SERVICES[@]}"
 
   docker::prune_configs "disi"
 }
@@ -146,7 +135,7 @@ main() {
   elif [[ "${ACTION}" == "down" ]]; then
     log info "Scaling down DISI"
 
-    scale_services_down
+    docker::scale_services_down "${SERVICE_NAMES[@]}"
   elif [[ "${ACTION}" == "destroy" ]]; then
     log info "Destroying DISI"
 
