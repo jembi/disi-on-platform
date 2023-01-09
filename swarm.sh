@@ -83,8 +83,10 @@ function deploy_importers() {
     # Check if the target service up and running
     if docker service ps -q instant_openhim-core &>/dev/null; then
       if [[ "${config_service_name}" != "null" ]]; then
+        log info "Waiting for config importer ${config_service_name} to run ..."
         (
-          docker::deploy_config_importer "$service_path/docker-compose.config.yml" "${config_service_name}" "disi"
+          docker::deploy_config_importer "$service_path/docker-compose.config.yml" "${config_service_name}" "disi" &>/dev/null
+          overwrite "Waiting for config importer ${config_service_name} to run ... Done"
         ) || {
           log error "FATAL: Failed to deploy ${config_service_name}"
         }
@@ -100,7 +102,7 @@ function initialize_package() {
 
   if [[ "$MODE" == "dev" ]]; then
     log info "Running DISI POC package in DEV mode"
-    local disi_poc_dev_compose_param="docker-compose.dev.yml"
+    disi_poc_dev_compose_param="docker-compose.dev.yml"
   else
     log info "Running DISI POC package in PROD mode"
   fi
@@ -129,15 +131,15 @@ main() {
   import_sources
 
   if [[ "${ACTION}" == "init" ]] || [[ "${ACTION}" == "up" ]]; then
-    log info "Running DISI package in single node mode"
+    log info "Running package in single node mode"
 
     initialize_package
   elif [[ "${ACTION}" == "down" ]]; then
-    log info "Scaling down DISI"
+    log info "Scaling down package"
 
     docker::scale_services_down "${SERVICE_NAMES[@]}"
   elif [[ "${ACTION}" == "destroy" ]]; then
-    log info "Destroying DISI"
+    log info "Destroying package"
 
     destroy_package
   else
