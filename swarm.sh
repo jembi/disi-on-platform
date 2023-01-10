@@ -56,7 +56,7 @@ function import_sources() {
 }
 
 function restart_hapi_fhir() {
-  if docker service ps -q instant_openhim-core &>/dev/null; then
+  if docker service ps -q instant_hapi-fhir &>/dev/null; then
     log info "Restarting HAPI FHIR.."
     try \
       "docker service scale instant_hapi-fhir=0" \
@@ -74,14 +74,14 @@ function restart_hapi_fhir() {
 function deploy_importers() {
   # Run through all the config importers
   for service_path in "${COMPOSE_FILE_PATH}/importer/"*; do
-    name_service=$(basename "$service_path")
+    target_service_name=$(basename "$service_path")
     # Get config importer service names
     mapfile -t config_SERVICE_NAMES < <(yq '(.services|keys)[]' "$service_path/docker-compose.config.yml")
 
     config_service_name=${config_SERVICE_NAMES[0]}
 
     # Check if the target service up and running
-    if docker service ps -q instant_openhim-core &>/dev/null; then
+    if docker service ps -q "instant_$target_service_name" &>/dev/null; then
       if [[ "${config_service_name}" != "null" ]]; then
         log info "Waiting for config importer ${config_service_name} to run ..."
         (
@@ -92,7 +92,7 @@ function deploy_importers() {
         }
       fi
     else
-      log warn "Service '$name_service' does not appear to be running... Skipping the deploy of ${config_service_name[*]}"
+      log warn "Service '$target_service_name' does not appear to be running... Skipping the deploy of ${config_service_name[*]}"
     fi
   done
 }
