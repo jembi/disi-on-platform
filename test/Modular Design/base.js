@@ -1,21 +1,17 @@
-const MOMENT = require("moment");
-const GOOGLE_API = require("./googleApi");
-const FILE_SYSTEM = require("fs");
-const LOCAL_CUCUMBER_FEATURES_DIR = "../../../test/features/scenarios/reports/";
-const ORGANISATIONS = require("./organisations.json");
+const MOMENT = require('moment');
+const GOOGLE_API = require('./googleApi');
+const FILE_SYSTEM = require('fs');
+const LOCAL_CUCUMBER_FEATURES_DIR = '../../../test/features/scenarios/reports/';
+const ORGANISATIONS = require('./organisations.json');
 
 class Base {
-  static UTC_Offset = "+02:00";
-  static STRING_DATE_FORMAT = "YYYY-MM-DD";
+  static UTC_Offset = '+02:00';
+  static STRING_DATE_FORMAT = 'YYYY-MM-DD';
   static DAY_OF_YEAR_POSTFIX = this.getEpochDayOfYearNumber();
-  static HH_MM_SS = MOMENT(Date.now())
-    .utc(Base.UTC_Offset)
-    .format("hhmmss");
+  static HH_MM_SS = MOMENT(Date.now()).utc(Base.UTC_Offset).format('hhmmss');
 
   static getEpochDayOfYearNumber() {
-    return Math.ceil(
-      (Date.now() - new Date(new Date().getFullYear(), 0, 1)) / 86400000
-    );
+    return Math.ceil((Date.now() - new Date(new Date().getFullYear(), 0, 1)) / 86400000);
   }
 
   constructor() {
@@ -44,13 +40,13 @@ class Base {
 
   setCucumberInputDatatableInitial(report, isJsReportFilterParam) {
     for (var i = 0; i < ORGANISATIONS.length; i++) {
-      if (ORGANISATIONS[i].name == "Reporting Facility " + report) {
+      if (ORGANISATIONS[i].name == 'Reporting Facility ' + report) {
         switch (isJsReportFilterParam) {
           case true:
             return ORGANISATIONS[i].hfuid;
 
           default:
-            return "|key|value|\n|orgId|" + ORGANISATIONS[i].id + "|\n";
+            return '|key|value|\n|orgId|' + ORGANISATIONS[i].id + '|\n';
         }
       }
     }
@@ -78,53 +74,49 @@ class Base {
       return String(inputFieldValue);
     }
 
-    return "";
+    return '';
   }
 
   getInputReportingPeriod(data, rowInt, colInt) {
-    const REPORTING_PERIOD = data[rowInt][colInt].split("-");
+    const REPORTING_PERIOD = data[rowInt][colInt].split('-');
     var array = new Array();
 
-    array[0] = MOMENT(REPORTING_PERIOD[0])
-      .utc(true)
-      .format(Base.STRING_DATE_FORMAT);
-    array[1] = MOMENT(REPORTING_PERIOD[1])
-      .utc(true)
-      .format(Base.STRING_DATE_FORMAT);
+    array[0] = MOMENT(REPORTING_PERIOD[0]).utc(true).format(Base.STRING_DATE_FORMAT);
+    array[1] = MOMENT(REPORTING_PERIOD[1]).utc(true).format(Base.STRING_DATE_FORMAT);
 
     return array;
   }
 
   getInputDate(data, rowInt, encounterIndex, colInt) {
     const VALUE_FOR_GIVEN_ENCOUNTER = this.getStringOrNullValue(
-      data[rowInt + encounterIndex][colInt]
+      data[rowInt + encounterIndex][colInt],
     ).trim();
 
-    return VALUE_FOR_GIVEN_ENCOUNTER != ""
+    return VALUE_FOR_GIVEN_ENCOUNTER != ''
       ? MOMENT(VALUE_FOR_GIVEN_ENCOUNTER)
           .utc(Base.UTC_Offset)
           .format(Base.STRING_DATE_FORMAT)
-      : "";
+      : '';
   }
 
   getOutcomeDate(outcomeDatasetDate) {
     const VALUE_FOR_GIVEN_ENCOUNTER = this.getStringOrNullValue(
-      outcomeDatasetDate
+      outcomeDatasetDate,
     ).trim();
 
-    return VALUE_FOR_GIVEN_ENCOUNTER != ""
+    return VALUE_FOR_GIVEN_ENCOUNTER != ''
       ? MOMENT(VALUE_FOR_GIVEN_ENCOUNTER)
           .utc(Base.UTC_Offset)
           .format(Base.STRING_DATE_FORMAT)
-      : "";
+      : '';
   }
 
   handleVOutcomeVariablesToBeDisplayed(field, val) {
-    if (this.getStringOrNullValue(val).trim() != "") {
-      return field + val + "|\n";
+    if (this.getStringOrNullValue(val).trim() != '') {
+      return field + val + '|\n';
     }
 
-    return "";
+    return '';
   }
 
   displayOutcomeJSReportVariable(jsReportField, value) {
@@ -155,31 +147,28 @@ class Base {
     var processed = false;
 
     if (mustUploadToGoogleDrive) {
-      this.createFeatureFileInGoogleDrive(feature, folderId, function() {
+      this.createFeatureFileInGoogleDrive(feature, folderId, function () {
         processed = true;
       });
 
       if (processed) {
-        this.createFeatureFileLocally(feature, function() {
+        this.createFeatureFileLocally(feature, function () {
           callback();
         });
       }
     } else {
-      this.createFeatureFileLocally(feature, function() {
+      this.createFeatureFileLocally(feature, function () {
         callback();
       });
     }
   }
 
   createFeatureFileLocally(featureName, callback) {
-    const FILE_NAME = LOCAL_CUCUMBER_FEATURES_DIR + featureName + ".feature";
+    const FILE_NAME = LOCAL_CUCUMBER_FEATURES_DIR + featureName + '.feature';
 
-    FILE_SYSTEM.writeFile(FILE_NAME, this.getCucumberTestScenarios(), function(err) {
+    FILE_SYSTEM.writeFile(FILE_NAME, this.getCucumberTestScenarios(), function (err) {
       if (err) throw err;
-      console.log(
-        "%s.feature file successfully created locally!\n\n",
-        featureName
-      );
+      console.log('%s.feature file successfully created locally!\n\n', featureName);
 
       callback();
     });
@@ -190,30 +179,26 @@ class Base {
       this.getCucumberTestScenarios(),
       featureName,
       containingFolder,
-      function(createGoogleDocCallback) {
+      function (createGoogleDocCallback) {
         if (createGoogleDocCallback) {
-          console.log("Finished all processes for report %s!", featureName);
+          console.log('Finished all processes for report %s!', featureName);
 
           callback();
         }
-      }
+      },
     );
   }
 
   prepareJsReportParams(featureName, period, reportSpecifcFilters) {
     var jsReportParams = this.prepareInitialJsReportParams(featureName);
 
-    jsReportParams += "|from|" + period[0] + "|\n";
-    jsReportParams += "|to|" + period[1] + "|\n";
+    jsReportParams += '|from|' + period[0] + '|\n';
+    jsReportParams += '|to|' + period[1] + '|\n';
 
     if (reportSpecifcFilters != null) {
       for (var x = 0; x < reportSpecifcFilters.length; x++) {
         jsReportParams +=
-          "|" +
-          reportSpecifcFilters[x][0] +
-          "|" +
-          reportSpecifcFilters[x][1] +
-          "|\n";
+          '|' + reportSpecifcFilters[x][0] + '|' + reportSpecifcFilters[x][1] + '|\n';
       }
     }
 
@@ -228,21 +213,12 @@ class Base {
     return false;
   }
 
-  getInputFieldValueForHivTrackerArtStatus(
-    data,
-    rowInt,
-    encounterIndex,
-    colInt
-  ) {
-    return this.getStringOrNullValue(
-      data[rowInt + encounterIndex][colInt]
-    ).trim() != ""
+  getInputFieldValueForHivTrackerArtStatus(data, rowInt, encounterIndex, colInt) {
+    return this.getStringOrNullValue(data[rowInt + encounterIndex][colInt]).trim() != ''
       ? this.getInputHivTrackerArtStatus(
-          this.getStringOrNullValue(
-            data[rowInt + encounterIndex][colInt]
-          ).toLowerCase()
+          this.getStringOrNullValue(data[rowInt + encounterIndex][colInt]).toLowerCase(),
         )
-      : "unknown";
+      : 'unknown';
   }
 
   getInputFieldValueForLinkedToCareAndTreatmentStatus(
@@ -250,34 +226,24 @@ class Base {
     rowInt,
     encounterIndex,
     colInt,
-    toLowerCase
+    toLowerCase,
   ) {
-    return this.getStringOrNullValue(
-      data[rowInt + encounterIndex][colInt]
-    ).trim() != ""
+    return this.getStringOrNullValue(data[rowInt + encounterIndex][colInt]).trim() != ''
       ? this.getInputLinkedToCareAndTreatmentStatus(
-          this.getStringOrNullValue(
-            data[rowInt + encounterIndex][colInt]
-          ).toLowerCase()
+          this.getStringOrNullValue(data[rowInt + encounterIndex][colInt]).toLowerCase(),
         )
-      : "unknown";
+      : 'unknown';
   }
 
   getInputFieldValue(data, rowInt, encounterIndex, colInt, toLowerCase) {
     if (toLowerCase) {
-      return this.getStringOrNullValue(
-        data[rowInt + encounterIndex][colInt]
-      ).trim() != ""
-        ? this.getStringOrNullValue(
-            data[rowInt + encounterIndex][colInt]
-          ).toLowerCase()
-        : "";
+      return this.getStringOrNullValue(data[rowInt + encounterIndex][colInt]).trim() != ''
+        ? this.getStringOrNullValue(data[rowInt + encounterIndex][colInt]).toLowerCase()
+        : '';
     } else {
-      return this.getStringOrNullValue(
-        data[rowInt + encounterIndex][colInt]
-      ).trim() != ""
+      return this.getStringOrNullValue(data[rowInt + encounterIndex][colInt]).trim() != ''
         ? this.getStringOrNullValue(data[rowInt + encounterIndex][colInt])
-        : "";
+        : '';
     }
   }
 
@@ -286,15 +252,13 @@ class Base {
       var processed = false;
 
       var folderID = await new Promise((resolve) => {
-        GOOGLE_API.getOrCreateSubFolder(function(follderIdCallback) {
+        GOOGLE_API.getOrCreateSubFolder(function (follderIdCallback) {
           if (follderIdCallback) {
-            GOOGLE_API.prepareDeleteRequest(reportName + " scenarios", function(
-              fileIdCallback
+            GOOGLE_API.prepareDeleteRequest(reportName + ' scenarios', function (
+              fileIdCallback,
             ) {
               if (fileIdCallback) {
-                GOOGLE_API.handleDelete(fileIdCallback, function(
-                  handleDeleteCallback
-                ) {
+                GOOGLE_API.handleDelete(fileIdCallback, function (handleDeleteCallback) {
                   if (handleDeleteCallback) {
                     processed = true;
 
@@ -311,14 +275,9 @@ class Base {
         });
       });
     } else {
-      this.createFeatureFiles(
-        uploadFilesToGoogleDrive,
-        reportName,
-        null,
-        function() {
-          callback();
-        }
-      );
+      this.createFeatureFiles(uploadFilesToGoogleDrive, reportName, null, function () {
+        callback();
+      });
     }
 
     if (processed) {
@@ -326,9 +285,9 @@ class Base {
         uploadFilesToGoogleDrive,
         reportName,
         folderID,
-        function() {
+        function () {
           callback();
-        }
+        },
       );
     }
   }

@@ -1,5 +1,5 @@
-const ENCOUNTERS = require("../Encounters");
-const HELPER = require("./Helper");
+const ENCOUNTERS = require('../Encounters');
+const HELPER = require('./Helper');
 
 class CD4 {
   #helper = null;
@@ -25,42 +25,42 @@ class CD4 {
       INPUT_DATA,
       ROW,
       INDEX,
-      39
+      39,
     );
     ENCOUNTERS.Data.CD4.BASELINE.RESULT = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       40,
-      false
+      false,
     );
     ENCOUNTERS.Data.CD4.BASELINE.PERCENTAGE = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       41,
-      false
+      false,
     );
 
     ENCOUNTERS.Data.CD4.Subsequent.ALL_COLLECTION_DATES = BASE.getInputDate(
       INPUT_DATA,
       ROW,
       INDEX,
-      42
+      42,
     );
     ENCOUNTERS.Data.CD4.Subsequent.ALL_RESULTS = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       43,
-      false
+      false,
     );
     ENCOUNTERS.Data.CD4.Subsequent.ALL_PERCENTAGES = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       44,
-      false
+      false,
     );
   }
 }

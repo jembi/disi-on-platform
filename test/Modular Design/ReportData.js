@@ -1,5 +1,5 @@
-const GOOGLE_API = require("./googleApi");
-const CONFIG = require("./Config");
+const GOOGLE_API = require('./googleApi');
+const CONFIG = require('./Config');
 
 class ReportData {
   constructor(featureName) {
@@ -11,9 +11,9 @@ class ReportData {
       GOOGLE_API.readGoogleSheetFileData(
         this.featureName,
         CONFIG.Datasets.EXPECTED_OUTCOME_WORKBOOK_ID,
-        function(outcomeDatasetCallback) {
+        function (outcomeDatasetCallback) {
           resolve(outcomeDatasetCallback);
-        }
+        },
       );
     });
 
@@ -21,9 +21,9 @@ class ReportData {
       GOOGLE_API.readGoogleSheetFileData(
         this.featureName,
         CONFIG.Datasets.INPUT_DATA_WORKBOOK_ID,
-        function(inputDatasetCallback) {
+        function (inputDatasetCallback) {
           resolve(inputDatasetCallback);
-        }
+        },
       );
     });
 

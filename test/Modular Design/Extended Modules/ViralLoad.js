@@ -1,5 +1,5 @@
-const ENCOUNTERS = require("../Encounters");
-const HELPER = require("./Helper");
+const ENCOUNTERS = require('../Encounters');
+const HELPER = require('./Helper');
 
 class ViralLoad {
   #helper = null;
@@ -25,70 +25,70 @@ class ViralLoad {
       INPUT_DATA,
       ROW,
       INDEX,
-      48
+      48,
     );
     ENCOUNTERS.Data.ViralSuppression.BASELINE.RESULT = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       49,
-      false
+      false,
     );
     ENCOUNTERS.Data.ViralSuppression.BASELINE.RESULT_INTERPRETATION = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       50,
-      false
+      false,
     );
 
     ENCOUNTERS.Data.ViralSuppression.Subsequent.ALL_COLLECTION_DATES = BASE.getInputDate(
       INPUT_DATA,
       ROW,
       INDEX,
-      51
+      51,
     );
     ENCOUNTERS.Data.ViralSuppression.Subsequent.ALL_RESULTS = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       52,
-      false
+      false,
     );
     ENCOUNTERS.Data.ViralSuppression.Subsequent.ALL_RESULT_INTERPRETATIONS = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       53,
-      false
+      false,
     );
 
     ENCOUNTERS.Data.ViralSuppression.MOST_RECENT_COLLECTION_DATE = BASE.getInputDate(
       INPUT_DATA,
       ROW,
       INDEX,
-      54
+      54,
     );
     ENCOUNTERS.Data.ViralSuppression.MOST_RECENT_RESULT = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       55,
-      false
+      false,
     );
     ENCOUNTERS.Data.ViralSuppression.MOST_RECENT_RESULT_INTERPRETATION = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       56,
-      false
+      false,
     );
     ENCOUNTERS.Data.ViralSuppression.CURRENT_SUPRESSION_STATUS = BASE.getInputFieldValue(
       INPUT_DATA,
       ROW,
       INDEX,
       57,
-      false
+      false,
     );
   }
 }

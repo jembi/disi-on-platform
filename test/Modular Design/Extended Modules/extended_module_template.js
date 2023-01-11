@@ -1,5 +1,5 @@
-const ENCOUNTERS = require("../Encounters");
-const HELPER = require("./Helper");
+const ENCOUNTERS = require('../Encounters');
+const HELPER = require('./Helper');
 
 class ExampleClass {
   #helper = null;
@@ -26,13 +26,13 @@ class ExampleClass {
       INPUT_DATA,
       ROW,
       INDEX,
-      95
+      95,
     );
     ENCOUNTERS.Data.TB_TREATMENT_END_DATE = BASE.getInputDate(
       INPUT_DATA,
       ROW,
       INDEX,
-      104
+      104,
     );
   }
 }

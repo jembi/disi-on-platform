@@ -1,5 +1,5 @@
-const GOOGLE_API = require("./googleApi");
-const REPORT_DATA = require("./ReportData");
+const GOOGLE_API = require('./googleApi');
+const REPORT_DATA = require('./ReportData');
 
 class Report {
   #reportDataSets = null;
@@ -25,7 +25,7 @@ class Report {
 
   async authenticateAndLoadReportDatasets(callback) {
     const IS_INITIALISED = await new Promise((resolve) => {
-      GOOGLE_API.initialiseClient(function(initialiseClientCallback) {
+      GOOGLE_API.initialiseClient(function (initialiseClientCallback) {
         if (initialiseClientCallback) {
           resolve(true);
         }
@@ -33,7 +33,7 @@ class Report {
     });
 
     if (IS_INITIALISED) {
-      this.#getReportDataSets(function(datasetsCallback) {
+      this.#getReportDataSets(function (datasetsCallback) {
         if (datasetsCallback) {
           callback(true);
         }
@@ -47,7 +47,7 @@ class Report {
     let reportData = new REPORT_DATA(this.#getFeature());
 
     const REPORT_DATASETS = await new Promise((resolve) => {
-      reportData.getInputAndExpectedOutcomeDatasets(function(datasetsCallback) {
+      reportData.getInputAndExpectedOutcomeDatasets(function (datasetsCallback) {
         datasetsAcquired = true;
 
         resolve(datasetsCallback);
