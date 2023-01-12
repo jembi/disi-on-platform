@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  disi-kibana-config-importer:
+    image: curlimages/curl:7.77.0
+    deploy:
+      restart_policy:
+        condition: none
+    configs:
+      - source: disi-kibana-config-kibana-export.ndjson
+        target: /kibana-export.ndjson
+    command:
+      [
+        'sh',
+        '-c',
+        "until nc -vz dashboard-visualiser-kibana 5601; do echo Kibana not running yet; sleep 1; done; curl dashboard-visualiser-kibana:5601/api/saved_objects/_import?overwrite=true -u elastic:${ES_ELASTIC-dev_password_only} -H 'kbn-xsrf: true' --form file=@/kibana-export.ndjson"
+      ]
+
+configs:
+  disi-kibana-config-kibana-export.ndjson:
+    file: ./kibana-export.ndjson
+    name: disi-kibana-config-kibana-export.ndjson-${disi_kibana_config_kibana_export_ndjson_DIGEST:?err}
+    labels:
+      name: disi

@@ -12,7 +12,7 @@ This project is resource intensive. A machine with at least 24G RAM is required.
 
 ### Deploying
 
-This project can be deployed in Single or Clustered mode. This is done by setting the environment variable `STATEFUL_NODES` to either `single` or `cluster` in the `.env` file matching the deploy script being used. For example the env file for the script `deploy-local.sh` is `.env.local`.
+This project can be deployed in Single or Clustered mode. This is done by setting the environment variable `CLUSTERED_MODE` to either `true` or `false` in the `.env` file matching the deploy script being used. For example the env file for the script `deploy-local.sh` is `.env.local`.
 
 #### Configuration
 

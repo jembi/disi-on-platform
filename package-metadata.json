@@ -34,6 +34,7 @@
     "CLIENT_REGISTRY_IDENTITY_DOMAIN": "http://ohie.org/nid",
     "USE_GOLDEN_ID_IN_FHIR_STORE": "false",
 
+    "HAPI_FHIR_INSTANCES": "1",
     "FHIR_SERVER_URL": "http://hapi-fhir:8080",
     "FHIR_IG_URL": "https://openhie.github.io/hiv-ig",
     
