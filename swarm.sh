@@ -60,11 +60,11 @@ function restart_hapi_fhir() {
     log info "Restarting HAPI FHIR.."
     try \
       "docker service scale instant_hapi-fhir=0" \
-      catch \
+      throw \
       "Error scaling down hapi-fhir to update the IG"
     try \
       "docker service scale instant_hapi-fhir=$HAPI_FHIR_INSTANCES" \
-      catch \
+      throw \
       "Error scaling up hapi-fhir to update the IG"
   else
     log warn "Service 'hapi-fhir' does not appear to be running... Skipping the restart of hapi-fhir"
