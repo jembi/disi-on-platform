@@ -13,31 +13,6 @@ services:
       ES_ELASTIC: ${ES_ELASTIC}
       LS_JAVA_OPTS: ${LS_JAVA_OPTS}
 
-  mpi-updater:
-    image: jembi/openhim-mediator-mpi-updater:${MPI_UPDATER_VERSION}
-    environment:
-      CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL}
-      FHIR_SERVER_URL: ${FHIR_SERVER_URL}
-      KAFKA_URL: ${KAFKA_URL}
-      KAFKA_TOPIC: ${KAFKA_TOPIC}
-      KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC}
-      OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL}
-      TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED}
-      USE_GOLDEN_ID_IN_FHIR_STORE: ${USE_GOLDEN_ID_IN_FHIR_STORE}
-      PATIENT_RESOURCES: Encounter,RelatedPerson,Condition,Observation,CarePlan,EpisodeOfCare,Composition,Specimen,ServiceRequest,Immunization,MedicationDispense
-
-  mpi-checker:
-    image: jembi/openhim-mediator-mpi-checker:${MPI_CHECKER_VERSION}
-    environment:
-      CLIENT_REGISTRY_URL: ${CLIENT_REGISTRY_URL}
-      FHIR_SERVER_URL: ${FHIR_SERVER_URL}
-      KAFKA_URL: ${KAFKA_URL}
-      KAFKA_TOPIC: ${KAFKA_TOPIC}
-      KAFKA_PATIENT_TOPIC: ${KAFKA_PATIENT_TOPIC}
-      REGISTER_MEDIATOR: ${REGISTER_MEDIATOR}
-      OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL}
-      TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED}
-
   reprocess-mediator:
     image: jembi/reprocess-mediator:${REPROCESS_MEDIATOR_VERSION}
     environment:
