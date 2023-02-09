@@ -4,10 +4,9 @@ image: jembi/platform:latest
 logPath: /tmp/logs
 
 packages:
-    - disi-on-platform
-    - reverse-proxy-nginx
-    - elastic-monitoring-metricbeats-filebeats
-    - system-monitoring-prometheus-grafana
+  - disi-on-platform
+  - reverse-proxy-nginx
+  - monitoring
 
 customPackages:
   - id: disi-on-platform
@@ -17,6 +16,7 @@ profiles:
   - name: local
     packages:
       - disi-on-platform
+      - monitoring
     envFiles:
       - ./.env.local
     dev: true
@@ -25,8 +25,7 @@ profiles:
     packages:
       - disi-on-platform
       - reverse-proxy-nginx
-      - elastic-monitoring-metricbeats-filebeats
-      - system-monitoring-prometheus-grafana
+      - monitoring
     envFiles:
       - ./.env.stg
     dev: false
@@ -35,8 +34,7 @@ profiles:
     packages:
       - disi-on-platform
       - reverse-proxy-nginx
-      - elastic-monitoring-metricbeats-filebeats
-      - system-monitoring-prometheus-grafana
+      - monitoring
     envFiles:
       - ./.env.qa
     dev: false
