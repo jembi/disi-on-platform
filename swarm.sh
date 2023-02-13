@@ -29,6 +29,7 @@ function init_vars() {
     "disi-es-index-importer"
     "disi-kibana-config-importer"
     "sante-mpi-config-importer"
+    "disi-openhim-config-importer"
     "hapi-fhir-config-importer"
   )
 
