@@ -4,7 +4,6 @@ declare ACTION=""
 declare MODE=""
 declare COMPOSE_FILE_PATH=""
 declare UTILS_PATH=""
-declare SERVICE_IMPORTER_NAMES=()
 declare SERVICE_NAMES=()
 declare ALL_SERVICES=()
 
@@ -19,24 +18,19 @@ function init_vars() {
 
   UTILS_PATH="${COMPOSE_FILE_PATH}/../utils"
 
-  SERVICE_IMPORTER_NAMES=(
-    "disi-jsreport-config-importer"
-    "disi-es-index-importer"
-    "disi-openhim-config-importer"
-    "disi-kibana-config-importer"
-    "message-bus-kafka-config-importer"
-    "sante-mpi-config-importer"
-    "hapi-fhir-config-importer"
-  )
   SERVICE_NAMES=(
     "data-mapper-logstash"
-    "mpi-updater"
-    "mpi-checker"
     "reprocess-mediator"
   )
-  ALL_SERVICES=(
+
+  ALL_SERVICE_NAMES=(
     "${SERVICE_NAMES[@]}"
-    "${SERVICE_IMPORTER_NAMES[@]}"
+    "disi-jsreport-config-importer"
+    "disi-es-index-importer"
+    "disi-kibana-config-importer"
+    "sante-mpi-config-importer"
+    "disi-openhim-config-importer"
+    "hapi-fhir-config-importer"
   )
 
   readonly ACTION
@@ -44,7 +38,6 @@ function init_vars() {
   readonly COMPOSE_FILE_PATH
   readonly UTILS_PATH
   readonly SERVICE_NAMES
-  readonly SERVICE_IMPORTER_NAMES
   readonly ALL_SERVICES
 }
 
@@ -75,6 +68,12 @@ function deploy_importers() {
   # Run through all the config importers
   for service_path in "${COMPOSE_FILE_PATH}/importer/"*; do
     target_service_name=$(basename "$service_path")
+
+    # Only run the importer for fhir datastore when validation is enabled
+    if [[ $DISABLE_VALIDATION == "true" ]] && [[ "${target_service_name}" == $FHIR_CONFIG_IMPORTER_FOLDER_NAME ]]; then
+      continue
+    fi
+
     # Get config importer service names
     mapfile -t config_SERVICE_NAMES < <(yq '(.services|keys)[]' "$service_path/docker-compose.config.yml")
 
@@ -113,7 +112,9 @@ function initialize_package() {
 
     deploy_importers
 
-    restart_hapi_fhir
+    if [[ $DISABLE_VALIDATION == "false" ]]; then
+      restart_hapi_fhir
+    fi
   ) || {
     log error "Failed to deploy DISI package"
     exit 1
@@ -121,7 +122,7 @@ function initialize_package() {
 }
 
 function destroy_package() {
-  docker::service_destroy "${ALL_SERVICES[@]}"
+  docker::service_destroy "${ALL_SERVICE_NAMES[@]}"
 
   docker::prune_configs "disi"
 }

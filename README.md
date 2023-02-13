@@ -27,7 +27,10 @@
 ```sh
 ./build-images.sh
 ./deploy-local.sh <init|up|down|destroy>
+
+NB. This root folder is mounted onto the instant docker container for running the project. If its too big, mounting will fail. Ensure the node modules in the test folder are removed before running the above commands. 
 ```
+
 3. Navigate to http://localhost:9200 (santeMPI) to set up the domain (see - <https://help.santesuite.org/installation/quick-start-guide#configure-the-web-access-gateway>).
 4. Wait until everything is started, then bootstrap the metadata by executing: `cd test && yarn bootstrap`
 5. Use postman to execute some transactions, see saved postman collection here `test/CDR.postman_collection.json` OR use the command line: `cd test && yarn && yarn test:1000`

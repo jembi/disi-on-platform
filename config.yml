@@ -1,27 +1,47 @@
 ---
-image: jembi/platform
-defaultTargetLauncher: swarm
-disableKubernetes: true
-disableIG: true
-disableCustomTargetSelection: true
+projectName: Disi-on-platform
+image: jembi/platform:latest
+logPath: /tmp/logs
+
 packages:
-    - id: interoperability-layer-openhim
-      name: Interoperability Layer - OpenHIM
-    - id: reverse-proxy-nginx
-      name: Reverse Proxy - NGINX
-    - id: fhir-datastore-hapi-fhir
-      name: FHIR Data Store - HAPI-FHIR
-    - id: message-bus-kafka
-      name: Message Bus - Kafka
-    - id: analytics-datastore-elastic-search
-      name: Analytics Datastore - ElasticSearch
-    - id: dashboard-visualiser-kibana
-      name: Dashboard Visualiser - Kibana
-    - id: elastic-monitoring-metricbeats-filebeats
-      name: Elastic Monitoring - MetricBeats and FileBeats
-    - id: system-monitoring-prometheus-grafana
-      name: System Monitoring - Prometheus and Grafana
-    - id: dashboard-visualiser-jsreport
-      name: Dashboard Visualiser - JS Reports
-    - id: client-registry-santempi
-      name: Client Registry Package - SanteMPI
+  - disi-on-platform
+  - reverse-proxy-nginx
+  - monitoring
+
+customPackages:
+  - id: disi-on-platform
+    path: ../disi-on-platform
+
+profiles:
+  - name: local
+    packages:
+      - disi-on-platform
+      - monitoring
+    envFiles:
+      - ./.env.local
+    dev: true
+
+  - name: staging
+    packages:
+      - disi-on-platform
+      - reverse-proxy-nginx
+      - monitoring
+    envFiles:
+      - ./.env.stg
+    dev: false
+
+  - name: qa
+    packages:
+      - disi-on-platform
+      - reverse-proxy-nginx
+      - monitoring
+    envFiles:
+      - ./.env.qa
+    dev: false
+
+  - name: test
+    packages:
+      - disi-on-platform
+    envFiles:
+      - ./.env.test
+    dev: true

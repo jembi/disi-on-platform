@@ -78,6 +78,6 @@ typings/
 /docs/.cache-loader
 
 # Built Go Binaries
-platform-linux
-platform.exe
-platform-macos
+instant-linux
+instant.exe
+instant-macos

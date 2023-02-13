@@ -4,39 +4,28 @@
   "name": "DISI",
   "type": "infrastructure",
   "dependencies": [
-    "client-registry-santempi",
-    "interoperability-layer-openhim",
-    "fhir-datastore-hapi-fhir",
-    "message-bus-kafka",
+    "mpi-mediator",
     "dashboard-visualiser-kibana",
     "dashboard-visualiser-jsreport"
   ],
   "environmentVariables": {
     "DISI_LOGSTASH_VERSION": "latest",
-    "MPI_UPDATER_VERSION": "latest",
-    "MPI_CHECKER_VERSION": "latest",
     "REPROCESS_MEDIATOR_VERSION": "disi-latest",
 
     "KAFKA_URL": "kafka:9092",
-    "KAFKA_TOPICS": "2xx:1:1#2xx-patient:1:1",
-    "KAFKA_TOPIC": "2xx",
-    "KAFKA_PATIENT_TOPIC": "2xx-patient",
     "KAFKA_REPROCESSING_TOPIC": "reprocess",
     "KAFKA_CONCURRENCY": "2",
     "KAFKA_PARTITION": "0",
-
-    "KAFDROP_HOST": "kafdrop",
-    "KAFDROP_PORT": "9013",
 
     "CLIENT_REGISTRY_URL": "http://santedb-mpi:8080",
     "CLIENT_REGISTRY_HOST": "santedb-mpi",
     "CLIENT_REGISTRY_PORT": 8080,
     "CLIENT_REGISTRY_IDENTITY_DOMAIN": "http://ohie.org/nid",
-    "USE_GOLDEN_ID_IN_FHIR_STORE": "false",
 
     "HAPI_FHIR_INSTANCES": "1",
     "FHIR_SERVER_URL": "http://hapi-fhir:8080",
     "FHIR_IG_URL": "https://openhie.github.io/hiv-ig",
+    "FHIR_CONFIG_IMPORTER_FOLDER_NAME": "hapi-fhir",
     
     "LS_JAVA_OPTS": "-Xmx2g -Xms2g",
     "ES_URL": "http://instant_analytics-datastore-elastic-search:9200",
