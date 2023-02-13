@@ -5,6 +5,7 @@ declare MODE=""
 declare COMPOSE_FILE_PATH=""
 declare UTILS_PATH=""
 declare SERVICE_NAMES=()
+declare ALL_SERVICES=()
 
 function init_vars() {
   ACTION=$1
@@ -22,11 +23,21 @@ function init_vars() {
     "reprocess-mediator"
   )
 
+  ALL_SERVICE_NAMES=(
+    "${SERVICE_NAMES[@]}"
+    "disi-jsreport-config-importer"
+    "disi-es-index-importer"
+    "disi-kibana-config-importer"
+    "sante-mpi-config-importer"
+    "hapi-fhir-config-importer"
+  )
+
   readonly ACTION
   readonly MODE
   readonly COMPOSE_FILE_PATH
   readonly UTILS_PATH
   readonly SERVICE_NAMES
+  readonly ALL_SERVICES
 }
 
 # shellcheck disable=SC1091
@@ -110,7 +121,7 @@ function initialize_package() {
 }
 
 function destroy_package() {
-  docker::service_destroy "${SERVICE_NAMES[@]}"
+  docker::service_destroy "${ALL_SERVICE_NAMES[@]}"
 
   docker::prune_configs "disi"
 }
