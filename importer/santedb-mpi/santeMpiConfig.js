@@ -107,7 +107,7 @@ const createClientApp = accessToken => new Promise((resolve, reject) => {
     if (res.statusCode == 201) {
       resolve(true)
     } else {
-      reject('Client App not created!')
+      reject(`Client App not created: ${res.statusCode} ${res.statusMessage}`)
     }
   })
 
@@ -148,18 +148,19 @@ const createClientDomain = (accessToken, domainUrl, domainNamespaceId, domainFul
     res.on('data', d => {
       resString += d.toString()
     })
+    
 
     res.on('end', () => {
       if (res.statusCode == 200) {
         resolve(JSON.parse(resString).access_token)
       } else {
-        reject('DISI Client domain not created!')
+        reject(`DISI Client domain not created: ${res.statusCode} ${res.statusMessage}`)
       }
     })
     if (res.statusCode == 201) {
       resolve(true)
     } else {
-      reject('DISI Client domain not created')
+      reject(`DISI Client domain not created: ${res.statusCode} ${res.statusMessage}`)
     }
   })
 
@@ -214,12 +215,16 @@ const setMatchingRules = accessToken => new Promise((resolve, reject) => {
 console.log('Configuring Sante MPI .......\n');
 
 (async () => {
-  const authToken = await createSanteAuthToken()
-
-  await createClientApp(authToken)
-  await createClientDomains(authToken)
-  await disableDefaultMatching(authToken)
-  await setMatchingRules(authToken)
+  try {
+    const authToken = await createSanteAuthToken()
+    await createClientApp(authToken)
+    await createClientDomains(authToken)
+    await disableDefaultMatching(authToken)
+    await setMatchingRules(authToken)
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
 
   console.log('Done .......\n')
 })();
