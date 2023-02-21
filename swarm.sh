@@ -5,7 +5,7 @@ declare MODE=""
 declare COMPOSE_FILE_PATH=""
 declare UTILS_PATH=""
 declare SERVICE_NAMES=()
-declare ALL_SERVICES=()
+declare ALL_SERVICE_NAMES=()
 
 function init_vars() {
   ACTION=$1
@@ -38,7 +38,7 @@ function init_vars() {
   readonly COMPOSE_FILE_PATH
   readonly UTILS_PATH
   readonly SERVICE_NAMES
-  readonly ALL_SERVICES
+  readonly ALL_SERVICE_NAMES
 }
 
 # shellcheck disable=SC1091
@@ -70,7 +70,7 @@ function deploy_importers() {
     target_service_name=$(basename "$service_path")
 
     # Only run the importer for fhir datastore when validation is enabled
-    if [[ $DISABLE_VALIDATION == "true" ]] && [[ "${target_service_name}" == $FHIR_CONFIG_IMPORTER_FOLDER_NAME ]]; then
+    if [[ $DISABLE_VALIDATION == "true" ]] && [[ "${target_service_name}" == "hapi-fhir" ]]; then
       continue
     fi
 
