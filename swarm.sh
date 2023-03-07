@@ -71,6 +71,7 @@ function deploy_importers() {
 
     # Only run the importer for fhir datastore when validation is enabled
     if [[ $DISABLE_VALIDATION == "true" ]] && [[ "${target_service_name}" == "$FHIR_CONFIG_IMPORTER_FOLDER_NAME" ]]; then
+      log warn "Validation is disabled... Skipping the deploy of hapi fhir config importer"
       continue
     fi
 
