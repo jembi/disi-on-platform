@@ -5,7 +5,6 @@
   "type": "infrastructure",
   "dependencies": [
     "mpi-mediator",
-    "data-mapper-logstash",
     "dashboard-visualiser-kibana",
     "dashboard-visualiser-jsreport"
   ],

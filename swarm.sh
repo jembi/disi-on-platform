@@ -70,7 +70,7 @@ function deploy_importers() {
     target_service_name=$(basename "$service_path")
 
     # Only run the importer for fhir datastore when validation is enabled
-    if [[ $DISABLE_VALIDATION == "true" ]] && [[ "${target_service_name}" == "hapi-fhir" ]]; then
+    if [[ $DISABLE_VALIDATION == "true" ]] && [[ "${target_service_name}" == "$FHIR_CONFIG_IMPORTER_FOLDER_NAME" ]]; then
       continue
     fi
 
