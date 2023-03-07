@@ -25,7 +25,6 @@
     "HAPI_FHIR_INSTANCES": "1",
     "FHIR_SERVER_URL": "http://hapi-fhir:8080",
     "FHIR_IG_URL": "https://openhie.github.io/hiv-ig",
-    "FHIR_CONFIG_IMPORTER_FOLDER_NAME": "hapi-fhir",
     
     "LS_JAVA_OPTS": "-Xmx2g -Xms2g",
     "ES_URL": "http://instant_analytics-datastore-elastic-search:9200",
