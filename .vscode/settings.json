@@ -1,0 +1,25 @@
+{
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "editor.formatOnSave": true,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "json.schemas": [
+    {
+      "fileMatch": ["package-metadata.json"],
+      "url": "https://raw.githubusercontent.com/openhie/package-starter-kit/main/schema/package-metadata.schema.json"
+    }
+  ],
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/openhie/package-starter-kit/main/schema/config.schema.json": "config.yml"
+  },
+  "prettier.printWidth": 90,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "all",
+  "prettier.arrowParens": "always"
+}
