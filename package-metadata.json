@@ -12,7 +12,7 @@
     "DISI_LOGSTASH_VERSION": "latest",
     "REPROCESS_MEDIATOR_VERSION": "disi-latest",
 
-    "KAKFA_HOSTS": "kafka-01:9092",
+    "KAFKA_HOSTS": "kafka-01:9092",
     "KAFKA_REPROCESSING_TOPIC": "reprocess",
     "KAFKA_CONCURRENCY": "2",
     "KAFKA_PARTITION": "0",
