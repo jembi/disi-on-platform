@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   data-mapper-logstash:
-    image: jembi/disi-hiv-poc-logstash:${DISI_LOGSTASH_VERSION}
+    image: jembi/disi-hiv-poc-logstash
     healthcheck:
       test: curl --fail http://localhost:9600 || exit 1
       interval: 10s
@@ -12,6 +12,7 @@ services:
     environment:
       ES_ELASTIC: ${ES_ELASTIC}
       LS_JAVA_OPTS: ${LS_JAVA_OPTS}
+      KAKFA_HOSTS: ${KAKFA_HOSTS}
 
   reprocess-mediator:
     image: jembi/reprocess-mediator:${REPROCESS_MEDIATOR_VERSION}
@@ -20,7 +21,7 @@ services:
       ES_PIT_KEEP_ALIVE: ${ES_PIT_KEEP_ALIVE}
       KAFKA_CONCURRENCY: ${KAFKA_CONCURRENCY}
       TRUST_SELF_SIGNED: ${TRUST_SELF_SIGNED}
-      KAFKA_URL: ${KAFKA_URL}
+      KAFKA_URL: ${KAKFA_HOSTS}
       KAFKA_REPROCESSING_TOPIC: ${KAFKA_REPROCESSING_TOPIC}
       OPENHIM_MEDIATOR_URL: ${OPENHIM_MEDIATOR_URL}
       KAFKA_PARTITION: ${KAFKA_PARTITION}
