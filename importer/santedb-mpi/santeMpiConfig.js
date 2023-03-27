@@ -148,7 +148,6 @@ const createClientDomain = (accessToken, domainUrl, domainNamespaceId, domainFul
     res.on('data', d => {
       resString += d.toString()
     })
-    
 
     res.on('end', () => {
       if (res.statusCode == 200) {
