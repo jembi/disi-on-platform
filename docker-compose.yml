@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   data-mapper-logstash:
-    image: jembi/disi-hiv-poc-logstash
+    image: jembi/disi-hiv-poc-logstash:${DISI_LOGSTASH_VERSION}
     healthcheck:
       test: curl --fail http://localhost:9600 || exit 1
       interval: 10s
