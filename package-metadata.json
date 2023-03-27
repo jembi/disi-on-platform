@@ -12,7 +12,7 @@
     "DISI_LOGSTASH_VERSION": "latest",
     "REPROCESS_MEDIATOR_VERSION": "disi-latest",
 
-    "KAFKA_URL": "kafka:9092",
+    "KAFKA_HOSTS": "kafka-01:9092",
     "KAFKA_REPROCESSING_TOPIC": "reprocess",
     "KAFKA_CONCURRENCY": "2",
     "KAFKA_PARTITION": "0",
@@ -25,7 +25,6 @@
     "HAPI_FHIR_INSTANCES": "1",
     "FHIR_SERVER_URL": "http://hapi-fhir:8080",
     "FHIR_IG_URL": "https://openhie.github.io/hiv-ig",
-    "FHIR_CONFIG_IMPORTER_FOLDER_NAME": "hapi-fhir",
     
     "LS_JAVA_OPTS": "-Xmx2g -Xms2g",
     "ES_URL": "http://instant_analytics-datastore-elastic-search:9200",
