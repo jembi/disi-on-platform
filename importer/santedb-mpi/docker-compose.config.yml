@@ -35,3 +35,8 @@ configs:
     name: disi-santempi-config-identityDomains.json-${disi_santempi_config_identityDomains_json_DIGEST:?err}
     labels:
       name: disi
+
+networks:
+  santedb:
+    name: santedb_public
+    external: true

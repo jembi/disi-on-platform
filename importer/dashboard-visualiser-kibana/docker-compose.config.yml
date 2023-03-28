@@ -9,6 +9,8 @@ services:
     configs:
       - source: disi-kibana-config-kibana-export.ndjson
         target: /kibana-export.ndjson
+    networks:
+      elastic:
     command:
       [
         'sh',
@@ -22,3 +24,8 @@ configs:
     name: disi-kibana-config-kibana-export.ndjson-${disi_kibana_config_kibana_export_ndjson_DIGEST:?err}
     labels:
       name: disi
+
+networks:
+  elastic:
+    name: elastic_public
+    external: true

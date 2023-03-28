@@ -9,6 +9,8 @@ services:
     configs:
       - source: disi-es-index-config-fhir-report-patient.json
         target: /fhir-report-patient.json
+    networks:
+      elastic:
     command:
       [
         'sh',
@@ -22,3 +24,8 @@ configs:
     name: disi-es-index-config-fhir-report-patient.json-${disi_es_index_config_fhir_report_patient_json_DIGEST:?err}
     labels:
       name: disi
+
+networks:
+  elastic:
+    name: elastic_public
+    external: true

@@ -20,6 +20,8 @@ services:
     configs:
       - source: disi-jsreport-import.zip
         target: /export.jsrexport
+    networks:
+      elastic:
 
 configs:
   disi-jsreport-import.zip:
@@ -27,3 +29,8 @@ configs:
     name: disi-jsreport-import.zip-${disi_jsreport_import_zip_DIGEST:?err}
     labels:
       name: disi
+
+networks:
+  elastic:
+    name: elastic_public
+    external: true
