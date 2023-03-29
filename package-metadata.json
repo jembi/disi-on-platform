@@ -13,7 +13,7 @@
     "REPROCESS_MEDIATOR_VERSION": "disi-latest",
     "DISABLE_VALIDATION": "false",
 
-    "KAFKA_URL": "kafka:9092",
+    "KAFKA_HOSTS": "kafka-01:9092",
     "KAFKA_REPROCESSING_TOPIC": "reprocess",
     "KAFKA_CONCURRENCY": "2",
     "KAFKA_PARTITION": "0",

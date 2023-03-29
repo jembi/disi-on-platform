@@ -22,7 +22,6 @@ function init_vars() {
   readonly COMPOSE_FILE_PATH
   readonly UTILS_PATH
   readonly SERVICE_NAMES
-  readonly ALL_SERVICES
   readonly STACK
 }
 
@@ -56,7 +55,8 @@ function deploy_importers() {
     target_service_name=$(basename "$service_path")
 
     # Only run the importer for fhir datastore when validation is enabled
-    if [[ $DISABLE_VALIDATION == "true" ]] && [[ "${target_service_name}" == $FHIR_CONFIG_IMPORTER_FOLDER_NAME ]]; then
+    if [[ $DISABLE_VALIDATION == "true" ]] && [[ "${target_service_name}" == "hapi-fhir" ]]; then
+      log warn "Validation is disabled... Skipping the deploy of hapi fhir config importer"
       continue
     fi
 

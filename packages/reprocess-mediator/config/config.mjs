@@ -39,5 +39,5 @@ export const ES_PIT_KEEP_ALIVE = process.env.ES_PIT_KEEP_ALIVE || '5m'
 
 export const KAFKA_CONCURRENCY = stringToInt(process.env.KAFKA_CONCURRENCY, 2)
 export const KAFKA_REPROCESSING_TOPIC = process.env.KAFKA_REPROCESSING_TOPIC || 'reprocess'
-export const KAFKA_URL = process.env.KAFKA_URL || 'kafka:9092'
+export const KAFKA_URL = process.env.KAFKA_URL || 'kafka-01:9092'
 export const KAFKA_PARTITION = process.env.KAFKA_PARTITION || 0
