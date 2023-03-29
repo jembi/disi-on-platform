@@ -12,10 +12,6 @@ local PACKAGE_ROOT_DIRECTORY=$(
   pwd -P
 )
 
-# local UTILS_PATH="${PACKAGE_ROOT_DIRECTORY}/../utils"
-# source "${UTILS_PATH}/log.sh"
-# source "${UTILS_PATH}/docker-utils.sh"
-
 # Takes in the stack name, package name and the importer compose file and checks if the service exists
 # And if it does, tries to deploy the config importer 
 #
