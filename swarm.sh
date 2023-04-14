@@ -4,8 +4,7 @@ declare ACTION=""
 declare MODE=""
 declare COMPOSE_FILE_PATH=""
 declare UTILS_PATH=""
-declare SERVICE_NAMES=()
-declare ALL_SERVICE_NAMES=()
+declare STACK="disi"
 
 function init_vars() {
   ACTION=$1
@@ -18,27 +17,12 @@ function init_vars() {
 
   UTILS_PATH="${COMPOSE_FILE_PATH}/../utils"
 
-  SERVICE_NAMES=(
-    "data-mapper-logstash"
-    "reprocess-mediator"
-  )
-
-  ALL_SERVICE_NAMES=(
-    "${SERVICE_NAMES[@]}"
-    "disi-jsreport-config-importer"
-    "disi-es-index-importer"
-    "disi-kibana-config-importer"
-    "sante-mpi-config-importer"
-    "disi-openhim-config-importer"
-    "hapi-fhir-config-importer"
-  )
-
   readonly ACTION
   readonly MODE
   readonly COMPOSE_FILE_PATH
   readonly UTILS_PATH
   readonly SERVICE_NAMES
-  readonly ALL_SERVICE_NAMES
+  readonly STACK
 }
 
 # shellcheck disable=SC1091
@@ -49,14 +33,15 @@ function import_sources() {
 }
 
 function restart_hapi_fhir() {
-  if docker service ps -q instant_hapi-fhir &>/dev/null; then
+  local -r stackname="${FHIR_STACKNAME:-hapi-fhir}"
+  if docker service ps -q ${stackname}_hapi-fhir &>/dev/null; then
     log info "Restarting HAPI FHIR.."
     try \
-      "docker service scale instant_hapi-fhir=0" \
+      "docker service scale ${stackname}_hapi-fhir=0" \
       throw \
       "Error scaling down hapi-fhir to update the IG"
     try \
-      "docker service scale instant_hapi-fhir=$HAPI_FHIR_INSTANCES" \
+      "docker service scale ${stackname}_hapi-fhir=$HAPI_FHIR_INSTANCES" \
       throw \
       "Error scaling up hapi-fhir to update the IG"
   else
@@ -66,7 +51,7 @@ function restart_hapi_fhir() {
 
 function deploy_importers() {
   # Run through all the config importers
-  for service_path in "${COMPOSE_FILE_PATH}/importer/"*; do
+  for service_path in "${COMPOSE_FILE_PATH}/importer/"*/; do
     target_service_name=$(basename "$service_path")
 
     # Only run the importer for fhir datastore when validation is enabled
@@ -75,25 +60,13 @@ function deploy_importers() {
       continue
     fi
 
-    # Get config importer service names
-    mapfile -t config_SERVICE_NAMES < <(yq '(.services|keys)[]' "$service_path/docker-compose.config.yml")
-
-    config_service_name=${config_SERVICE_NAMES[0]}
-
-    # Check if the target service up and running
-    if docker service ps -q "instant_$target_service_name" &>/dev/null; then
-      if [[ "${config_service_name}" != "null" ]]; then
-        log info "Waiting for config importer ${config_service_name} to run ..."
-        (
-          docker::deploy_config_importer "$service_path/docker-compose.config.yml" "${config_service_name}" "disi" &>/dev/null
-          overwrite "Waiting for config importer ${config_service_name} to run ... Done"
-        ) || {
-          log error "FATAL: Failed to deploy ${config_service_name}"
-        }
-      fi
-    else
-      log warn "Service '$target_service_name' does not appear to be running... Skipping the deploy of ${config_service_name[*]}"
+    local swarmfile=${service_path}swarm.sh
+    if [[ ! -f $swarmfile ]]; then
+      log error "FATAL: $swarmfile is missing, please add it and try again"
+      exit 1
     fi
+    source $swarmfile
+
   done
 }
 
@@ -108,8 +81,7 @@ function initialize_package() {
   fi
 
   (
-    docker::deploy_service "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$disi_poc_dev_compose_param"
-    docker::deploy_sanity "${SERVICE_NAMES[@]}"
+    docker::deploy_service $STACK "${COMPOSE_FILE_PATH}" "docker-compose.yml" "$disi_poc_dev_compose_param"
 
     deploy_importers
 
@@ -123,7 +95,7 @@ function initialize_package() {
 }
 
 function destroy_package() {
-  docker::service_destroy "${ALL_SERVICE_NAMES[@]}"
+  docker::stack_destroy $STACK
 
   docker::prune_configs "disi"
 }
@@ -139,7 +111,7 @@ main() {
   elif [[ "${ACTION}" == "down" ]]; then
     log info "Scaling down package"
 
-    docker::scale_services_down "${SERVICE_NAMES[@]}"
+    docker::scale_services $STACK 0
   elif [[ "${ACTION}" == "destroy" ]]; then
     log info "Destroying package"
 

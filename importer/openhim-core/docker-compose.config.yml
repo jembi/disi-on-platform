@@ -18,6 +18,8 @@ services:
         target: /openhimConfig.js
       - source: disi-openhim-config-openhim-import.json
         target: /openhim-import.json
+    networks:
+      openhim:
     # This command will only attempt to import the OpenHIM config when the heartbeat responds with a 2xx
     command: sh -c "wait-on -t 60000 https-get://openhim-core:8080/heartbeat && node /openhimConfig.js"
 
@@ -32,3 +34,8 @@ configs:
     name: disi-openhim-config-openhim-import.json-${disi_openhim_config_openhim_import_json_DIGEST:?err}
     labels:
       name: disi
+
+networks:
+  openhim:
+    name: openhim_public
+    external: true

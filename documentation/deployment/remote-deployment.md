@@ -35,30 +35,26 @@ DOCKER_HOST=ssh://<username>@<host> ./deploy-qa.sh init
 
 To verify success of deployment, one can ssh into the server and run the command `docker service ls`. This should list out the services deployed.
 
-* instant\_analytics-datastore-elastic-search
-* instant\_dashboard-visualiser-jsreport
-* instant\_dashboard-visualiser-kibana
-* instant\_data-mapper-logstash
-* instant\_hapi-fhir
-* instant\_kafdrop
-* instant\_kafka
-* instant\_kafka-minion
-* instant\_mongo-1
-* instant\_mpi-checker
-* instant\_mpi-updater
-* instant\_openhim-console
-* instant\_openhim-core
-* instant\_postgres-1
-* instant\_reprocess-mediator
-* instant\_santedb-mpi
-* instant\_santedb-www
-* instant\_santempi-psql-1
-* instant\_zookeeper-1
-* instant\_reverse-proxy-nginx
-* instant\_prometheus-kafka-adapter
-* instant\_zookeeper-1
-* instant\_kafdrop
-* instant\_grafana
+* elasticsearch\_analytics-datastore-elastic-search
+* jsreport\_dashboard-visualiser-jsreport
+* kibana\_dashboard-visualiser-kibana
+* logstash\_data-mapper-logstash
+* kafka\_kafdrop
+* kafka\_kafka
+* kafka\_kafka-minion
+* kafka\_zookeeper-1
+* hapi-fhir\_hapi-fhir
+* hapi-fhir\_postgres-1
+* openhim\_mongo-1
+* openhim\_openhim-console
+* openhim\_openhim-core
+* mpi\_mpi-mediator
+* disi\_reprocess-mediator
+* santempi\_santedb-mpi
+* santempi\_santedb-www
+* santempi\_santempi-psql-1
+* reverse-proxy\_reverse-proxy-nginx
+* monitoring\_grafana
 
 #### Accessing the servers
 

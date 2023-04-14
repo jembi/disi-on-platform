@@ -13,6 +13,9 @@ services:
       ES_ELASTIC: ${ES_ELASTIC}
       LS_JAVA_OPTS: ${LS_JAVA_OPTS}
       KAFKA_HOSTS: ${KAFKA_HOSTS}
+    networks:
+      elastic:
+      kafka:
 
   reprocess-mediator:
     image: jembi/reprocess-mediator:${REPROCESS_MEDIATOR_VERSION}
@@ -34,3 +37,18 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    networks:
+      openhim:
+      kafka:
+      elastic:
+
+networks:
+  openhim:
+    name: openhim_public
+    external: true
+  kafka:
+    name: kafka_public
+    external: true
+  elastic:
+    name: elastic_public
+    external: true

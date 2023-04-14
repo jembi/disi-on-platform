@@ -11,6 +11,7 @@
   "environmentVariables": {
     "DISI_LOGSTASH_VERSION": "latest",
     "REPROCESS_MEDIATOR_VERSION": "disi-latest",
+    "DISABLE_VALIDATION": "false",
 
     "KAFKA_HOSTS": "kafka-01:9092",
     "KAFKA_REPROCESSING_TOPIC": "reprocess",
@@ -21,19 +22,24 @@
     "CLIENT_REGISTRY_HOST": "santedb-mpi",
     "CLIENT_REGISTRY_PORT": 8080,
     "CLIENT_REGISTRY_IDENTITY_DOMAIN": "http://ohie.org/nid",
+    "CLIENT_REGISTRY_STACKNAME": "santempi",
 
     "HAPI_FHIR_INSTANCES": "1",
     "FHIR_SERVER_URL": "http://hapi-fhir:8080",
     "FHIR_IG_URL": "https://openhie.github.io/hiv-ig",
+    "FHIR_STACKNAME": "hapi-fhir",
     
     "LS_JAVA_OPTS": "-Xmx2g -Xms2g",
-    "ES_URL": "http://instant_analytics-datastore-elastic-search:9200",
+    "ES_URL": "http://analytics-datastore-elastic-search:9200",
     "ES_ELASTIC": "dev_password_only",
     "ES_PIT_KEEP_ALIVE": "5m",
+    "ES_STACKNAME": "elasticsearch",
+    "KIBANA_STACKNAME": "kibana",
     
     "OPENHIM_TRANSACTION_URL": "http://openhim-core:5001",
     "OPENHIM_MEDIATOR_URL": "https://openhim-core:8080",
     "OPENHIM_ROOT_PASSWORD": "instant101",
+    "OPENHIM_STACKNAME": "openhim",
     "REGISTER_MEDIATOR": "true",
     "TRUST_SELF_SIGNED": "true",
     "NODE_TLS_REJECT_UNAUTHORIZED": "0",
@@ -41,6 +47,7 @@
     "JS_REPORT_USERNAME": "admin",
     "JS_REPORT": "dev_password_only",
     "JS_REPORT_SSL": "true",
-    "JS_REPORT_CONFIG_FILE": "export.jsrexport"
+    "JS_REPORT_CONFIG_FILE": "export.jsrexport",
+    "JS_REPORT_STACKNAME": "jsreport"
   }
 }

@@ -10,6 +10,8 @@ services:
     configs:
       - source: disi-hapi-fhir-fhirConfig.js
         target: /fhirConfig.js
+    networks:
+      hapi-fhir:
     command: sh -c "cd / && npm i axios@v1.1.3 adm-zip && npm i wait-on -g && wait-on -t 600000 http-get://hapi-fhir:8080 && node /fhirConfig.js"
 
 configs:
@@ -18,3 +20,8 @@ configs:
     name: disi-hapi-fhir-fhirConfig.js-${disi_hapi_fhir_fhirConfig_js_DIGEST:?err}
     labels:
       name: disi
+
+networks:
+  hapi-fhir:
+    name: hapi-fhir_public
+    external: true

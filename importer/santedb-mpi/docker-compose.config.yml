@@ -18,6 +18,8 @@ services:
       - source: disi-santempi-config-identityDomains.json
         target: /identityDomains.json
     command: sh -c "wait-on -t 60000 http-get://santedb-mpi:8080/api-docs/index.html && node /santeMpiConfig.js && echo 'success';"
+    networks:
+      santedb:
 
 configs:
   disi-santempi-config-santeMatchingConfig.json:
@@ -35,3 +37,8 @@ configs:
     name: disi-santempi-config-identityDomains.json-${disi_santempi_config_identityDomains_json_DIGEST:?err}
     labels:
       name: disi
+
+networks:
+  santedb:
+    name: santedb_public
+    external: true
