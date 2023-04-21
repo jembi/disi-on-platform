@@ -59,19 +59,19 @@ All of the Postman Collections make use of the variable \{{openhimURL\}} which i
     2. Result: an existing lab order for HIV:
        1.  _\[LAB] Submit lab result Bundle_: Submit a result for an existing lab order.
 
-           ****
+
 
            **Note**: Make sure to use the same patient identifier as was used when submitting a lab order.
     3. Reject an existing request for a HIV lab order:
        1.  _\[LAB] Submit lab Rejection_: Rejects an existing lab order `ServiceRequest`.
 
-           ****
+
 
            **Note**: Make sure to use the same patient identifier as was used when submitting a lab order.
     4. Cancel an existing request for a HIV lab order:
        1.  _\[LAB] Submit lab Cancellation_: Cancels an existing lab order `ServiceRequest`.
 
-           ****
+
 
            **Note**: Make sure to use the same patient identifier as was used when submitting a lab order.
 
