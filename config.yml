@@ -7,7 +7,6 @@ packages:
   - disi-on-platform
   - reverse-proxy-nginx
   - monitoring
-  - identity-access-manager-keycloak
 
 customPackages:
   - id: disi-on-platform
@@ -27,7 +26,6 @@ profiles:
       - disi-on-platform
       - reverse-proxy-nginx
       - monitoring
-      - identity-access-manager-keycloak
     envFiles:
       - ./.env.stg
     dev: false
@@ -37,7 +35,6 @@ profiles:
       - disi-on-platform
       - reverse-proxy-nginx
       - monitoring
-      - identity-access-manager-keycloak
     envFiles:
       - ./.env.qa
     dev: false
