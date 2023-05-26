@@ -6,7 +6,8 @@
   "dependencies": [
     "mpi-mediator",
     "dashboard-visualiser-kibana",
-    "dashboard-visualiser-jsreport"
+    "dashboard-visualiser-jsreport",
+    "identity-access-manager-keycloak"
   ],
   "environmentVariables": {
     "DISI_LOGSTASH_VERSION": "latest",
