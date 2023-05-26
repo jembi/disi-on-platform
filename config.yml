@@ -1,12 +1,13 @@
 ---
 projectName: Disi-on-platform
-image: jembi/platform:latest
+image: jembi/platform:2.2.1
 logPath: /tmp/logs
 
 packages:
   - disi-on-platform
   - reverse-proxy-nginx
   - monitoring
+  - identity-access-manager-keycloak
 
 customPackages:
   - id: disi-on-platform
@@ -26,6 +27,7 @@ profiles:
       - disi-on-platform
       - reverse-proxy-nginx
       - monitoring
+      - identity-access-manager-keycloak
     envFiles:
       - ./.env.stg
     dev: false
@@ -35,6 +37,7 @@ profiles:
       - disi-on-platform
       - reverse-proxy-nginx
       - monitoring
+      - identity-access-manager-keycloak
     envFiles:
       - ./.env.qa
     dev: false

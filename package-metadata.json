@@ -46,7 +46,7 @@
 
     "JS_REPORT_USERNAME": "admin",
     "JS_REPORT": "dev_password_only",
-    "JS_REPORT_SSL": "true",
+    "JS_REPORT_SSL": false,
     "JS_REPORT_CONFIG_FILE": "export.jsrexport",
     "JS_REPORT_STACKNAME": "jsreport"
   }
